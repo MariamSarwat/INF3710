@@ -4,21 +4,6 @@
 node_modules/
 false/
 
-# Exclusion des fichiers Javascripts
-out/
-node_modules/
-# NPM Debug Log
-npm-debug.log
-
-# Code Coverage Folder
-coverage/
-
-##Typescrit compilation ##
-
-*.js.map
-*.js
-
-
 # Garder les fichiers necessaires pour les tests
 !systemjs.config.js
 !karma.conf.js
