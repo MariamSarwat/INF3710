@@ -72,4 +72,10 @@ export class CommunicationService {
             catchError(this.handleError<number>("insertMember")),
         );
     }
+    public getMembers(): Observable<any[]> {
+
+        return this.http.get<Member[]>(this.BASE_URL + "/member").pipe(
+            catchError(this.handleError<Member[]>("getMembers")),
+        );
+    }
 }

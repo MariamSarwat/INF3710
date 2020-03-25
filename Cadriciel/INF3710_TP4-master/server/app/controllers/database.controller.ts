@@ -3,7 +3,9 @@ import { inject, injectable } from "inversify";
 import * as pg from "pg";
 
 import {Hotel} from "../../../common/tables/Hotel";
+import {Member} from '../../../common/tables/Member';
 import {Room} from '../../../common/tables/Room';
+
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -120,6 +122,29 @@ export class DatabaseController {
                         console.error(e.stack);
                     });
             });
+        router.get("/member",
+                   (req: Request, res: Response, next: NextFunction) => {
+             // Send the request to the service and send the response
+             this.databaseService.getMembers().then((result: pg.QueryResult) => {
+             const members: Member[] = result.rows.map((mem: any) => (
+                 {
+                memberID: mem.memberID,
+                email: mem.email,
+                password: mem.password,
+                streetName: mem.streetName,
+                apartmentNo: mem.apartmentNo,
+                streetNo: mem.streetNo,
+                zipCode: mem.zipCode,
+                city: mem.city,
+                province: mem.province,
+                country: mem.country,
+                memberName: mem.memberName
+             }));
+             res.json(members);
+         }).catch((e: Error) => {
+             console.error(e.stack);
+         });
+     });
 
         return router;
     }

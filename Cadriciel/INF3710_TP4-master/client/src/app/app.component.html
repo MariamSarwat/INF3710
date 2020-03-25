@@ -3,11 +3,12 @@
 
 
 <nav class="navbar navbar-dark bg-dark mb-5">
-    <a class="navbar-brand title" href="/">INF3710-TP5</a>
+    <a class="navbar-brand title" href="/">NetflixPoly</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
         <a class="nav-item nav-link active" routerLink="/hotel">Hotels</a>
         <a class="nav-item nav-link active" routerLink="/room">Rooms</a>
+        <a class="nav-item nav-link active" routerLink="/member">Members</a>
       </div>
     </div>
   </nav>
@@ -20,7 +21,7 @@
 <router-outlet></router-outlet>
 
 
-<div id="ht" style="text-align:center" *ngIf="route != '/room'">
+<div id="ht" style="text-align:center" *ngIf="route != '/room' && route != '/member'">
   <button type="button" class="btn btn-primary" (click)="getHotels()">Get Hotels</button>
   <table id ="ht" align="center" border="1" width="350">
     <thead>
@@ -37,5 +38,7 @@
     </tbody>
   </table>
 </div>
+
+
 
 

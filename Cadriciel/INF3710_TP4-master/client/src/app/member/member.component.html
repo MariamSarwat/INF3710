@@ -17,7 +17,23 @@
         memberName: <li><input class="form-control col-md-4" #memberName></li>
       <li><button type="button" class="btn btn-primary" (click)="insertMember(memberID.value,
         email.value, password.value, streetName.value, apartmentNo.value, streetNo.value,
-        zipCode.value, city.value, province.value, country.value, memberName.value)"> Add Member</button></li>
+        zipCode.value, city.value, province.value, country.value, memberName.value)" > Add Member</button></li>
       </ul>
      
     </div>
+
+    <button type="button" class="btn btn-primary" (click)="getMembers()">Get Members</button>
+    <table id ="member" align="center" border="1" width="350">
+        <thead>
+        <th> MEMBER</th>
+        <th> ID</th>
+        <th> EMAIL </th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let member of members">
+            <td> {{member.memberName}}</td>
+            <td> {{member.memberID}} </td>
+            <td> {{member.email}}</td>
+        </tr>
+        </tbody>
+    </table>

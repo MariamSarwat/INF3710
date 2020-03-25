@@ -162,4 +162,9 @@ export class DatabaseService {
 
         return this.pool.query(queryText, values);
         }
+
+        // MEMBERS
+    public getMembers(): Promise<pg.QueryResult> {
+            return this.pool.query('SELECT * FROM NetflixPolyDB.Member;');
+        }
 }
