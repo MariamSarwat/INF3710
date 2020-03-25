@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import {Hotel} from "../../../common/tables/Hotel";
 // tslint:disable-next-line:ordered-imports
-import { of, Observable,concat, Subject } from "rxjs";
+import { concat, of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
+import {Hotel} from "../../../common/tables/Hotel";
+import { Member } from "../../../common/tables/Member";
 import { Room } from "../../../common/tables/Room";
 
 @Injectable()
@@ -21,7 +22,6 @@ export class CommunicationService {
     public filter(filterBy: string): void {
        this._listners.next(filterBy);
     }
-
 
     public getHotels(): Observable<any[]> {
 
@@ -63,5 +63,13 @@ export class CommunicationService {
         return (error: Error): Observable<T> => {
             return of(result as T);
         };
+    }
+
+    // nouvelles méthodes
+
+    public insertMember(member: Member): Observable<number> { // why "number"?
+        return this.http.post<number>(this.BASE_URL + "/member/insert", member).pipe(
+            catchError(this.handleError<number>("insertMember")),
+        );
     }
 }

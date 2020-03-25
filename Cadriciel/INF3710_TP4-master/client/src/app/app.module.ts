@@ -7,6 +7,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
 import { HotelComponent } from "./hotel/hotel.component";
+import { MemberComponent } from "./member/member.component";
 import { RoomComponent } from "./room/room.component";
 
 @NgModule({
@@ -14,6 +15,7 @@ import { RoomComponent } from "./room/room.component";
     AppComponent,
     RoomComponent,
     HotelComponent,
+    MemberComponent,
   ],
   imports: [
     CommonModule,
