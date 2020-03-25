@@ -24,7 +24,6 @@ export class DatabaseService {
         this.pool.connect();
     }
     /*
-
         METHODES DE DEBUG
     */
     public createSchema(): Promise<pg.QueryResult> {
@@ -32,25 +31,20 @@ export class DatabaseService {
     }
 
     public populateDb(): Promise<pg.QueryResult> {
-
         return this.pool.query(data);
     }
 
     public getAllFromTable(tableName: string): Promise<pg.QueryResult> {
-
         return this.pool.query(`SELECT * FROM HOTELDB.${tableName};`);
     }
 
     // HOTEL
     public getHotels(): Promise<pg.QueryResult> {
-
         return this.pool.query('SELECT * FROM HOTELDB.Hotel;');
     }
 
     public getHotelNo(): Promise<pg.QueryResult> {
-
         return this.pool.query('SELECT hotelNo FROM HOTELDB.Hotel;');
-
     }
 
     public createHotel(hotelNo: string, hotelName: string, city: string): Promise<pg.QueryResult> {
@@ -63,14 +57,9 @@ export class DatabaseService {
 
         return this.pool.query(queryText, values);
     }
-	
-	public deleteHotel(/*Todo*/): void /*TODO*/  {
-		/*TODO*/
-	}
 
     // ROOM
     public getRoomFromHotel(hotelNo: string, roomType: string, price: number): Promise<pg.QueryResult> {
-
         let query: string =
         `SELECT * FROM HOTELDB.room
         WHERE hotelno=\'${hotelNo}\'`;
@@ -88,7 +77,6 @@ export class DatabaseService {
     }
 
     public getRoomFromHotelParams(params: object): Promise<pg.QueryResult> {
-
         let query: string = 'SELECT * FROM HOTELDB.room \n';
         const keys: string[] = Object.keys(params);
         if (keys.length > 0) {
@@ -110,7 +98,6 @@ export class DatabaseService {
         console.log(query);
 
         return this.pool.query(query);
-
     }
 
     public createRoom(room: Room): Promise<pg.QueryResult> {
@@ -126,11 +113,7 @@ export class DatabaseService {
     }
 
     // GUEST
-    public createGuest(guestNo: string,
-                       nas: string,
-                       guestName: string,
-                       gender: string,
-                       guestCity: string): Promise<pg.QueryResult> {
+    public createGuest(guestNo: string, nas: string, guestName: string, gender: string, guestCity: string): Promise<pg.QueryResult> {
         // this.pool.connect();
         const values: string[] = [
             guestNo,
@@ -145,10 +128,7 @@ export class DatabaseService {
     }
 
     // BOOKING
-    public createBooking(hotelNo: string,
-                         guestNo: string,
-                         dateFrom: Date,
-                         dateTo: Date,
+    public createBooking(hotelNo: string, guestNo: string, dateFrom: Date, dateTo: Date,
                          roomNo: string): Promise<pg.QueryResult> {
         const values: string[] = [
             hotelNo,
@@ -164,6 +144,6 @@ export class DatabaseService {
 
         // MEMBERS
     public getMembers(): Promise<pg.QueryResult> {
-            return this.pool.query('SELECT * FROM NetflixPolyDB.Membre;');
-        }
+        return this.pool.query('SELECT * FROM NetflixPolyDB.Membre;');
+    }
 }

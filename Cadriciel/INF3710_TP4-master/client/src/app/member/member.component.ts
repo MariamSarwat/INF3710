@@ -33,17 +33,17 @@ export class MemberComponent implements OnInit {
   public insertMember(memberID: number, email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
                       zipCode: string, city: string, province: string, country: string, memberName: string): void {
     const member: Member = {
-      memberID: memberID,
-      email: email,
-      password: password,
-      streetName: streetName,
-      apartmentNo: apartmentNo,
-      streetNo: streetNo,
-      zipCode: zipCode,
-      city: city,
-      province: province,
-      country: country,
-      memberName: memberName
+      "memberID": memberID,
+      "email": email,
+      "password": password,
+      "streetName": streetName,
+      "apartmentNo": apartmentNo,
+      "streetNo": streetNo,
+      "zipCode": zipCode,
+      "city": city,
+      "province": province,
+      "country": country,
+      "memberName": memberName
     };
     this.communicationService.insertMember(member).subscribe((res: number) => {
         if (res > 0) {
@@ -57,5 +57,5 @@ export class MemberComponent implements OnInit {
     this.communicationService.getMembers().subscribe((members: Member[]) => {
         this.members = members;
     });
-}
+  }
 }

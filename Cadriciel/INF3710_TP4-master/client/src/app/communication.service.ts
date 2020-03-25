@@ -9,7 +9,6 @@ import { Room } from "../../../common/tables/Room";
 
 @Injectable()
 export class CommunicationService {
-
     private readonly BASE_URL: string = "http://localhost:3000/database";
     public constructor(private http: HttpClient) { }
 
@@ -24,14 +23,12 @@ export class CommunicationService {
     }
 
     public getHotels(): Observable<any[]> {
-
         return this.http.get<Hotel[]>(this.BASE_URL + "/hotel").pipe(
             catchError(this.handleError<Hotel[]>("getHotels")),
         );
     }
 
     public getHotelPKs(): Observable<string[]> {
-
         return this.http.get<string[]>(this.BASE_URL + "/hotel/hotelNo").pipe(
             catchError(this.handleError<string[]>("getHotelPKs")),
         );
@@ -49,31 +46,25 @@ export class CommunicationService {
         );
     }
 
-    public deleteHotel(): void {
-    }
-    
-
     public setUpDatabase(): Observable<any> {
         return concat(this.http.post<any>(this.BASE_URL + "/createSchema", []),
                       this.http.post<any>(this.BASE_URL + "/populateDb", []));
     }
 
     private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
-
         return (error: Error): Observable<T> => {
             return of(result as T);
         };
     }
 
     // nouvelles méthodes
-
     public insertMember(member: Member): Observable<number> { // why "number"?
         return this.http.post<number>(this.BASE_URL + "/member/insert", member).pipe(
             catchError(this.handleError<number>("insertMember")),
         );
     }
-    public getMembers(): Observable<any[]> {
 
+    public getMembers(): Observable<any[]> {
         return this.http.get<Member[]>(this.BASE_URL + "/member").pipe(
             catchError(this.handleError<Member[]>("getMembers")),
         );
