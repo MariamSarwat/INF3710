@@ -1,14 +1,13 @@
 export interface Member {
-    "memberID": number; // ou string??
-    "email": string;
-    "password": string;
-    "streetName": string;
-    "apartmentNo": number; // peu être null...
-    "streetNo": number;
-    "zipCode": string;
-    "city": string;
+    "id_membre": number; // ou string??
+    "adr_courriel": string;
+    "mot_de_passe": string;
+    "nom_rue": string;
+    "no_appart": number; // peu être null...
+    "no_rue": number;
+    "code_postal": string;
+    "ville": string;
     "province": string;
-    "country": string;
-    "memberName": string;
-
+    "pays": string;
+    "nom": string;
 }

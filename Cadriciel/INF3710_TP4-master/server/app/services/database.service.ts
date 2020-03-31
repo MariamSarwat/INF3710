@@ -146,4 +146,12 @@ export class DatabaseService {
     public getMembers(): Promise<pg.QueryResult> {
         return this.pool.query('SELECT * FROM NetflixPolyDB.Membre;');
     }
+
+    public loginValidation(username: string, password: string): Promise<pg.QueryResult> {
+        let query: string = `SELECT * FROM NetflixPolyDB.Membre \n`;
+        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
+        console.log(query);
+        console.log(this.pool.query(query));
+        return this.pool.query(query);
+    }
 }

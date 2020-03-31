@@ -33,17 +33,17 @@ export class MemberComponent implements OnInit {
   public insertMember(memberID: number, email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
                       zipCode: string, city: string, province: string, country: string, memberName: string): void {
     const member: Member = {
-      "memberID": memberID,
-      "email": email,
-      "password": password,
-      "streetName": streetName,
-      "apartmentNo": apartmentNo,
-      "streetNo": streetNo,
-      "zipCode": zipCode,
-      "city": city,
+      "id_membre": memberID,
+      "adr_courriel": email,
+      "mot_de_passe": password,
+      "nom_rue": streetName,
+      "no_appart": apartmentNo,
+      "no_rue": streetNo,
+      "code_postal": zipCode,
+      "ville": city,
       "province": province,
-      "country": country,
-      "memberName": memberName
+      "pays": country,
+      "nom": memberName
     };
     this.communicationService.insertMember(member).subscribe((res: number) => {
         if (res > 0) {

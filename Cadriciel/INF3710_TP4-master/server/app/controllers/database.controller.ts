@@ -62,18 +62,42 @@ export class DatabaseController {
                   });
 
         router.post("/hotel/insert",
-                    (req: Request, res: Response, next: NextFunction) => {
-                        const hotelNo: string = req.body.hotelNo;
-                        const hotelName: string = req.body.hotelName;
-                        const city: string = req.body.city;
-                        this.databaseService.createHotel(hotelNo, hotelName, city).then((result: pg.QueryResult) => {
-                        res.json(result.rowCount);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                        res.json(-1);
-                    });
+            (req: Request, res: Response, next: NextFunction) => {
+                const hotelNo: string = req.body.hotelNo;
+                const hotelName: string = req.body.hotelName;
+                const city: string = req.body.city;
+                this.databaseService.createHotel(hotelNo, hotelName, city).then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
         });
-		
+        
+		router.post("/login",
+            (req: Request, res: Response, next: NextFunction) => {
+                const username: string = req.body.username;
+                const password: string = req.body.password;
+                //const city: string = req.body.city;
+                this.databaseService.loginValidation(username, password).then((result: pg.QueryResult) => {
+                    const members: Member[] = result.rows.map((mem: any) => ({
+                        id_membre: mem.id_membre,
+                        adr_courriel: mem.adr_courriel,
+                        mot_de_passe: mem.mot_de_passe,
+                        nom_rue: mem.nom_rue,
+                        no_appart: mem.no_appart,
+                        no_rue: mem.no_rue,
+                        code_postal: mem.code_postal,
+                        ville: mem.ville,
+                        province: mem.province,
+                        pays: mem.pays,
+                        nom: mem.nom
+                    }));
+                    res.json(members);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
 		router.delete("/hotel/insert", /*TODO*/);
 
         router.get("/rooms",
@@ -122,24 +146,24 @@ export class DatabaseController {
                         console.error(e.stack);
                     });
             });
-        router.get("/member",
+
+            router.get("/member",
                    (req: Request, res: Response, next: NextFunction) => {
              // Send the request to the service and send the response
              this.databaseService.getMembers().then((result: pg.QueryResult) => {
-             const members: Member[] = result.rows.map((mem: any) => (
-                 {
-                memberID: mem.memberID,
-                email: mem.email,
-                password: mem.password,
-                streetName: mem.streetName,
-                apartmentNo: mem.apartmentNo,
-                streetNo: mem.streetNo,
-                zipCode: mem.zipCode,
-                city: mem.city,
-                province: mem.province,
-                country: mem.country,
-                memberName: mem.memberName
-             }));
+                const members: Member[] = result.rows.map((mem: any) => ({
+                    id_membre: mem.id_membre,
+                    adr_courriel: mem.adr_courriel,
+                    mot_de_passe: mem.mot_de_passe,
+                    nom_rue: mem.nom_rue,
+                    no_appart: mem.no_appart,
+                    no_rue: mem.no_rue,
+                    code_postal: mem.code_postal,
+                    ville: mem.ville,
+                    province: mem.province,
+                    pays: mem.pays,
+                    nom: mem.nom
+                }));
              res.json(members);
          }).catch((e: Error) => {
              console.error(e.stack);

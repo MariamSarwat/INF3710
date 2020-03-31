@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
             } else {
               this.route = "";
             }
-          });
+        });
     }
     
     public hotels: Hotel[] = [];

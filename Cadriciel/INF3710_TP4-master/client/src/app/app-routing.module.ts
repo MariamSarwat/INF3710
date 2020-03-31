@@ -6,8 +6,13 @@ import { HotelComponent } from "./hotel/hotel.component";
 import { RoomComponent } from "./room/room.component";
 
 import { MemberComponent } from "./member/member.component";
+import { LoginComponent } from "./login/login.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full'},  
+  { path: 'login', component: LoginComponent, data: { title: 'Login Page'}},   
+  { path: 'dasboard', component: DashboardComponent, data: { title: 'Dashboard Page'}},    
   { path: "app", component: AppComponent },
   { path: "room", component: RoomComponent },
   { path: "hotel", component: HotelComponent },
