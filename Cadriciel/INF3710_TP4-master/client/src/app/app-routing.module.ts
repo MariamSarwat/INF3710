@@ -12,7 +12,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},  
   { path: 'login', component: LoginComponent, data: { title: 'Login Page'}},   
-  { path: 'dasboard', component: DashboardComponent, data: { title: 'Dashboard Page'}},    
+  { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard Page'}},    
   { path: "app", component: AppComponent },
   { path: "room", component: RoomComponent },
   { path: "hotel", component: HotelComponent },

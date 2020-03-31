@@ -1,6 +1,4 @@
-import { Location } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component } from "@angular/core";
 import { Member } from "../../../../common/tables/Member";
 import { CommunicationService } from "../communication.service";
 
@@ -9,26 +7,13 @@ import { CommunicationService } from "../communication.service";
   templateUrl: "./member.component.html",
   styleUrls: ["./member.component.css"]
 })
-export class MemberComponent implements OnInit {
+export class MemberComponent {
   public route: string;
-  public constructor(private communicationService: CommunicationService, location: Location, router: Router) {
-    router.events.subscribe((val) => {
-      if (location.path() !== "") {
-        this.route = location.path();
-      } else {
-        this.route = "";
-      }
-    });
-   }
   public members: Member[] = [];
   public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
-  public ngOnInit(): void {
-    this.communicationService.listen().subscribe((m:any) => {
-        console.log(m);
-        this.getMembers();
-    });
-  }
-
+  
+  public constructor(private communicationService: CommunicationService) { }
+ 
   // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
   public insertMember(memberID: number, email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
                       zipCode: string, city: string, province: string, country: string, memberName: string): void {

@@ -76,9 +76,10 @@ export class DatabaseController {
         
 		router.post("/login",
             (req: Request, res: Response, next: NextFunction) => {
+                console.log('in login database');
+
                 const username: string = req.body.username;
                 const password: string = req.body.password;
-                //const city: string = req.body.city;
                 this.databaseService.loginValidation(username, password).then((result: pg.QueryResult) => {
                     const members: Member[] = result.rows.map((mem: any) => ({
                         id_membre: mem.id_membre,

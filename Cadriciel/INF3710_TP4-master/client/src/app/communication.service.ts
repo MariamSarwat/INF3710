@@ -29,8 +29,9 @@ export class CommunicationService {
         );
     }
 
-    public Login(member: Login): Observable<any[]>{
-        return this.http.post<Login[]>(this.BASE_URL + "/login", member).pipe(
+    public Login(loginInfo: Login): Observable<any[]>{
+        console.log('in login comm');
+        return this.http.post<Login[]>(this.BASE_URL + "/login", loginInfo).pipe(
             catchError(this.handleError<Hotel[]>("Login")),
         );
     }

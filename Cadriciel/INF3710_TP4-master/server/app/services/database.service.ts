@@ -140,7 +140,7 @@ export class DatabaseService {
         const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
 
         return this.pool.query(queryText, values);
-        }
+    }
 
         // MEMBERS
     public getMembers(): Promise<pg.QueryResult> {
@@ -150,8 +150,6 @@ export class DatabaseService {
     public loginValidation(username: string, password: string): Promise<pg.QueryResult> {
         let query: string = `SELECT * FROM NetflixPolyDB.Membre \n`;
         query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
-        console.log(query);
-        console.log(this.pool.query(query));
         return this.pool.query(query);
     }
 }
