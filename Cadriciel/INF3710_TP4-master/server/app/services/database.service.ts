@@ -147,9 +147,15 @@ export class DatabaseService {
         return this.pool.query('SELECT * FROM NetflixPolyDB.Membre;');
     }
 
-    public loginValidation(username: string, password: string): Promise<pg.QueryResult> {
-        let query: string = `SELECT * FROM NetflixPolyDB.Membre \n`;
-        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
+    public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
+        let query: string ='';
+        if(loginType === "member"){
+            query = `SELECT * FROM NetflixPolyDB.Membre \n`;
+            query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
+        } else if(loginType === "admin"){
+            query = `SELECT * FROM NetflixPolyDB.Admin \n`;
+            query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
+        }
         return this.pool.query(query);
     }
 }

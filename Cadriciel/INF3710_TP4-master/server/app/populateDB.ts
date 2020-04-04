@@ -10,6 +10,8 @@ INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, c
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES (
     'sarwats1304@gmail.com', 'HarryPotter12', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Sarah Sarwat');
 
+INSERT INTO NETFLIXPOLYDB.Admin (adr_courriel, mot_de_passe) VALUES ('admin@gmail.com', 'Admin');
+   
 INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (3, 9.99,
     '2020-03-14', '2020-04-14');
 INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (4, 12.99,

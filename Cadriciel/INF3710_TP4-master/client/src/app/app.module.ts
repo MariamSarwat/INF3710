@@ -11,6 +11,11 @@ import { MemberComponent } from "./member/member.component";
 import { RoomComponent } from "./room/room.component";
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatSelectModule} from '@angular/material/select';
+import { MatButtonModule} from '@angular/material/button';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,13 +28,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   imports: [
     FormsModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatSelectModule,
     CommonModule,
     BrowserModule,
     HttpClientModule,
-    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
     AppRoutingModule
   ],
   providers: [CommunicationService],
   bootstrap: [AppComponent],
 })
+
 export class AppModule { }
