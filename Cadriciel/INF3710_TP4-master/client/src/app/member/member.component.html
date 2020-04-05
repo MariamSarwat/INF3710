@@ -1,4 +1,6 @@
-<button type="button" class="btn btn-primary" (click)="getMembers()">Refresh</button>
+<button  type="button" class="btn btn-primary" (click)="getMembers()">Refresh</button>
+<div style="text-align: center">
+  <h1>Existing Members</h1>
   <table id ="member" align="center" border="1" width="900">
       <thead>
       <th> ID</th>
@@ -16,7 +18,7 @@
       </tr>
       </tbody>
   </table>
-
+</div>
 <div id="member" style="text-align: left">
     <h1>Add Member</h1>
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
