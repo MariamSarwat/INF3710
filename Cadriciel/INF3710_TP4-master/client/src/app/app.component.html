@@ -1,11 +1,9 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
 <nav class="navbar navbar-dark bg-dark mb-5">
     <a class="navbar-brand title" href="/">NetflixPoly</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
-          <a *ngIf="route == '/admin-dashboard'" class="nav-item nav-link active" routerLink="/member">Members</a>
-          <a *ngIf="route == '/admin-dashboard'" class="nav-item nav-link active" routerLink="/movie">Movies</a>
+          <a *ngIf="route.includes('/admin-dashboard') " class="nav-item nav-link active" routerLink="/admin-dashboard/member">Members</a>
+          <a *ngIf="route.includes('/admin-dashboard') " class="nav-item nav-link active" routerLink="/admin-dashboard/movie">Movies</a>
       </div>
     </div>
   </nav>

@@ -1,32 +1,22 @@
 import { Location } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { Hotel } from "../../../common/tables/Hotel";
-import { CommunicationService } from "./communication.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     public route: string;
 
-    public constructor(private communicationService: CommunicationService, location: Location, router: Router) {
-        router.events.subscribe((val) => {
+    public constructor(location: Location, router: Router) {
+        router.events.subscribe(() => {
             if (location.path() !== "") {
               this.route = location.path();
             } else {
               this.route = "";
             }
         });
-    }
-    
-    public hotels: Hotel[] = [];
-    public ngOnInit(): void {
-        this.communicationService.listen().subscribe((m:any) => {
-            console.log(m);
-            //this.getHotels();
-        });
-    }
+    }    
 }

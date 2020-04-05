@@ -157,11 +157,10 @@ export class DatabaseService {
         let query: string ='';
         if(loginType === "member"){
             query = `SELECT * FROM NetflixPolyDB.Membre \n`;
-            query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
         } else if(loginType === "admin"){
             query = `SELECT * FROM NetflixPolyDB.Admin \n`;
-            query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
         }
+        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
         return this.pool.query(query);
     }
 }
