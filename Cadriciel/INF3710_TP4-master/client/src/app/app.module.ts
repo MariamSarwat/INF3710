@@ -17,6 +17,7 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { MemberDashboardComponent } from './member-dashboard/member-dashboard.component';
+import { MovieComponent } from './movie/movie.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MemberDashboardComponent } from './member-dashboard/member-dashboard.co
     LoginComponent,
     AdminDashboardComponent,
     MemberDashboardComponent,
+    MovieComponent,
   ],
   imports: [
     FormsModule,

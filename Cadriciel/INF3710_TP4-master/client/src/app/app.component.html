@@ -4,14 +4,9 @@
     <a class="navbar-brand title" href="/">NetflixPoly</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" routerLink="/member">Members</a>
+          <a *ngIf="route == '/admin-dashboard'" class="nav-item nav-link active" routerLink="/member">Members</a>
+          <a *ngIf="route == '/admin-dashboard'" class="nav-item nav-link active" routerLink="/movie">Movies</a>
       </div>
     </div>
   </nav>
-
-<div style="text-align:center">
-<div *ngIf="route == '/dashboard'"> <!-- to recheck route after-->
-  <button type="button" class="btn btn-danger" (click) ="createDB()">Create Database</button>
-</div>
-
 <router-outlet></router-outlet>

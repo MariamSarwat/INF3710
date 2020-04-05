@@ -14,11 +14,15 @@ export class MemberComponent {
   
   public constructor(private communicationService: CommunicationService) { }
  
+  ngOnInit(){
+    this.getMembers();
+  }
   // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
-  public insertMember(memberID: number, email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
+  public insertMember(email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
                       zipCode: string, city: string, province: string, country: string, memberName: string): void {
+
     const member: Member = {
-      "id_membre": memberID,
+      "id_membre": this.members.length + 1,
       "adr_courriel": email,
       "mot_de_passe": password,
       "nom_rue": streetName,
@@ -35,7 +39,9 @@ export class MemberComponent {
             this.communicationService.filter("update"); // see what "filter" does
         }
         this.duplicateError = (res === -1);
+        this.getMembers();
     });
+    
   }
 
   public getMembers(): void {
@@ -43,4 +49,5 @@ export class MemberComponent {
         this.members = members;
     });
   }
+  
 }

@@ -26,19 +26,7 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this.communicationService.listen().subscribe((m:any) => {
             console.log(m);
-            this.getHotels();
-        });
-    }
-
-    public getHotels(): void {
-        this.communicationService.getHotels().subscribe((hotels: Hotel[]) => {
-            this.hotels = hotels;
-        });
-    }
-
-    public createDB(): void {
-        this.communicationService.setUpDatabase().subscribe((res: any) => {
-            console.log(res);
+            //this.getHotels();
         });
     }
 }

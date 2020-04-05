@@ -76,7 +76,6 @@ export class DatabaseController {
         
 		router.post("/login",
             (req: Request, res: Response, next: NextFunction) => {
-                console.log('in login database');
                 const username: string = req.body.username;
                 const password: string = req.body.password;
                 const loginType: string = req.body.loginType;
@@ -138,6 +137,32 @@ export class DatabaseController {
                     });
         });
 
+        router.post("/member/insert",
+                    (req: Request, res: Response, next: NextFunction) => {
+                    const member: Member = {
+                        "id_membre": req.body.id_membre,
+                        "adr_courriel": req.body.adr_courriel,
+                        "mot_de_passe": req.body.mot_de_passe,
+                        "nom_rue": req.body.nom_rue,
+                        "no_appart": req.body.no_appart,
+                        "no_rue": req.body.no_rue,
+                        "code_postal": req.body.code_postal,
+                        "ville": req.body.ville,
+                        "province": req.body.province,
+                        "pays": req.body.pays,
+                        "nom": req.body.nom
+                    };
+                    console.log(member);
+
+                    this.databaseService.createMember(member)
+                    .then((result: pg.QueryResult) => {
+                        res.json(result.rowCount);
+                    })
+                    .catch((e: Error) => {
+                        console.error(e.stack);
+                        res.json(-1);
+                    });
+        });
         router.get("/tables/:tableName",
                    (req: Request, res: Response, next: NextFunction) => {
                 this.databaseService.getAllFromTable(req.params.tableName)

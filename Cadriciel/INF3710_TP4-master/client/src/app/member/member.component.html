@@ -1,10 +1,28 @@
+<button type="button" class="btn btn-primary" (click)="getMembers()">Refresh</button>
+  <table id ="member" align="center" border="1" width="900">
+      <thead>
+      <th> ID</th>
+      <th> NAME</th>
+      <th> EMAIL </th>
+      <th> ADDRESS </th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let member of members">
+        <td> {{member.id_membre}} </td>
+        <td> {{member.nom}}</td>
+        <td> {{member.adr_courriel}}</td>
+        <td> <i *ngIf=member.no_appart>{{member.no_appart}} -</i> {{member.no_rue}} {{member.nom_rue}}, {{member.ville}} {{member.code_postal}}, {{member.province}}, {{member.pays}}</td>
+        <td></td>
+      </tr>
+      </tbody>
+  </table>
+
 <div id="member" style="text-align: left">
-    <h1> Members</h1>
+    <h1>Add Member</h1>
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
       Insertion sur une cle primaire qui existe deja
     </div>
       <ul style="list-style: none;">
-        memberID: <li><input class="form-control col-md-4" #memberID></li>
         email: <li><input class="form-control col-md-4" #email></li>
         password: <li><input class="form-control col-md-4" #password></li>
         streetName: <li><input class="form-control col-md-4" #streetName></li>
@@ -15,25 +33,11 @@
         province: <li><input class="form-control col-md-4" #province></li>
         country: <li><input class="form-control col-md-4" #country></li>
         memberName: <li><input class="form-control col-md-4" #memberName></li>
-      <li><button type="button" class="btn btn-primary" (click)="insertMember(memberID.value,
+      <li><button type="button" class="btn btn-primary" (click)="insertMember(
         email.value, password.value, streetName.value, apartmentNo.value, streetNo.value,
         zipCode.value, city.value, province.value, country.value, memberName.value)" > Add Member</button></li>
       </ul>
      
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="getMembers()">Get Members</button>
-    <table id ="member" align="center" border="1" width="350">
-        <thead>
-        <th> MEMBER</th>
-        <th> ID</th>
-        <th> EMAIL </th>
-        </thead>
-        <tbody>
-        <tr *ngFor="let member of members">
-            <td> {{member.nom}}</td>
-            <td> {{member.id_membre}} </td>
-            <td> {{member.adr_courriel}}</td>
-        </tr>
-        </tbody>
-    </table>
+    

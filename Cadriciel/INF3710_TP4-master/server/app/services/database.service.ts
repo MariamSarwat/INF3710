@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { Room } from "../../../common/tables/Room";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
+import { Member } from "../../../common/tables/Member";
 
 @injectable()
 export class DatabaseService {
@@ -128,16 +129,21 @@ export class DatabaseService {
     }
 
     // BOOKING
-    public createBooking(hotelNo: string, guestNo: string, dateFrom: Date, dateTo: Date,
-                         roomNo: string): Promise<pg.QueryResult> {
+    public createMember(memberInfo: Member): Promise<pg.QueryResult> {
         const values: string[] = [
-            hotelNo,
-            guestNo,
-            dateFrom.toString(),
-            dateTo.toString(),
-            roomNo
+            memberInfo.id_membre.toString(),
+            memberInfo.adr_courriel,
+            memberInfo.mot_de_passe,
+            memberInfo.nom_rue,
+            memberInfo.no_appart.toString(),
+            memberInfo.no_rue.toString(),
+            memberInfo.code_postal.toString(),
+            memberInfo.ville,
+            memberInfo.province,
+            memberInfo.pays,
+            memberInfo.nom
         ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
+        const queryText: string = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`;
 
         return this.pool.query(queryText, values);
     }
