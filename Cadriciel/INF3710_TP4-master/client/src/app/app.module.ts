@@ -10,12 +10,13 @@ import { HotelComponent } from "./hotel/hotel.component";
 import { MemberComponent } from "./member/member.component";
 import { RoomComponent } from "./room/room.component";
 import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatMenuModule} from '@angular/material/menu';
 import { MatSelectModule} from '@angular/material/select';
 import { MatButtonModule} from '@angular/material/button';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { MemberDashboardComponent } from './member-dashboard/member-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HotelComponent,
     MemberComponent,
     LoginComponent,
-    DashboardComponent,
+    AdminDashboardComponent,
+    MemberDashboardComponent,
   ],
   imports: [
     FormsModule,

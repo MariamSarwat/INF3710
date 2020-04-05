@@ -5,18 +5,19 @@ import { AppComponent } from "./app.component";
 import { HotelComponent } from "./hotel/hotel.component";
 import { RoomComponent } from "./room/room.component";
 
-import { MemberComponent } from "./member/member.component";
+//import { MemberComponent } from "./member/member.component";
 import { LoginComponent } from "./login/login.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { AdminDashboardComponent } from "./admin-dashboard/admin-dashboard.component";
+import { MemberDashboardComponent } from "./member-dashboard/member-dashboard.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},  
   { path: 'login', component: LoginComponent, data: { title: 'Login Page'}},   
-  { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard Page'}},    
+  { path: 'admin-dashboard', component: AdminDashboardComponent, data: { title: 'Dashboard Page'}},    
   { path: "app", component: AppComponent },
   { path: "room", component: RoomComponent },
   { path: "hotel", component: HotelComponent },
-  { path: "member", component: MemberComponent }
+  { path: "member-dashboard", component: MemberDashboardComponent }
 ];
 
 @NgModule({

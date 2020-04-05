@@ -33,9 +33,9 @@ export class LoginComponent{
   navigateTo(): void {
     console.log(this.loginInfo.loginType);
     if(this.loginInfo.loginType === "admin"){
-      this.router.navigate(['/dashboard']);    
+      this.router.navigate(['/admin-dashboard']);    
     } else if(this.loginInfo.loginType === "member"){
-      this.router.navigate(['/member']);    
+      this.router.navigate(['/member-dashboard']);    
     }
   }
 }
