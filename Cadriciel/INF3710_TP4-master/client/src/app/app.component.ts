@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-    public route: string;
+    public route: string = '';
 
     public constructor(location: Location, router: Router) {
         router.events.subscribe(() => {

@@ -11,9 +11,9 @@ export class DatabaseService {
 
     // A MODIFIER POUR VOTRE BD
     public connectionConfig: pg.ConnectionConfig = {
-        user: "dagagf",
+        user: "mariam",
         database: "netflixPoly",
-        password: "Aigle137",
+        password: "mariam06",
         port: 5432,
         host: "127.0.0.1",
         keepAlive : true
