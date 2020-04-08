@@ -20,10 +20,9 @@ DROP TABLE IF EXISTS NETFLIXPOLYDB.Admin CASCADE;
 
 CREATE DOMAIN NETFLIXPOLYDB.sexeType as CHAR
 	CHECK(VALUE IN ('M', 'F'));
-
+					
 CREATE DOMAIN NETFLIXPOLYDB.roleType as VARCHAR(20)
-	CHECK(VALUE IN ('realisateur', 'producteur', 'acteur', 'maquilleur', 'metteur en scene', 'directeur', 'costumier',
-					'musicien', 'photographe'));
+	CHECK(VALUE IN ('realisateur', 'producteur', 'acteur', 'maquilleur', 'metteur en scene', 'directeur', 'costumier', 'musicien', 'photographe'));
 
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Admin (
 	id_admin		SERIAL		 	NOT NULL,
@@ -31,6 +30,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Admin (
 	mot_de_passe	VARCHAR(30)		NOT NULL,
 	PRIMARY KEY(id_admin)
 );
+					
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Membre(
 	id_membre		SERIAL		 	NOT NULL,
 	adr_courriel	VARCHAR(100) 	NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.AbonnementMensuel (
 	PRIMARY KEY(id_membre),
 	FOREIGN KEY (id_membre) REFERENCES NETFLIXPOLYDB.Membre(id_membre) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
+				
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.AbonnementPayPerView (
 	id_membre				SERIAL		 	NOT NULL,
 	film_payperview			NUMERIC(10,0) 	NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Film (
 	date_production	DATE 			NOT NULL,
 	duree_totale	TIME			NOT NULL,
 	genre			VARCHAR(20) 	NOT NULL,
+	prix			NUMERIC(4,2)	NOT NULL,
 	PRIMARY KEY(numero)
 );
 
@@ -86,11 +87,11 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.EnLigne (
 	num_film			SERIAL 			NOT NULL,
 	date_visionnement	DATE 			NOT NULL,
 	duree_visionnement	TIME		 	NOT NULL,
-	PRIMARY KEY(id_membre, num_film),
+	PRIMARY KEY(id_membre, num_film, date_visionnement),
 	FOREIGN KEY (num_film) REFERENCES NETFLIXPOLYDB.Film(numero) ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY (id_membre) REFERENCES NETFLIXPOLYDB.Membre(id_membre) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
+					
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.CopieDVD (
 	id_membre			SERIAL		 	NOT NULL,
 	num_film			SERIAL 			NOT NULL,
@@ -101,7 +102,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.CopieDVD (
 	FOREIGN KEY (num_film) REFERENCES NETFLIXPOLYDB.Film(numero) ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY (id_membre) REFERENCES NETFLIXPOLYDB.Membre(id_membre) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
+					
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Ceremonie (
 	id_ceremonie		SERIAL 			NOT NULL,
 	maitre 				VARCHAR(100) 	, 
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Employee (
 	id_employee		SERIAL 			NOT NULL,
 	nom				VARCHAR(100)	NOT NULL,
 	sexe			sexeType		DEFAULT 'F',
-	age 			NUMERIC(3,0) 	NOT NULL,
+	date_naissance 	DATE 			NOT NULL,
 	nationalite		VARCHAR(25)		NOT NULL,
 	PRIMARY KEY(id_employee)
 );

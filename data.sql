@@ -1,9 +1,12 @@
-SET search_path = NetflixPolyDB;
+﻿SET search_path = NetflixPolyDB;
 
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('dav.gagleroux@gmail.com', 'Requin360', 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'David Gagné-Leroux');
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwatmariam@gmail.com', 'Hello123', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Mariam Sarwat');
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('genevieve.gagneleroux@gmail.com', 'Hirondelle180', 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'Geneviève Gagné-Leroux');
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwats1304@gmail.com', 'HarryPotter12', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Sarah Sarwat');
+
+INSERT INTO NETFLIXPOLYDB.Admin (adr_courriel, mot_de_passe) VALUES ('admin@gmail.com', 'Admin');
+
 
 INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (1, 9.99, '2020-03-14', '2020-04-14');
 INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (2, 12.99, '2020-03-01', '2020-04-01');
