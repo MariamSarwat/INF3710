@@ -1,1 +1,22 @@
-<p>movie works!</p>
+<button  type="button" class="btn btn-primary" (click)="getMovies()">Refresh</button>
+<div style="text-align: center">
+  <h1>Existing Movies</h1>
+  <table id ="member" align="center" border="1" width="900">
+    <thead>
+      <th> ID</th>
+      <th> TITLE</th>
+      <th> PRODUCTION DATE </th>
+      <th> TOTAL LENGTH </th>
+      <th> GENRE </th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let movie of movies">
+        <td> {{movie.numero}} </td>
+        <td> {{movie.titre}}</td>
+        <td> {{movie.date_production}}</td>
+        <td> {{movie.duree_totale}}</td>
+        <td> {{movie.genre}}</td>
+      </tr>
+      </tbody>
+  </table>
+</div>

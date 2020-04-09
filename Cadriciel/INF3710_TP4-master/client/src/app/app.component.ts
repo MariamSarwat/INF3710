@@ -11,12 +11,12 @@ export class AppComponent {
     public route: string = '';
 
     public constructor(location: Location, router: Router) {
-        router.events.subscribe(() => {
-            if (location.path() !== "") {
-              this.route = location.path();
-            } else {
-              this.route = "";
-            }
-        });
+      router.events.subscribe(() => {
+          if (location.path() !== "") {
+            this.route = location.path();
+          } else {
+            this.route = "";
+          }
+      });
     }    
 }

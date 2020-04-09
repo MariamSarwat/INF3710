@@ -5,6 +5,7 @@ import * as pg from "pg";
 import {Hotel} from "../../../common/tables/Hotel";
 import {Member} from '../../../common/tables/Member';
 import {Room} from '../../../common/tables/Room';
+import {Movie} from '../../../common/tables/Movie';
 
 
 import { DatabaseService } from "../services/database.service";
@@ -191,6 +192,24 @@ export class DatabaseController {
                     nom: mem.nom
                 }));
              res.json(members);
+         }).catch((e: Error) => {
+             console.error(e.stack);
+         });
+     });
+
+     router.get("/movie",
+                   (req: Request, res: Response, next: NextFunction) => {
+             // Send the request to the service and send the response
+             this.databaseService.getMovies().then((result: pg.QueryResult) => {
+                const movies: Movie[] = result.rows.map((mem: any) => ({
+                    numero: mem.numero,
+                    titre: mem.titre,
+                    date_production: mem.date_production,
+                    duree_totale: mem.duree_totale,
+                    genre: mem.genre,
+                    prix: mem.prix
+                }));
+             res.json(movies);
          }).catch((e: Error) => {
              console.error(e.stack);
          });

@@ -35,13 +35,10 @@ export class MemberComponent {
       "nom": memberName
     };
     this.communicationService.insertMember(member).subscribe((res: number) => {
-        if (res > 0) {
-            this.communicationService.filter("update"); // see what "filter" does
-        }
+        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
         this.duplicateError = (res === -1);
         this.getMembers();
     });
-    
   }
 
   public getMembers(): void {
@@ -49,5 +46,4 @@ export class MemberComponent {
         this.members = members;
     });
   }
-  
 }
