@@ -1,9 +1,11 @@
 ﻿SET search_path = NetflixPolyDB;
 
-INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('dav.gagleroux@gmail.com', 'Requin360', 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'David Gagné-Leroux');
-INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwatmariam@gmail.com', 'Hello123', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Mariam Sarwat');
-INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('genevieve.gagneleroux@gmail.com', 'Hirondelle180', 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'Geneviève Gagné-Leroux');
-INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwats1304@gmail.com', 'HarryPotter12', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Sarah Sarwat');
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('dav.gagleroux@gmail.com', crypt('Requin360', gen_salt('bf')), 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'David Gagné-Leroux');
+INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwatmariam@gmail.com', crypt('Hello123', gen_salt('bf')), 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Mariam Sarwat');
+INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('genevieve.gagneleroux@gmail.com', crypt('Hirondelle180', gen_salt('bf')), 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'Geneviève Gagné-Leroux');
+INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwats1304@gmail.com', crypt('HarryPotter12', gen_salt('bf')), 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Sarah Sarwat');
 
 INSERT INTO NETFLIXPOLYDB.Admin (adr_courriel, mot_de_passe) VALUES ('admin@gmail.com', 'Admin');
 
