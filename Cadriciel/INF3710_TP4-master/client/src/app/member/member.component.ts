@@ -20,7 +20,6 @@ export class MemberComponent {
   // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
   public insertMember(email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
                       zipCode: string, city: string, province: string, country: string, memberName: string): void {
-
     const member: Member = {
       "id_membre": this.members.length + 1,
       "adr_courriel": email,

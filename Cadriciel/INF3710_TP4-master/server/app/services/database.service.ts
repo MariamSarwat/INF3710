@@ -130,7 +130,7 @@ export class DatabaseService {
 
     // BOOKING
     public createMember(memberInfo: Member): Promise<pg.QueryResult> {
-        const values: string[] = [
+        let values: string[] = [
             memberInfo.id_membre.toString(),
             memberInfo.adr_courriel,
             memberInfo.mot_de_passe,
@@ -143,8 +143,13 @@ export class DatabaseService {
             memberInfo.pays,
             memberInfo.nom
         ];
-        const queryText: string = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`;
-
+        let queryText: string;
+        if(memberInfo.no_appart){ 
+            queryText = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`;
+        } else {
+            values.splice(4,1);
+            queryText = `INSERT INTO NetflixPolyDB.Membre(id_membre, adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`;
+        }         
         return this.pool.query(queryText, values);
     }
 
