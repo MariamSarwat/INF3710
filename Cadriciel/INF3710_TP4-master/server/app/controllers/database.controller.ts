@@ -141,6 +141,19 @@ export class DatabaseController {
              console.error(e.stack);
          });
      });
+     router.delete ("/movie/delete/:movieID",
+                   (req: Request, res: Response, next: NextFunction) => {
+             // Send the request to the service and send the response
+                
+                this.databaseService.deleteMovie(req.params.movieID)
+                .then((result: pg.QueryResult) => {
+                    res.json(result.rowCount);
+                })
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.json(-1);
+                });
+     });
 
         return router;
     }

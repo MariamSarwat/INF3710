@@ -8,6 +8,8 @@
       <th> PRODUCTION DATE </th>
       <th> TOTAL LENGTH </th>
       <th> GENRE </th>
+      <th> MODIFY </th>
+      <th> DELETE </th>
       </thead>
       <tbody>
       <tr *ngFor="let movie of movies">
@@ -16,6 +18,8 @@
         <td> {{movie.date_production}}</td>
         <td> {{movie.duree_totale}}</td>
         <td> {{movie.genre}}</td>
+        <td> <button (click)="modifyMovie(movie.numero)">Modify movie</button></td>
+        <td><button style="background-color: #f44336;" (click)="deleteMovie(movie.numero)">Delete movie</button></td> 
       </tr>
       </tbody>
   </table>

@@ -5,6 +5,7 @@ import { concat, of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Member } from "../../../common/tables/Member";
 import { Login } from "../../../common/tables/Login";
+import { Movie } from "../../../common/tables/Movie";
 
 @Injectable()
 export class CommunicationService {
@@ -54,6 +55,12 @@ export class CommunicationService {
     public getMovies(): Observable<any[]> {
         return this.http.get<Member[]>(this.BASE_URL + "/movie").pipe(
             catchError(this.handleError<Member[]>("getMovies")),
+        );
+    }
+
+    public deleteMovie(movieID: number): Observable<any>{
+        return this.http.delete<Movie>(this.BASE_URL + "/movie/delete/"+ movieID).pipe(
+            catchError(this.handleError<Movie>("deleteMovie")),
         );
     }
 }

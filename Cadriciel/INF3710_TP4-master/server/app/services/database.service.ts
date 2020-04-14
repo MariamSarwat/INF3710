@@ -120,4 +120,9 @@ export class DatabaseService {
         query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = crypt(\'${password}\', mot_de_passe);`);
         return this.pool.query(query);
     }
+
+    public deleteMovie(movieID: number): Promise<pg.QueryResult> {
+        let query: string =`DELETE FROM NetflixPolyDB.Film WHERE numero = \'${movieID.toString()}\';`;
+        return this.pool.query(query);
+    }
 }
