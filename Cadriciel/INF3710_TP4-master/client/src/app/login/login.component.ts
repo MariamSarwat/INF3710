@@ -4,7 +4,6 @@ import { CommunicationService } from '../communication.service';
 import { Member } from '../../../../common/tables/Member';
 import { Router } from "@angular/router";
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,8 +13,15 @@ export class LoginComponent{
   public loginInfo : Login = {username: '', password: '', loginType: "member"};
   public member : Member[] = [];   
   public errorMessage: string; 
-  
-  constructor(private communicationService: CommunicationService, private router: Router) {}    
+
+  constructor(private communicationService: CommunicationService, private router: Router) {
+    if (window.sessionStorage.getItem("databaseCreated") === null ) {
+      this.communicationService.setUpDatabase().subscribe((res: any) => {
+        console.log(res);
+        sessionStorage.setItem("databaseCreated", 'true');
+      });
+    }
+  }    
 
   login(): void{
     this.communicationService.Login(this.loginInfo).subscribe((member: Member[]) => {
@@ -38,4 +44,5 @@ export class LoginComponent{
       this.router.navigateByUrl('/member-dashboard');    
     }
   }
+
 }

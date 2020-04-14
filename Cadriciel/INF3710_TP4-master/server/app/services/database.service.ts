@@ -114,10 +114,11 @@ export class DatabaseService {
     public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
         let query: string ='';
         if(loginType === "member"){
-            query = `SELECT * FROM NetflixPolyDB.Membre \n`;
+            query = `SELECT * FROM NetflixPolyDB.Membre `;
         } else if(loginType === "admin"){
-            query = `SELECT * FROM NetflixPolyDB.Admin \n`;
+            query = `SELECT * FROM NetflixPolyDB.Admin `;
         }
+        console.log(password);
         query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = crypt(\'${password}\', mot_de_passe);`);
         return this.pool.query(query);
     }
