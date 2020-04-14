@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 import { Movie } from "../../../../common/tables/Movie";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie',
@@ -10,7 +11,7 @@ import { Movie } from "../../../../common/tables/Movie";
 export class MovieComponent implements OnInit {
   public movies: Movie[] = [];
 
-  constructor(private communicationService: CommunicationService) { }
+  constructor(private communicationService: CommunicationService, private router: Router) { }
 
   ngOnInit(): void {
     this.getMovies();
@@ -26,13 +27,17 @@ export class MovieComponent implements OnInit {
 
   public deleteMovie(movieID: number): void{
     this.communicationService.deleteMovie(movieID).subscribe(() => {
-      
       this.getMovies();
-  });
+    });
     console.log(movieID);
   }
 
+  public goBack(): void {
+    this.router.navigateByUrl('/admin-dashboard');
+  }
+  
   public modifyMovie(movieID: number): void{
+    
     console.log(movieID);
   }
 }

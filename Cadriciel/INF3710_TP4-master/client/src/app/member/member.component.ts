@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Member } from "../../../../common/tables/Member";
 import { CommunicationService } from "../communication.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-member",
@@ -11,8 +12,9 @@ export class MemberComponent {
   public route: string;
   public members: Member[] = [];
   public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
-  
-  public constructor(private communicationService: CommunicationService) { }
+  public newMember: boolean;
+
+  public constructor(private communicationService: CommunicationService, private router: Router) { }
  
   ngOnInit(){
     this.getMembers();
@@ -37,6 +39,7 @@ export class MemberComponent {
         if (res > 0) this.communicationService.filter("update"); // see what "filter" does
         this.duplicateError = (res === -1);
         this.getMembers();
+        this.newMember = false;
     });
   }
 
@@ -44,5 +47,13 @@ export class MemberComponent {
     this.communicationService.getMembers().subscribe((members: Member[]) => {
         this.members = members;
     });
+  }
+
+  public goToDashboard(): void {
+    this.router.navigateByUrl('/admin-dashboard');
+  }
+
+  public cancel(): void {
+    this.newMember = false;
   }
 }
