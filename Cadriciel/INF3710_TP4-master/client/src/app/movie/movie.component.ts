@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class MovieComponent implements OnInit {
   public movies: Movie[] = [];
+  public newMovie: boolean;
+  public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
 
   constructor(private communicationService: CommunicationService, private router: Router) { }
 
@@ -32,12 +34,33 @@ export class MovieComponent implements OnInit {
     console.log(movieID);
   }
 
+    // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
+    public insertMovie(titre: string, date_production: string, duree_totale: string, genre: string, prix: number): void {
+        const movie: Movie = {
+          "numero": this.movies.length + 1,
+          "titre": titre,
+          "date_production": date_production,
+          "duree_totale": duree_totale,
+          "genre": genre,
+          "prix": prix	
+        };
+        this.communicationService.insertMovie(movie).subscribe((res: number) => {
+        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
+        this.duplicateError = (res === -1);
+        this.getMovies();
+        this.newMovie = false;
+        });
+    }
+
   public goBack(): void {
     this.router.navigateByUrl('/admin-dashboard');
   }
-  
+
   public modifyMovie(movieID: number): void{
-    
     console.log(movieID);
+  }
+
+  public cancel(): void {
+    this.newMovie = false;
   }
 }

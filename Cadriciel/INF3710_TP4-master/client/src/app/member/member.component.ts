@@ -9,7 +9,6 @@ import { Router } from "@angular/router";
   styleUrls: ["./member.component.css"]
 })
 export class MemberComponent {
-  public route: string;
   public members: Member[] = [];
   public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
   public newMember: boolean;
@@ -19,6 +18,7 @@ export class MemberComponent {
   ngOnInit(){
     this.getMembers();
   }
+
   // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
   public insertMember(email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
                       zipCode: string, city: string, province: string, country: string, memberName: string): void {

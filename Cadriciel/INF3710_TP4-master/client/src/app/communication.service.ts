@@ -63,4 +63,10 @@ export class CommunicationService {
             catchError(this.handleError<Movie>("deleteMovie")),
         );
     }
+
+    public insertMovie(movie: Movie): Observable<number> { // why "number"?
+        return this.http.post<number>(this.BASE_URL + "/movie/insert", movie).pipe(
+            catchError(this.handleError<number>("insertMovie")),
+        );
+    }
 }

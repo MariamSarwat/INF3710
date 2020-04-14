@@ -141,6 +141,29 @@ export class DatabaseController {
              console.error(e.stack);
          });
      });
+
+     router.post("/movie/insert",
+            (req: Request, res: Response, next: NextFunction) => {
+            const movie: Movie = {
+                "numero": req.body.numero,
+                "titre": req.body.titre,
+                "date_production": req.body.date_production,
+                "duree_totale": req.body.duree_totale,
+                "genre": req.body.genre,
+                "prix": req.body.prix	
+            };
+            console.log(movie);
+
+            this.databaseService.createMovie(movie)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
+
      router.delete ("/movie/delete/:movieID",
                    (req: Request, res: Response, next: NextFunction) => {
              // Send the request to the service and send the response

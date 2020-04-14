@@ -4,6 +4,7 @@ import "reflect-metadata";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
 import { Member } from "../../../common/tables/Member";
+import { Movie } from "../../../common/tables/Movie";
 
 @injectable()
 export class DatabaseService {
@@ -124,5 +125,19 @@ export class DatabaseService {
     public deleteMovie(movieID: number): Promise<pg.QueryResult> {
         let query: string =`DELETE FROM NetflixPolyDB.Film WHERE numero = \'${movieID.toString()}\';`;
         return this.pool.query(query);
+    }
+
+    public createMovie(movieInfo: Movie): Promise<pg.QueryResult> {
+        const values: string[] = [
+            movieInfo.numero.toString(),
+            movieInfo.titre,
+            movieInfo.date_production,
+            movieInfo.duree_totale,
+            movieInfo.genre,
+            movieInfo.prix.toString(),
+        ];
+        const queryText: string= `INSERT INTO NetflixPolyDB.Film VALUES($1,$2,$3,$4,$5,$6);`;
+
+        return this.pool.query(queryText, values);
     }
 }
