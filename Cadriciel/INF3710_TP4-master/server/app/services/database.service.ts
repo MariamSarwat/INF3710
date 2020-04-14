@@ -1,7 +1,6 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
-import { Room } from "../../../common/tables/Room";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
 import { Member } from "../../../common/tables/Member";
@@ -35,30 +34,7 @@ export class DatabaseService {
         return this.pool.query(data);
     }
 
-    public getAllFromTable(tableName: string): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT * FROM HOTELDB.${tableName};`);
-    }
-
-    // HOTEL
-    public getHotels(): Promise<pg.QueryResult> {
-        return this.pool.query('SELECT * FROM HOTELDB.Hotel;');
-    }
-
-    public getHotelNo(): Promise<pg.QueryResult> {
-        return this.pool.query('SELECT hotelNo FROM HOTELDB.Hotel;');
-    }
-
-    public createHotel(hotelNo: string, hotelName: string, city: string): Promise<pg.QueryResult> {
-        const values: string[] = [
-            hotelNo,
-            hotelName,
-            city
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.Hotel VALUES($1, $2, $3);`;
-
-        return this.pool.query(queryText, values);
-    }
-
+/*
     // ROOM
     public getRoomFromHotel(hotelNo: string, roomType: string, price: number): Promise<pg.QueryResult> {
         let query: string =
@@ -99,36 +75,8 @@ export class DatabaseService {
         console.log(query);
 
         return this.pool.query(query);
-    }
+    }*/
 
-    public createRoom(room: Room): Promise<pg.QueryResult> {
-        const values: string[] = [
-            room.roomno,
-            room.hotelno,
-            room.typeroom,
-            room.price.toString()
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // GUEST
-    public createGuest(guestNo: string, nas: string, guestName: string, gender: string, guestCity: string): Promise<pg.QueryResult> {
-        // this.pool.connect();
-        const values: string[] = [
-            guestNo,
-            nas,
-            guestName,
-            gender,
-            guestCity
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // BOOKING
     public createMember(memberInfo: Member): Promise<pg.QueryResult> {
         let values: string[] = [
             memberInfo.id_membre.toString(),
