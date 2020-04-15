@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 import { Movie } from '../../../../common/tables/Movie';
 import { MatDialog } from '@angular/material/dialog';
+import { Member } from '../../../../common/tables/Member';
+import { MemberService } from './member.service';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -11,8 +13,12 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MemberDashboardComponent implements OnInit {
   public movies: Movie[] = [];
+  public selectedMovie: Movie;
+  public loggedInMember: Member;
 
-  constructor(private communicationService: CommunicationService, private movie: MatDialog/*private router: Router*/) { }
+  constructor(private communicationService: CommunicationService, private movie: MatDialog, private memberService: MemberService/*private router: Router*/) {
+    this.loggedInMember = this.memberService.memberInfo;
+  }
 
   ngOnInit(): void {
     this.getMovies();
@@ -25,10 +31,9 @@ export class MemberDashboardComponent implements OnInit {
           movie.date_production = movie.date_production.split('T')[0]; // to convert to Date
     });
   }
-  selectedMovie: Movie;
 
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
-    this.movie.open(content, { disableClose: true });
+    this.movie.open(content, {disableClose: true});
   }
 }

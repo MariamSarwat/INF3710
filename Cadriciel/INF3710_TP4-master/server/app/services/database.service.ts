@@ -123,7 +123,7 @@ export class DatabaseService {
             query = `SELECT * FROM NetflixPolyDB.Admin `;
         }
         console.log(password);
-        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = crypt(\'${password}\', mot_de_passe);`);
+        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
         return this.pool.query(query);
     }
 

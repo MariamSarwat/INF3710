@@ -3,6 +3,7 @@ import { Login } from "../../../../common/tables/Login";
 import { CommunicationService } from '../communication.service';
 import { Member } from '../../../../common/tables/Member';
 import { Router } from "@angular/router";
+import { MemberService } from '../member-dashboard/member.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent{
   public member : Member[] = [];   
   public errorMessage: string; 
 
-  constructor(private communicationService: CommunicationService, private router: Router) {
+  constructor(private communicationService: CommunicationService, private router: Router, private memberService: MemberService) {
     if (window.sessionStorage.getItem("databaseCreated") === null ) {
       this.communicationService.setUpDatabase().subscribe((res: any) => {
         console.log(res);
@@ -27,7 +28,7 @@ export class LoginComponent{
     this.communicationService.Login(this.loginInfo).subscribe((member: Member[]) => {
       this.member = member;
       if(this.member.length === 1){
-        this.navigateTo();    
+        this.navigateTo(this.member[0]);    
       } else {
         this.errorMessage = 'no user was found';    
       }    
@@ -36,13 +37,13 @@ export class LoginComponent{
     }); 
   }
 
-  navigateTo(): void {
+  navigateTo(memberInfo: Member): void {
     console.log(this.loginInfo.loginType);
     if(this.loginInfo.loginType === "admin"){
       this.router.navigateByUrl('/admin-dashboard');    
     } else if(this.loginInfo.loginType === "member"){
+      this.memberService.memberInfo = memberInfo;
       this.router.navigateByUrl('/member-dashboard');    
     }
   }
-
 }

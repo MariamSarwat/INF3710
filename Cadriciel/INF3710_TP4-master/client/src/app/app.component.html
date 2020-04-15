@@ -6,6 +6,6 @@
         <a *ngIf="route.includes('/admin-dashboard') " class="nav-item nav-link active" routerLink="/admin-dashboard/movie">Movies</a>
       </div>
     </div>
-    <a style='float: right;' *ngIf="!route.includes('/login') " routerLink="/login">Logout</a>
+    <a style='float: right;' *ngIf="!route.includes('/login') " routerLink="/login" (click)="logout()">Logout</a>
   </nav>
 <router-outlet></router-outlet>
