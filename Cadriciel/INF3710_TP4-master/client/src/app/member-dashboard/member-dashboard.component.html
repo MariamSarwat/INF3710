@@ -1,7 +1,42 @@
-<div>  
-    <div class="row">  
-      <div class="col-sm-12 btn btn-primary">  
-          Welcome to the member DashBoard  
-      </div>  
-    </div>  
-  </div> 
+  
+<div class="row">  
+  <div class="col-sm-12 btn btn-primary">  
+      Welcome to the member DashBoard  
+  </div>  
+</div>  
+
+
+<ul class="heroes">
+  <li *ngFor="let movie of movies"
+    [class.selected]="movie === selectedMovie"
+    (click)="onSelect(movie)">
+    <span class="badge">{{movie.titre}} </span> 
+    <table align="center"  pading-left='2em' width="80%">
+      <tr>
+        <th>PRODUCTION DATE</th>
+        <td> {{movie.date_production}}</td>
+      </tr>
+      <tr>
+        <th>TOTAL LENGTH</th>
+        <td> {{movie.duree_totale}}</td>
+      </tr>
+      <tr>
+        <th>GENRE</th>
+        <td> {{movie.genre}}</td>
+      </tr>      
+    </table>
+  </li>
+</ul>
+
+
+<div *ngIf="selectedMovie">
+
+  <h2>{{selectedMovie.titre | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedMovie.numero}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedMovie.name" placeholder="name"/>
+    </label>
+  </div>
+
+</div>

@@ -14,21 +14,21 @@ export class DatabaseController {
         const router: Router = Router();
 
         router.post("/createSchema",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    this.databaseService.createSchema().then((result: pg.QueryResult) => {
-                        res.json(result);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-                });
+            (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService.createSchema().then((result: pg.QueryResult) => {
+                res.json(result);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
 
         router.post("/populateDb",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    this.databaseService.populateDb().then((result: pg.QueryResult) => {
-                        res.json(result);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
+            (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService.populateDb().then((result: pg.QueryResult) => {
+                res.json(result);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
         });
         
 		router.post("/login",
@@ -75,36 +75,36 @@ export class DatabaseController {
             });*/
 
         router.post("/member/insert",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    const member: Member = {
-                        "id_membre": req.body.id_membre,
-                        "adr_courriel": req.body.adr_courriel,
-                        "mot_de_passe": req.body.mot_de_passe,
-                        "nom_rue": req.body.nom_rue,
-                        "no_appart": req.body.no_appart,
-                        "no_rue": req.body.no_rue,
-                        "code_postal": req.body.code_postal,
-                        "ville": req.body.ville,
-                        "province": req.body.province,
-                        "pays": req.body.pays,
-                        "nom": req.body.nom
-                    };
-                    console.log(member);
+            (req: Request, res: Response, next: NextFunction) => {
+            const member: Member = {
+                "id_membre": req.body.id_membre,
+                "adr_courriel": req.body.adr_courriel,
+                "mot_de_passe": req.body.mot_de_passe,
+                "nom_rue": req.body.nom_rue,
+                "no_appart": req.body.no_appart,
+                "no_rue": req.body.no_rue,
+                "code_postal": req.body.code_postal,
+                "ville": req.body.ville,
+                "province": req.body.province,
+                "pays": req.body.pays,
+                "nom": req.body.nom
+            };
+            console.log(member);
 
-                    this.databaseService.createMember(member)
-                    .then((result: pg.QueryResult) => {
-                        res.json(result.rowCount);
-                    })
-                    .catch((e: Error) => {
-                        console.error(e.stack);
-                        res.json(-1);
-                    });
+            this.databaseService.createMember(member)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
         });
 
-            router.get("/member",
-                   (req: Request, res: Response, next: NextFunction) => {
+        router.get("/member",
+            (req: Request, res: Response, next: NextFunction) => {
              // Send the request to the service and send the response
-             this.databaseService.getMembers().then((result: pg.QueryResult) => {
+                this.databaseService.getMembers().then((result: pg.QueryResult) => {
                 const members: Member[] = result.rows.map((mem: any) => ({
                     id_membre: mem.id_membre,
                     adr_courriel: mem.adr_courriel,
@@ -118,16 +118,16 @@ export class DatabaseController {
                     pays: mem.pays,
                     nom: mem.nom
                 }));
-             res.json(members);
-         }).catch((e: Error) => {
-             console.error(e.stack);
-         });
-     });
+                res.json(members);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
 
-     router.get("/movie",
-                   (req: Request, res: Response, next: NextFunction) => {
-             // Send the request to the service and send the response
-             this.databaseService.getMovies().then((result: pg.QueryResult) => {
+        router.get("/movie",
+            (req: Request, res: Response, next: NextFunction) => {
+                // Send the request to the service and send the response
+                this.databaseService.getMovies().then((result: pg.QueryResult) => {
                 const movies: Movie[] = result.rows.map((mem: any) => ({
                     numero: mem.numero,
                     titre: mem.titre,
@@ -136,13 +136,31 @@ export class DatabaseController {
                     genre: mem.genre,
                     prix: mem.prix
                 }));
-             res.json(movies);
-         }).catch((e: Error) => {
-             console.error(e.stack);
-         });
-     });
+                res.json(movies);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
 
-     router.post("/movie/insert",
+        router.get("/movie/sorted",
+            (req: Request, res: Response, next: NextFunction) => {
+                // Send the request to the service and send the response
+                this.databaseService.getMoviesSorted().then((result: pg.QueryResult) => {
+                const movies: Movie[] = result.rows.map((mem: any) => ({
+                    numero: mem.numero,
+                    titre: mem.titre,
+                    date_production: mem.date_production,
+                    duree_totale: mem.duree_totale,
+                    genre: mem.genre,
+                    prix: mem.prix
+                }));
+                res.json(movies);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.post("/movie/insert",
             (req: Request, res: Response, next: NextFunction) => {
             const movie: Movie = {
                 "numero": req.body.numero,
@@ -164,19 +182,19 @@ export class DatabaseController {
             });
         });
 
-     router.delete ("/movie/delete/:movieID",
-                   (req: Request, res: Response, next: NextFunction) => {
-             // Send the request to the service and send the response
-                
-                this.databaseService.deleteMovie(req.params.movieID)
-                .then((result: pg.QueryResult) => {
-                    res.json(result.rowCount);
-                })
-                .catch((e: Error) => {
-                    console.error(e.stack);
-                    res.json(-1);
-                });
-     });
+        router.delete ("/movie/delete/:movieID",
+            (req: Request, res: Response, next: NextFunction) => {
+            // Send the request to the service and send the response
+            
+            this.databaseService.deleteMovie(req.params.movieID)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
 
         return router;
     }

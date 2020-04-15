@@ -111,6 +111,10 @@ export class DatabaseService {
         return this.pool.query('SELECT * FROM NetflixPolyDB.Film;');
     }
 
+    public getMoviesSorted(): Promise<pg.QueryResult> {
+        return this.pool.query('SELECT * FROM NetflixPolyDB.Film ORDER BY titre ASC;');
+    }
+
     public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
         let query: string ='';
         if(loginType === "member"){

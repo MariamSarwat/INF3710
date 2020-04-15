@@ -58,6 +58,12 @@ export class CommunicationService {
         );
     }
 
+    public getMoviesSorted(): Observable<any[]> {
+        return this.http.get<Member[]>(this.BASE_URL + "/movie/sorted").pipe(
+            catchError(this.handleError<Member[]>("getMoviesSorted")),
+        );
+    }
+
     public deleteMovie(movieID: number): Observable<any>{
         return this.http.delete<Movie>(this.BASE_URL + "/movie/delete/"+ movieID).pipe(
             catchError(this.handleError<Movie>("deleteMovie")),

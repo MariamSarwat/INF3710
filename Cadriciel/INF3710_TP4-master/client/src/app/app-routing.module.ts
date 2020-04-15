@@ -12,6 +12,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { title: 'Login Page'}},   
   { path: 'admin-dashboard', component: AdminDashboardComponent},    
   { path: "member-dashboard", component: MemberDashboardComponent },
+  { path: "member-dashboard/:movieTitle", component: MemberDashboardComponent },
+
   { path: "admin-dashboard/member", component: MemberComponent },
   { path: "admin-dashboard/movie", component: MovieComponent }
 ];

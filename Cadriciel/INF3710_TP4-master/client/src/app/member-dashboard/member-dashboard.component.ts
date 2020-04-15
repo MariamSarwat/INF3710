@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+//import { Router } from '@angular/router';
+import { CommunicationService } from '../communication.service';
+import { Movie } from '../../../../common/tables/Movie';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -6,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./member-dashboard.component.css']
 })
 export class MemberDashboardComponent implements OnInit {
+  public movies: Movie[] = [];
 
-  constructor() { }
+  constructor(private communicationService: CommunicationService, /*private router: Router*/) { }
 
   ngOnInit(): void {
+    this.getMovies();
   }
 
+  public getMovies(): void {
+    this.communicationService.getMoviesSorted().subscribe((movies: Movie[]) => {
+        this.movies = movies;
+        for (let movie of this.movies)
+          movie.date_production = movie.date_production.split('T')[0]; // to convert to Date
+    });
+  }
+  selectedMovie: Movie;
+
+  onSelect(movie: Movie): void {
+    this.selectedMovie = movie;
+  }
 }
