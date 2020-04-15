@@ -4,6 +4,8 @@ import { CommunicationService } from '../communication.service';
 import { Movie } from '../../../../common/tables/Movie';
 import { MatDialog } from '@angular/material/dialog';
 import { Member } from '../../../../common/tables/Member';
+import { MovieNom } from '../../../../common/tables/MovieNom';
+
 import { MemberService } from './member.service';
 
 @Component({
@@ -15,7 +17,8 @@ export class MemberDashboardComponent implements OnInit {
   public movies: Movie[] = [];
   public selectedMovie: Movie;
   public loggedInMember: Member;
-
+  public nominations: MovieNom[];
+  //public winning: any;
   constructor(private communicationService: CommunicationService, private movie: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }
@@ -34,6 +37,14 @@ export class MemberDashboardComponent implements OnInit {
 
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
+    this.getAllMovieInformation();
+    console.log(this.nominations);
     this.movie.open(content, {disableClose: true});
+  }
+
+  public getAllMovieInformation(): void {
+    this.communicationService.getMovieNom(this.selectedMovie.numero).subscribe((nominations: MovieNom[]) => {
+        this.nominations = nominations; 
+    });
   }
 }

@@ -6,6 +6,7 @@ import { catchError } from "rxjs/operators";
 import { Member } from "../../../common/tables/Member";
 import { Login } from "../../../common/tables/Login";
 import { Movie } from "../../../common/tables/Movie";
+import { MovieNom } from "../../../common/tables/MovieNom";
 
 @Injectable()
 export class CommunicationService {
@@ -64,6 +65,12 @@ export class CommunicationService {
         );
     }
 
+    public getMovieNom(movieID: number): Observable<any[]> {
+        return this.http.get<MovieNom[]>(this.BASE_URL + "/movie/nominations/" + movieID).pipe(
+            catchError(this.handleError<MovieNom[]>("getMovieNom")),
+        );
+    }
+    
     public deleteMovie(movieID: number): Observable<any>{
         return this.http.delete<Movie>(this.BASE_URL + "/movie/delete/"+ movieID).pipe(
             catchError(this.handleError<Movie>("deleteMovie")),
