@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //import { Router } from '@angular/router';
 import { CommunicationService } from '../communication.service';
 import { Movie } from '../../../../common/tables/Movie';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -11,7 +12,7 @@ import { Movie } from '../../../../common/tables/Movie';
 export class MemberDashboardComponent implements OnInit {
   public movies: Movie[] = [];
 
-  constructor(private communicationService: CommunicationService, /*private router: Router*/) { }
+  constructor(private communicationService: CommunicationService, private movie: MatDialog/*private router: Router*/) { }
 
   ngOnInit(): void {
     this.getMovies();
@@ -26,7 +27,8 @@ export class MemberDashboardComponent implements OnInit {
   }
   selectedMovie: Movie;
 
-  onSelect(movie: Movie): void {
+  public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
+    this.movie.open(content, { disableClose: true });
   }
 }

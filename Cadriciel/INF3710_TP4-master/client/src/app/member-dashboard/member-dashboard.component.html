@@ -5,11 +5,23 @@
   </div>  
 </div>  
 
+<ng-template #content let-modal id=modal>
+  <h1 mat-dialog-title > Movie </h1>
+
+  <div mat-dialog-content>
+    <h2>{{selectedMovie.titre | uppercase}} </h2>
+    <div><span>id: </span>{{selectedMovie.numero}}</div>
+  </div>
+  
+  <mat-dialog-actions align="end">
+      <button mat-button  [mat-dialog-close]="true" cdkFocusInitial> Fermer </button>
+  </mat-dialog-actions>
+</ng-template>
 
 <ul class="heroes">
   <li *ngFor="let movie of movies"
     [class.selected]="movie === selectedMovie"
-    (click)="onSelect(movie)">
+    (click)="openDialog(content, movie)">
     <span class="badge">{{movie.titre}} </span> 
     <table align="center"  pading-left='2em' width="80%">
       <tr>
@@ -27,16 +39,3 @@
     </table>
   </li>
 </ul>
-
-
-<div *ngIf="selectedMovie">
-
-  <h2>{{selectedMovie.titre | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedMovie.numero}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="selectedMovie.name" placeholder="name"/>
-    </label>
-  </div>
-
-</div>
