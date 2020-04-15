@@ -1,24 +1,29 @@
-<button  type="button" class="btn btn-primary" (click)="getMembers()">Refresh</button>
-<div style="text-align: center">
-  <h1>Existing Members</h1>
-  <table id ="member" align="center" border="1" width="900">
-      <thead>
-      <th> ID</th>
-      <th> NAME</th>
-      <th> EMAIL </th>
-      <th> ADDRESS </th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let member of members">
-        <td> {{member.id_membre}} </td>
-        <td> {{member.nom}}</td>
-        <td> {{member.adr_courriel}}</td>
-        <td> <i *ngIf=member.no_appart>{{member.no_appart}} -</i> {{member.no_rue}} {{member.nom_rue}}, {{member.ville}} {{member.code_postal}}, {{member.province}}, {{member.pays}}</td>
-        <td></td>
-      </tr>
-      </tbody>
-  </table>
+<button type="button" *ngIf='!newMember' class="btn btn-primary" (click)="goToDashboard()">Go to dashboard</button>
+<button type="button" *ngIf='!newMember' class="btn btn-primary" (click)="this.newMember = true">Add New Member</button>
+
+<div *ngIf='!newMember'>
+  <div style="text-align: center">
+    <h1>Existing Members</h1>
+    <table id ="member" align="center" border="1" width="900">
+        <thead>
+        <th> ID</th>
+        <th> NAME</th>
+        <th> EMAIL </th>
+        <th> ADDRESS </th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let member of members">
+          <td> {{member.id_membre}} </td>
+          <td> {{member.nom}}</td>
+          <td> {{member.adr_courriel}}</td>
+          <td> <i *ngIf=member.no_appart>{{member.no_appart}} -</i> {{member.no_rue}} {{member.nom_rue}}, {{member.ville}} {{member.code_postal}}, {{member.province}}, {{member.pays}}</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
 </div>
+
+<div *ngIf='newMember'>
 <div id="member" style="text-align: left">
     <h1>Add Member</h1>
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
@@ -38,8 +43,11 @@
       <li><button type="button" class="btn btn-primary" (click)="insertMember(
         email.value, password.value, streetName.value, apartmentNo.value, streetNo.value,
         zipCode.value, city.value, province.value, country.value, memberName.value)" > Add Member</button></li>
+        <li><button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button></li>
+
       </ul>
      
     </div>
+</div>
 
     

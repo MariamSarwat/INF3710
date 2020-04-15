@@ -1,12 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as pg from "pg";
-
-import {Hotel} from "../../../common/tables/Hotel";
 import {Member} from '../../../common/tables/Member';
-import {Room} from '../../../common/tables/Room';
-
-
+import {Movie} from '../../../common/tables/Movie';
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 
@@ -34,45 +30,6 @@ export class DatabaseController {
                         console.error(e.stack);
                     });
         });
-
-        router.get("/hotel",
-                   (req: Request, res: Response, next: NextFunction) => {
-                    // Send the request to the service and send the response
-                    this.databaseService.getHotels().then((result: pg.QueryResult) => {
-                    const hotels: Hotel[] = result.rows.map((hot: any) => (
-                        {
-                        hotelno: hot.hotelno,
-                        hotelname: hot.hotelname,
-                        city: hot.city
-                    }));
-                    res.json(hotels);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                });
-            });
-
-        router.get("/hotel/hotelNo",
-                   (req: Request, res: Response, next: NextFunction) => {
-                      this.databaseService.getHotelNo().then((result: pg.QueryResult) => {
-                        const hotelPKs: string[] = result.rows.map((row: any) => row.hotelno);
-                        res.json(hotelPKs);
-                      }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-                  });
-
-        router.post("/hotel/insert",
-            (req: Request, res: Response, next: NextFunction) => {
-                const hotelNo: string = req.body.hotelNo;
-                const hotelName: string = req.body.hotelName;
-                const city: string = req.body.city;
-                this.databaseService.createHotel(hotelNo, hotelName, city).then((result: pg.QueryResult) => {
-                res.json(result.rowCount);
-            }).catch((e: Error) => {
-                console.error(e.stack);
-                res.json(-1);
-            });
-        });
         
 		router.post("/login",
             (req: Request, res: Response, next: NextFunction) => {
@@ -98,9 +55,8 @@ export class DatabaseController {
                 console.error(e.stack);
             });
         });
-		router.delete("/hotel/insert", /*TODO*/);
 
-        router.get("/rooms",
+        /*router.get("/rooms",
                    (req: Request, res: Response, next: NextFunction) => {
 
                     this.databaseService.getRoomFromHotelParams(req.query)
@@ -116,26 +72,7 @@ export class DatabaseController {
                     }).catch((e: Error) => {
                         console.error(e.stack);
                     });
-            });
-
-        router.post("/rooms/insert",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    const room: Room = {
-                        hotelno: req.body.hotelno,
-                        roomno: req.body.roomno,
-                        typeroom: req.body.typeroom,
-                        price: parseFloat(req.body.price)};
-                    console.log(room);
-
-                    this.databaseService.createRoom(room)
-                    .then((result: pg.QueryResult) => {
-                        res.json(result.rowCount);
-                    })
-                    .catch((e: Error) => {
-                        console.error(e.stack);
-                        res.json(-1);
-                    });
-        });
+            });*/
 
         router.post("/member/insert",
                     (req: Request, res: Response, next: NextFunction) => {
@@ -163,15 +100,6 @@ export class DatabaseController {
                         res.json(-1);
                     });
         });
-        router.get("/tables/:tableName",
-                   (req: Request, res: Response, next: NextFunction) => {
-                this.databaseService.getAllFromTable(req.params.tableName)
-                    .then((result: pg.QueryResult) => {
-                        res.json(result.rows);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-            });
 
             router.get("/member",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -194,6 +122,60 @@ export class DatabaseController {
          }).catch((e: Error) => {
              console.error(e.stack);
          });
+     });
+
+     router.get("/movie",
+                   (req: Request, res: Response, next: NextFunction) => {
+             // Send the request to the service and send the response
+             this.databaseService.getMovies().then((result: pg.QueryResult) => {
+                const movies: Movie[] = result.rows.map((mem: any) => ({
+                    numero: mem.numero,
+                    titre: mem.titre,
+                    date_production: mem.date_production,
+                    duree_totale: mem.duree_totale,
+                    genre: mem.genre,
+                    prix: mem.prix
+                }));
+             res.json(movies);
+         }).catch((e: Error) => {
+             console.error(e.stack);
+         });
+     });
+
+     router.post("/movie/insert",
+            (req: Request, res: Response, next: NextFunction) => {
+            const movie: Movie = {
+                "numero": req.body.numero,
+                "titre": req.body.titre,
+                "date_production": req.body.date_production,
+                "duree_totale": req.body.duree_totale,
+                "genre": req.body.genre,
+                "prix": req.body.prix	
+            };
+            console.log(movie);
+
+            this.databaseService.createMovie(movie)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
+
+     router.delete ("/movie/delete/:movieID",
+                   (req: Request, res: Response, next: NextFunction) => {
+             // Send the request to the service and send the response
+                
+                this.databaseService.deleteMovie(req.params.movieID)
+                .then((result: pg.QueryResult) => {
+                    res.json(result.rowCount);
+                })
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.json(-1);
+                });
      });
 
         return router;

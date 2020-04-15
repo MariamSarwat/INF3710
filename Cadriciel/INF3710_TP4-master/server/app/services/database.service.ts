@@ -1,19 +1,19 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
-import { Room } from "../../../common/tables/Room";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
 import { Member } from "../../../common/tables/Member";
+import { Movie } from "../../../common/tables/Movie";
 
 @injectable()
 export class DatabaseService {
 
     // A MODIFIER POUR VOTRE BD
     public connectionConfig: pg.ConnectionConfig = {
-        user: "dagagf",
+        user: "mariam",
         database: "netflixPoly",
-        password: "Aigle137",
+        password: "mariam06",
         port: 5432,
         host: "127.0.0.1",
         keepAlive : true
@@ -35,30 +35,7 @@ export class DatabaseService {
         return this.pool.query(data);
     }
 
-    public getAllFromTable(tableName: string): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT * FROM HOTELDB.${tableName};`);
-    }
-
-    // HOTEL
-    public getHotels(): Promise<pg.QueryResult> {
-        return this.pool.query('SELECT * FROM HOTELDB.Hotel;');
-    }
-
-    public getHotelNo(): Promise<pg.QueryResult> {
-        return this.pool.query('SELECT hotelNo FROM HOTELDB.Hotel;');
-    }
-
-    public createHotel(hotelNo: string, hotelName: string, city: string): Promise<pg.QueryResult> {
-        const values: string[] = [
-            hotelNo,
-            hotelName,
-            city
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.Hotel VALUES($1, $2, $3);`;
-
-        return this.pool.query(queryText, values);
-    }
-
+/*
     // ROOM
     public getRoomFromHotel(hotelNo: string, roomType: string, price: number): Promise<pg.QueryResult> {
         let query: string =
@@ -99,38 +76,10 @@ export class DatabaseService {
         console.log(query);
 
         return this.pool.query(query);
-    }
+    }*/
 
-    public createRoom(room: Room): Promise<pg.QueryResult> {
-        const values: string[] = [
-            room.roomno,
-            room.hotelno,
-            room.typeroom,
-            room.price.toString()
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // GUEST
-    public createGuest(guestNo: string, nas: string, guestName: string, gender: string, guestCity: string): Promise<pg.QueryResult> {
-        // this.pool.connect();
-        const values: string[] = [
-            guestNo,
-            nas,
-            guestName,
-            gender,
-            guestCity
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // BOOKING
     public createMember(memberInfo: Member): Promise<pg.QueryResult> {
-        const values: string[] = [
+        let values: string[] = [
             memberInfo.id_membre.toString(),
             memberInfo.adr_courriel,
             memberInfo.mot_de_passe,
@@ -143,8 +92,13 @@ export class DatabaseService {
             memberInfo.pays,
             memberInfo.nom
         ];
-        const queryText: string = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`;
-
+        let queryText: string;
+        if(memberInfo.no_appart){ 
+            queryText = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`;
+        } else {
+            values.splice(4,1);
+            queryText = `INSERT INTO NetflixPolyDB.Membre(id_membre, adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`;
+        }         
         return this.pool.query(queryText, values);
     }
 
@@ -153,14 +107,38 @@ export class DatabaseService {
         return this.pool.query('SELECT * FROM NetflixPolyDB.Membre;');
     }
 
+    public getMovies(): Promise<pg.QueryResult> {
+        return this.pool.query('SELECT * FROM NetflixPolyDB.Film;');
+    }
+
     public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
         let query: string ='';
         if(loginType === "member"){
-            query = `SELECT * FROM NetflixPolyDB.Membre \n`;
+            query = `SELECT * FROM NetflixPolyDB.Membre `;
         } else if(loginType === "admin"){
-            query = `SELECT * FROM NetflixPolyDB.Admin \n`;
+            query = `SELECT * FROM NetflixPolyDB.Admin `;
         }
-        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
+        console.log(password);
+        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = crypt(\'${password}\', mot_de_passe);`);
         return this.pool.query(query);
+    }
+
+    public deleteMovie(movieID: number): Promise<pg.QueryResult> {
+        let query: string =`DELETE FROM NetflixPolyDB.Film WHERE numero = \'${movieID.toString()}\';`;
+        return this.pool.query(query);
+    }
+
+    public createMovie(movieInfo: Movie): Promise<pg.QueryResult> {
+        const values: string[] = [
+            movieInfo.numero.toString(),
+            movieInfo.titre,
+            movieInfo.date_production,
+            movieInfo.duree_totale,
+            movieInfo.genre,
+            movieInfo.prix.toString(),
+        ];
+        const queryText: string= `INSERT INTO NetflixPolyDB.Film VALUES($1,$2,$3,$4,$5,$6);`;
+
+        return this.pool.query(queryText, values);
     }
 }

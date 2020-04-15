@@ -1,1 +1,48 @@
-<p>movie works!</p>
+<button  type="button" *ngIf='!newMovie' class="btn btn-primary" (click)="goBack()">Go to dashboard</button>
+<button type="button" *ngIf='!newMovie' class="btn btn-primary" (click)="this.newMovie = true">Add New Movie</button>
+
+<div *ngIf='!newMovie'>
+  <div style="text-align: center">
+    <h1>Existing Movies</h1>
+    <table id ="member" align="center" border="1" width="900">
+      <thead>
+        <th> ID</th>
+        <th> TITLE</th>
+        <th> PRODUCTION DATE </th>
+        <th> TOTAL LENGTH </th>
+        <th> GENRE </th>
+        <th>  </th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let movie of movies">
+          <td> {{movie.numero}} </td>
+          <td> {{movie.titre}}</td>
+          <td> {{movie.date_production}}</td>
+          <td> {{movie.duree_totale}}</td>
+          <td> {{movie.genre}}</td>
+          <td> <button (click)="modifyMovie(movie.numero)">Modify</button>
+          <button style="background-color: #f44336;" (click)="deleteMovie(movie.numero)">Delete</button></td> 
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf='newMovie'>
+<div id="member" style="text-align: left">
+  <h1>Add Movie</h1>
+  <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
+    Insertion sur une cle primaire qui existe deja
+  </div>
+    <ul style="list-style: none;">
+      Title: <li><input class="form-control col-md-4" #title></li>
+      Production date (YYYY-MM-DD): <li><input class="form-control col-md-4" #production_date></li>
+      Total time (minutes): <li><input class="form-control col-md-4" #total_time></li>
+      Genre: <li><input class="form-control col-md-4" #genre></li>
+      Price: <li><input class="form-control col-md-4" #price></li>
+    <li><button type="button" class="btn btn-primary" (click)="insertMovie(
+      title.value, production_date.value, total_time.value, genre.value, price.value)" > Add Movie</button></li>
+      <li><button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button></li>
+    </ul>
+  </div>
+</div>
