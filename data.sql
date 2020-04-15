@@ -4,39 +4,98 @@ INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, c
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwatmariam@gmail.com', 'Hello123', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Mariam Sarwat');
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('genevieve.gagneleroux@gmail.com', 'Hirondelle180', 'avenue Lacombe', 4705, 'H3W1R4', 'Montréal', 'Québec', 'Canada', 'Geneviève Gagné-Leroux');
 INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_appart, no_rue, code_postal, ville, province, pays, nom) VALUES ('sarwats1304@gmail.com', 'HarryPotter12', 'boulevard Graham', 3, 1030, 'H3P2G2', 'Montréal', 'Québec', 'Canada', 'Sarah Sarwat');
+INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('mayurpatel@gmail.com', 'Ronaldo07', 'rue Cedar', 46, 'H3J5R4', 'Montréal', 'Québec', 'Canada', 'Mayur Patel');
+INSERT INTO NETFLIXPOLYDB.Membre (adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES ('nicohirab@gmail.com', 'Messi11', 'rue Roger-Pilon', 85, 'H3W4B6', 'Montréal', 'Québec', 'Canada', 'Nicolas Hirab');
 
 INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (1, 9.99, '2020-03-14', '2020-04-14');
-INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (2, 12.99, '2020-03-01', '2020-04-01');
+INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (2, 9.99, '2020-03-01', '2020-04-01');
+INSERT INTO NETFLIXPOLYDB.AbonnementMensuel (id_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) VALUES (5, 9.99, '2020-03-01', '2020-04-01');
 
-INSERT INTO NETFLIXPOLYDB.AbonnementPayPerView (id_membre, film_payperview) VALUES (3, 2);
-INSERT INTO NETFLIXPOLYDB.AbonnementPayPerView (id_membre, film_payperview) VALUES (4, 1);
+INSERT INTO NETFLIXPOLYDB.AbonnementPayPerView (id_membre, film_payperview) VALUES (3, 1);
+INSERT INTO NETFLIXPOLYDB.AbonnementPayPerView (id_membre, film_payperview) VALUES (4, 3);
+INSERT INTO NETFLIXPOLYDB.AbonnementPayPerView (id_membre, film_payperview) VALUES (6, 3);
+
 
 INSERT INTO NETFLIXPOLYDB.CarteDeCredit (numero, ccv, titulaire, date_expiration, id_membre) VALUES (2134567891011121, 988, 'David Gagne-Leroux', '2022-01-07', 1);
 INSERT INTO NETFLIXPOLYDB.CarteDeCredit (numero, ccv, titulaire, date_expiration, id_membre) VALUES (2224567891011121, 862, 'Mariam Sarwat', '2021-02-08', 2);
 INSERT INTO NETFLIXPOLYDB.CarteDeCredit (numero, ccv, titulaire, date_expiration, id_membre) VALUES (2134567901011121, 722, 'Genevieve Gagne-Leroux', '2023-03-07', 3);
 INSERT INTO NETFLIXPOLYDB.CarteDeCredit (numero, ccv, titulaire, date_expiration, id_membre) VALUES (2235567891011121, 433, 'Sarah Sarwat', '2022-01-09', 4);
+INSERT INTO NETFLIXPOLYDB.CarteDeCredit (numero, ccv, titulaire, date_expiration, id_membre) VALUES (2235567891511121, 422, 'Mayur Patel', '2022-02-09', 5);
+INSERT INTO NETFLIXPOLYDB.CarteDeCredit (numero, ccv, titulaire, date_expiration, id_membre) VALUES (2235567891611121, 633, 'Nicolas Hirab', '2022-03-09', 6);
 
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('The Irishman', '2019-11-27', '03:30:00', 'Gangster');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Once Upon a Time... in Hollywood', '2019-07-26', '02:41:00', 'Comedie dramatique');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('1917', '2020-01-10', '01:59:00', 'Guerre');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Annie Hall', '1977-04-20', '01:33:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Interiors', '1978-08-02', '01:33:00', 'Drame');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Manhattan', '1979-03-14', '01:36:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Broadway Danny Rose', '1984-01-27', '01:21:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('The Purple Rose of Cairo', '1985-03-01', '01:25:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Hannah and Her Sisters', '1986-03-14', '01:47:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Crimes and Misdemeanors', '1989-10-13', '01:44:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Alice', '1990-12-25', '01:42:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Mighty Aphrodite', '1996-01-11', '01:35:00', 'Romance');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Deconstructing Harry', '1997-12-12', '01:36:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Match Point', '2005-12-28', '02:04:00', 'Drame');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Midnight in Paris', '2011-05-20', '01:40:00', 'Comedie');
-INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre) VALUES ('Blue Jasmine', '2013-07-26', '01:38:00', 'Drame');
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('The Irishman', '2019-11-27', 213, 'Gangster', 39.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Once Upon a Time... in Hollywood', '2019-07-26', 161, 'Comedie dramatique', 45.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('1917', '2020-01-10', 119, 'Guerre', 45.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Annie Hall', '1977-04-20', 93, 'Comedie', 9.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Interiors', '1978-08-02', 93, 'Drame', 9.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Manhattan', '1979-03-14', 96, 'Comedie', 9.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Broadway Danny Rose', '1984-01-27', 81, 'Comedie', 9.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('The Purple Rose of Cairo', '1985-03-01', 85, 'Comedie', 9.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Hannah and Her Sisters', '1986-03-14', 107, 'Comedie', 9.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Crimes and Misdemeanors', '1989-10-13', 104, 'Comedie', 19.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Alice', '1990-12-25', 102, 'Comedie', 19.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Mighty Aphrodite', '1996-01-11', 95, 'Romance', 19.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Deconstructing Harry', '1997-12-12', 96, 'Comedie', 19.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Match Point', '2005-12-28', 124, 'Drame', 19.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Midnight in Paris', '2011-05-20', 100, 'Comedie', 19.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Blue Jasmine', '2013-07-26', 98, 'Drame', 29.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Laurence Anyways', '2012-05-18', 168, 'Melodrame', 29.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('J ai tué ma mère', '2009-06-05', 96, 'Biographie', 29.99);
+INSERT INTO NETFLIXPOLYDB.Film (titre, date_production, duree_totale, genre, prix) VALUES ('Mommy', '2014-09-19', 134, 'Drame', 29.99);
 
 
-INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 1, '2020-03-17', '01:00:00');
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 1, '2020-03-17', 180);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 1, '2020-03-18', 180);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 1, '2020-03-19', 180);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-16', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-17', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-18', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-19', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-20', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-21', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-22', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-23', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-24', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-25', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-26', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 2, '2020-03-27', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 6, '2020-03-17', 180);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 7, '2020-03-17', 180);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (1, 8, '2020-03-17', 180);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 6, '2020-03-18', 101);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 7, '2020-03-19', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 8, '2020-03-20', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 9, '2020-03-20', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 10, '2020-03-20', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-16', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-17', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-18', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-19', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-20', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-21', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-22', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-23', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-24', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-25', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-26', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (2, 3, '2020-03-27', 119);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (3, 12, '2020-03-21', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (4, 13, '2020-03-28', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (4, 14, '2020-03-28', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (4, 16, '2020-03-28', 93);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (6, 17, '2020-04-14', 120);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (6, 18, '2020-04-14', 60);
+INSERT INTO NETFLIXPOLYDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES (6, 19, '2020-04-14', 120);
 
-INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (2, 1, 1, '2020-03-15', 19.99);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (2, 1, 1, '2020-03-19', 1.25);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (2, 5, 1, '2020-03-16', 1.25);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (2, 14, 1, '2020-03-17', 1.25);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (2, 10, 1, '2020-03-24', 1.25);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (3, 10, 2, '2020-03-24', 0.75);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (4, 10, 3, '2020-03-24', 1.25);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (4, 11, 1, '2020-03-24', 1.25);
+INSERT INTO NETFLIXPOLYDB.CopieDVD (id_membre, num_film, numero_dvd, date_livraison, cout_livraison) VALUES (4, 12, 1, '2020-03-24', 1.25);
+
 
 INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_ceremonie) VALUES ('Bob Hope', 'Dorothy Chandler Pavilion', 'Los Angeles', 'USA', '1978-04-03');
 INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_ceremonie) VALUES ('Johnny Carson', 'Dorothy Chandler Pavilion', 'Los Angeles', 'USA', '1979-04-09');
@@ -51,7 +110,7 @@ INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_cere
 INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_ceremonie) VALUES ('Jon Stewart', 'Kodak Theater', 'Los Angeles', 'USA', '2006-03-05');
 INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_ceremonie) VALUES ('Billy Cristal', 'Hollywood and Highland Center', 'Los Angeles', 'USA', '2012-02-26');
 INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_ceremonie) VALUES ('Ellen DeGeneres', 'Dolby Theater', 'Los Angeles', 'USA', '2014-03-02');
-INSERT INTO NETFLIXPOLYDB.Ceremonie (maitre, nom_edifice, ville, pays, date_ceremonie) VALUES ('Ellen DeGeneres','Dolby Theater', 'Los Angeles', 'USA', '2020-02-09');
+INSERT INTO NETFLIXPOLYDB.Ceremonie (nom_edifice, ville, pays, date_ceremonie) VALUES ('Dolby Theater', 'Los Angeles', 'USA', '2020-02-09');
 
 
 INSERT INTO NETFLIXPOLYDB.NominationFilms (id_ceremonie, num_film, categorie) VALUES (14, 1, 'meilleur film');
@@ -115,22 +174,26 @@ INSERT INTO NETFLIXPOLYDB.FilmsVainqueurs (id_ceremonie, num_film, categorie) VA
 INSERT INTO NETFLIXPOLYDB.FilmsVainqueurs (id_ceremonie, num_film, categorie) VALUES (1, 4, 'meilleur scenario original');
 INSERT INTO NETFLIXPOLYDB.FilmsVainqueurs (id_ceremonie, num_film, categorie) VALUES (6, 9, 'meilleur scenario original');
 
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Martin Scorsese', 'M', 77, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Robert De Niro', 'M', 76, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Al Pacino', 'M', 79, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Joe Pesci', 'M', 77, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Quentin Tarantino', 'M', 56, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Leonardo DiCaprio', 'M', 45, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Brad Pitt', 'M', 56, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Margot Robbie', 'F', 29, 'Australie');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Sam Mendes', 'M', 54, 'Angleterre');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('George MacKay', 'M', 28, 'Angleterre');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Dean-Charles Chapman', 'M', 22, 'Angleterre');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Woody Allen', 'M', 84, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Diane Keaton', 'F', 74, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Mary Beth Hurt', 'F', 73, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Meryl Streep', 'F', 70, 'USA');
-INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, age, nationalite) VALUES ('Mia Farrow', 'F', 75, 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Martin Scorsese', 'M', '1942-11-17', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Robert De Niro', 'M', '1943-08-17', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Al Pacino', 'M', '1940-04-25', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Joe Pesci', 'M', '1943-02-09', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Quentin Tarantino', 'M', '1963-03-27', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Leonardo DiCaprio', 'M', '1974-11-11', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Brad Pitt', 'M', '1963-12-18', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Margot Robbie', 'F', '1990-07-02', 'Australie');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Sam Mendes', 'M', '1965-08-01', 'Angleterre');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('George MacKay', 'M', '1992-03-13', 'Angleterre');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Dean-Charles Chapman', 'M', '1997-09-07', 'Angleterre');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Woody Allen', 'M', '1935-12-01', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Diane Keaton', 'F', '1946-01-05', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Mary Beth Hurt', 'F', '1946-09-26', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Meryl Streep', 'F', '1949-06-22', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Mia Farrow', 'F', '1945-02-09', 'USA');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Anne Dorval', 'F', '1960-11-08', 'Québec');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Suzanne Clément', 'F', '1969-05-12', 'Québec');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Monia Chokri', 'F', '1982-06-27', 'Québec');
+INSERT INTO NETFLIXPOLYDB.Employee (nom, sexe, date_naissance, nationalite) VALUES ('Xavier Dolan', 'M', '1989-03-20', 'Québec');
 
 
 INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (1, 1, 100000, 'realisateur');
@@ -188,3 +251,13 @@ INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VAL
 INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (15, 12, 10000, 'metteur en scene');
 INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (16, 12, 25000, 'realisateur');
 INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (16, 12, 10000, 'metteur en scene');
+
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (17, 20, 70000, 'realisateur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (17, 19, 50000, 'acteur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (17, 18, 50000, 'acteur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (18, 20, 70000, 'realisateur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (18, 17, 10000, 'acteur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (18, 18, 10000, 'acteur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (19, 20, 70000, 'realisateur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (19, 17, 10000, 'acteur');
+INSERT INTO NETFLIXPOLYDB.Role (num_film, id_employee, salaire, description) VALUES (19, 18, 10000, 'acteur');

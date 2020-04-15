@@ -67,8 +67,9 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Film (
 	numero			SERIAL 			NOT NULL,
 	titre			VARCHAR(100)	NOT NULL,
 	date_production	DATE 			NOT NULL,
-	duree_totale	TIME			NOT NULL,
+	duree_totale	NUMERIC(3,0)	NOT NULL,
 	genre			VARCHAR(20) 	NOT NULL,
+	prix			NUMERIC(4,2)	NOT NULL,
 	PRIMARY KEY(numero)
 );
 
@@ -76,8 +77,8 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.EnLigne (
 	id_membre			SERIAL		 	NOT NULL,
 	num_film			SERIAL 			NOT NULL,
 	date_visionnement	DATE 			NOT NULL,
-	duree_visionnement	TIME		 	NOT NULL,
-	PRIMARY KEY(id_membre, num_film),
+	duree_visionnement	NUMERIC(3,0)	NOT NULL,
+	PRIMARY KEY(id_membre, num_film, date_visionnement),
 	FOREIGN KEY (num_film) REFERENCES NETFLIXPOLYDB.Film(numero) ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY (id_membre) REFERENCES NETFLIXPOLYDB.Membre(id_membre) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.CopieDVD (
 					
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Ceremonie (
 	id_ceremonie		SERIAL 			NOT NULL,
-	maitre 				VARCHAR(100) 	NOT NULL,
+	maitre 				VARCHAR(100) 	, 
 	nom_edifice 		VARCHAR(100) 	NOT NULL,
 	ville		 		VARCHAR(100) 	NOT NULL, --a revoir
 	pays		 		VARCHAR(100) 	NOT NULL, -- a revoir
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Employee (
 	id_employee		SERIAL 			NOT NULL,
 	nom				VARCHAR(100)	NOT NULL,
 	sexe			sexeType		DEFAULT 'F',
-	age 			NUMERIC(3,0) 	NOT NULL,
+	date_naissance 	DATE 			NOT NULL,
 	nationalite		VARCHAR(25)		NOT NULL,
 	PRIMARY KEY(id_employee)
 );
