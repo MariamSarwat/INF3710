@@ -33,6 +33,7 @@ export class MemberDashboardComponent implements OnInit {
   public playBackTime: number;
   public playing: boolean;
   message:string;
+  
   constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }

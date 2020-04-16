@@ -1,1 +1,15 @@
-<p>credit-card works!</p>
+<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Go to dashboard</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Add payment option</button>
+
+<div *ngIf='!newCreditCard'>
+    <h1>Account Information</h1>
+    <div style="padding-left: 2em;">
+        <b>Name  : </b> {{loggedInMember.nom}} <br>
+        <b>Email : </b> {{loggedInMember.adr_courriel}} <br>
+        <b>Adress : </b>
+        <i *ngIf=loggedInMember.no_appart>{{loggedInMember.no_appart}} -</i> {{loggedInMember.no_rue}} {{loggedInMember.nom_rue}}, {{loggedInMember.ville}} {{loggedInMember.code_postal}}, {{loggedInMember.province}}, {{loggedInMember.pays}}
+    </div>
+</div>
+<div *ngIf='newCreditCard'>
+    <li><button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button></li>
+</div>
