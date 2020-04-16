@@ -45,13 +45,16 @@
         <form [formGroup]="this.validatingInputFromUser">
     
           email: <li><input id = "adr_courriel" class="form-control col-md-4" placeholder="Entrez votre adresse courriel" formControlName="adr_courriel" #email></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('email')"> Veuillez entrez une adresse valide</mat-error>
+          <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('required')"> Champs obligatoire</mat-error><br>
+
+          password: <li><input id = "mot_de_passe" class="form-control col-md-4" placeholder="Entrez votre mot de passe" formControlName="mot_de_passe" #password></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('mot_de_passe').hasError('required')"> Champs obligatoire</mat-error><br>
+
+          streetName: <li><input id = "mot_de_passe" class="form-control col-md-4" #streetName></li>
+          
        </form>
-
-
-        <!--         <div *ngIf="adr_courriel.errors.required">
-          adr_courriel is required.
-        </div> -->
-        password: <li><input class="form-control col-md-4" #password></li>
+       
         streetName: <li><input class="form-control col-md-4" #streetName></li>
         apartmentNo: <li><input class="form-control col-md-4" #apartmentNo></li>
         streetNo: <li><input class="form-control col-md-4" #streetNo></li>
