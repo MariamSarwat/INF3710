@@ -30,7 +30,27 @@
       Insertion sur une cle primaire qui existe deja
     </div>
       <ul style="list-style: none;">
-        email: <li><input class="form-control col-md-4" #email></li>
+        
+        <!-- <label for="height" >Hauteur:
+          <br>
+          <input class="inputField" type="number" min="1" id="Height" placeholder="Entrez une valeur positive" formControlName="height" >
+        </label> -->
+
+        <!-- <label for="adr_courriel" >adresse courriel:
+          <br>
+          <input type="text" id="adr_courriel" placeholder="Entrez votre adresse courriel" formControlName="adr_courriel" >
+        </label> -->
+
+
+        <form [formGroup]="this.validatingInputFromUser">
+    
+          email: <li><input id = "adr_courriel" class="form-control col-md-4" placeholder="Entrez votre adresse courriel" formControlName="adr_courriel" #email></li>
+       </form>
+
+
+        <!--         <div *ngIf="adr_courriel.errors.required">
+          adr_courriel is required.
+        </div> -->
         password: <li><input class="form-control col-md-4" #password></li>
         streetName: <li><input class="form-control col-md-4" #streetName></li>
         apartmentNo: <li><input class="form-control col-md-4" #apartmentNo></li>

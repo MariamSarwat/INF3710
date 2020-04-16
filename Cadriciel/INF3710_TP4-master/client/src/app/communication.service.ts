@@ -41,7 +41,7 @@ export class CommunicationService {
     }
 
     // nouvelles méthodes
-    public insertMember(member: Member): Observable<number> { // why "number"?
+    public insertMember(member: Member): Observable<number> { 
         return this.http.post<number>(this.BASE_URL + "/member/insert", member).pipe(
             catchError(this.handleError<number>("insertMember")),
         );

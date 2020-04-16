@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { Member } from "../../../../common/tables/Member";
 import { CommunicationService } from "../communication.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-member",
@@ -12,8 +13,26 @@ export class MemberComponent {
   public members: Member[] = [];
   public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
   public newMember: boolean;
+  public validatingInputFromUser: FormGroup;
 
-  public constructor(private communicationService: CommunicationService, private router: Router) { }
+  public constructor(private communicationService: CommunicationService, private router: Router) { 
+    this.validatingInputFromUser = new FormGroup({
+
+      "adr_courriel": new FormControl( "", Validators.compose([Validators.required, Validators.email, Validators.maxLength(100)])),
+      "mot_de_passe": new FormControl("", Validators.compose([Validators.required, Validators.minLength(8)])),
+      "nom_rue": new FormControl("", Validators.compose([Validators.required,
+                                                         Validators.pattern("[a-zA-Z \-\']"), Validators.maxLength(30)])),
+      "no_appart": new FormControl("", Validators.compose([Validators.pattern("[0-9]"), Validators.maxLength(5)])),
+      "no_rue": new FormControl("", Validators.compose([Validators.required, Validators.pattern("[0-9]"), Validators.maxLength(5)])),
+      "code_postal": new FormControl("", Validators.compose([Validators.required, Validators.pattern("[A-Z]"),
+                                                             Validators.maxLength(6)])), // à modifier
+      "ville": new FormControl("", Validators.compose([Validators.required, Validators.pattern("[a-zA-Z \-\']"),
+                                                       Validators.maxLength(20)])),
+      "province": new FormControl("", Validators.compose([Validators.pattern("[a-zA-Z \-\']"), Validators.maxLength(20)])),
+      "pays": new FormControl("", Validators.compose([Validators.required, Validators.pattern("[a-zA-Z \-\']"), Validators.maxLength(30)])),
+      "nom": new FormControl("", Validators.compose([Validators.required, Validators.pattern("[a-zA-Z \-\']"), Validators.maxLength(100)]))
+    });
+  }
  
   ngOnInit(){
     this.getMembers();
