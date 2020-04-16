@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Film (
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.EnLigne (
 	id_membre			SERIAL		 	NOT NULL,
 	num_film			SERIAL 			NOT NULL,
-	date_visionnement	DATE 			NOT NULL,
+	date_visionnement	TIMESTAMP 			NOT NULL,
 	duree_visionnement	NUMERIC(3,0)	NOT NULL,
 	PRIMARY KEY(id_membre, num_film, date_visionnement),
 	FOREIGN KEY (num_film) REFERENCES NETFLIXPOLYDB.Film(numero) ON DELETE CASCADE ON UPDATE CASCADE,

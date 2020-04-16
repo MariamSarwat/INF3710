@@ -32,13 +32,13 @@ export class MemberDashboardComponent implements OnInit {
   public onlineViewings: Online[] = [];
   public playBackTime: number;
   public playing: boolean;
-message:string;
+  message:string;
   constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
   ngOnInit(): void {
-    this.memberService.currentMessage.subscribe(message => this.message = message)
+    //this.memberService.currentMessage.subscribe(message => this.message = message)
     this.getMovies();
     this.getAllMovieInformation();
     this.getOnlineViewings();
