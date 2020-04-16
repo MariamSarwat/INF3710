@@ -6,7 +6,7 @@ import {Movie} from '../../../common/tables/Movie';
 import {MovieNom} from '../../../common/tables/MovieNom';
 import {MovieWin} from '../../../common/tables/MovieWin';
 import {MovieEmp} from '../../../common/tables/MovieEmp';
-
+import {Online} from '../../../common/tables/Online'
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 
@@ -179,6 +179,22 @@ export class DatabaseController {
                 "categorie_nomine": mem.categorie_nomine 
             }));
             res.json(movieNom);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.get("/member/online",
+        (req: Request, res: Response, next: NextFunction) => {
+            // Send the request to the service and send the response
+            this.databaseService.getOnlineViewings().then((result: pg.QueryResult) => {
+            const onlineViewings: Online[] = result.rows.map((mem: any) => ({
+                "numero": mem.numero,
+                "id_membre": mem.id_membre,
+                "date_visio_recente": mem.date_visio_recente,
+                "duree_visionnement": mem.duree_visionnement
+            }));
+            res.json(onlineViewings);
             }).catch((e: Error) => {
                 console.error(e.stack);
             });

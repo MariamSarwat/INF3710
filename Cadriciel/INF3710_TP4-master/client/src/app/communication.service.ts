@@ -9,6 +9,8 @@ import { Movie } from "../../../common/tables/Movie";
 import { MovieNom } from "../../../common/tables/MovieNom";
 import { MovieWin } from "../../../common/tables/MovieWin";
 import { MovieEmp } from "../../../common/tables/MovieEmp";
+import { Online } from "../../../common/tables/Online";
+
 
 @Injectable()
 export class CommunicationService {
@@ -82,6 +84,12 @@ export class CommunicationService {
     public getMovieEmps(): Observable<any[]> {
         return this.http.get<MovieEmp[]>(this.BASE_URL + "/movie/employees").pipe(
             catchError(this.handleError<MovieEmp[]>("getMovieEmps")),
+        );
+    }
+
+    public getOnlineViewings(): Observable<any[]> {
+        return this.http.get<Online[]>(this.BASE_URL + "/member/online").pipe(
+            catchError(this.handleError<Online[]>("getOnline")),
         );
     }
     

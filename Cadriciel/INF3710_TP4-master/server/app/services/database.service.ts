@@ -129,6 +129,12 @@ export class DatabaseService {
         GROUP BY c.id_ceremonie, fv.num_film;`);
     }
 
+    public getOnlineViewings(): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT f.numero, m.id_membre,  MAX(l.date_visionnement) as date_visio_recente, l.duree_visionnement
+        FROM NetflixPolyDB.membre m INNER JOIN NetflixPolyDB.enligne l ON m.id_membre = l.id_membre
+        INNER JOIN NetflixPolyDB.film f ON f.numero = l.num_film
+        group by f.numero, m.id_membre, l.duree_visionnement;`);
+    }
     public getMovieEmps(): Promise<pg.QueryResult> {
         return this.pool.query(`SELECT e.id_employee, e.nom, e.sexe, e.date_naissance, e.nationalite, r.salaire, r.num_film, r.description
         FROM NetflixPolyDB.Employee e INNER JOIN NetflixPolyDB.Role r ON e.id_employee = r.id_employee

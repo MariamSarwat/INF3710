@@ -9,6 +9,7 @@ import { MovieWin } from '../../../../common/tables/MovieWin';
 
 import { MemberService } from './member.service';
 import { MovieEmp } from '../../../../common/tables/MovieEmp';
+import { Online } from '../../../../common/tables/Online';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -19,6 +20,7 @@ export class MemberDashboardComponent implements OnInit {
   public movies: Movie[] = [];
   public selectedMovie: Movie;
   public loggedInMember: Member;
+
   public allMovieNoms: MovieNom[] = [];
   public allMovieWins: MovieWin[] = [];
   public allMovieEmps: MovieEmp[] = [];
@@ -26,6 +28,9 @@ export class MemberDashboardComponent implements OnInit {
   public movieNoms: MovieNom[] = [];
   public movieWins: MovieWin[] = [];
   public movieEmps: MovieEmp[] = [];
+
+  public onlineViewings: Online[] = [];
+  public playBackTime: number;
   public playing: boolean;
 
   constructor(private communicationService: CommunicationService, private movie: MatDialog, private memberService: MemberService/*private router: Router*/) {
@@ -35,6 +40,7 @@ export class MemberDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getMovies();
     this.getAllMovieInformation();
+    this.getOnlineViewings();
   }
 
   public getMovies(): void {
@@ -45,11 +51,12 @@ export class MemberDashboardComponent implements OnInit {
     });
   }
 
-  public openDialog(content: any, movie: Movie): void {
-    this.selectedMovie = movie;
-    console.log(this.selectedMovie.numero);
-    this.filterMovieInfo(movie);
-    this.movie.open(content, {disableClose: true});
+  public getOnlineViewings(): void {
+    this.communicationService.getOnlineViewings().subscribe((onlineViewings: Online[])=> {
+      this.onlineViewings = onlineViewings; 
+      for (let online of this.onlineViewings)
+        online.date_visio_recente = online.date_visio_recente.split('T')[0];
+    });
   }
 
   public getAllMovieInformation(): void {
@@ -66,31 +73,42 @@ export class MemberDashboardComponent implements OnInit {
     this.communicationService.getMovieEmps().subscribe((movieEmps: MovieEmp[]) => {
       this.allMovieEmps = movieEmps; 
       for (let emp of this.allMovieEmps)
-       emp.date_naissance = emp.date_naissance.split('T')[0];
+        emp.date_naissance = emp.date_naissance.split('T')[0];
     });
+  }
+
+  public openDialog(content: any, movie: Movie): void {
+    this.selectedMovie = movie;
+    console.log(this.selectedMovie.numero);
+    this.filterMovieInfo(movie);
+    this.movie.open(content, {disableClose: true});
   }
 
   public filterMovieInfo(movie: Movie): void{
     this.movieEmps = [];
     this.movieNoms = [];
     this.movieWins = [];
+    this.playBackTime = 0;
     for(let nom of this.allMovieNoms){
-      if(nom.film_nomine === movie.numero){
-        this.movieNoms.push(nom);
-      }
+      if(nom.film_nomine === movie.numero) this.movieNoms.push(nom);
     }
     for(let win of this.allMovieWins){
-      if(win.film_gagne === movie.numero)
-        this.movieWins.push(win);
+      if(win.film_gagne === movie.numero) this.movieWins.push(win);
     }
     for(let emp of this.allMovieEmps){
-      if(emp.num_film === movie.numero)
-        this.movieEmps.push(emp);
+      if(emp.num_film === movie.numero) this.movieEmps.push(emp);
     }
-    console.log(this.movieNoms);
-    console.log(this.movieEmps);
-    console.log(this.movieWins);
+    for(let online of this.onlineViewings){
+      if(online.numero === movie.numero && online.id_membre === this.loggedInMember.id_membre)
+        this.playBackTime = online.duree_visionnement;
+    }
   }
 
-  
+  public setToContinueWatching(): void {
+    this.playing = true;
+  }
+
+  public setToStartFromBeginning(): void {
+      
+  }
 }

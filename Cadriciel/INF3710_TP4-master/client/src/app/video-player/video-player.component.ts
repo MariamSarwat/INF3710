@@ -28,9 +28,6 @@ export class VideoPlayerComponent implements OnInit {
 
   getVideo(mediaID: string) {
     this.videoPlayerService.getVideo(mediaID).subscribe((video: any) => {
-      this.video.title = video.items[0].title; // set title
-      this.video.description = video.items[0].description; // set description
-
       // set duration
       let duration = video.items[0].duration;
       let minutes = Math.floor(duration / 60);
@@ -40,10 +37,8 @@ export class VideoPlayerComponent implements OnInit {
       this.video.key = video.items[0].assetDescriptors[1].key; // set key
       this.videoPlayer.nativeElement.currentTime = 50;
       setTimeout(() =>   this.videoPlayer.nativeElement.play(), 0); // play
-     
     })
   }
-
 }
 /*SET search_path = NetflixPolyDB;
 /*
