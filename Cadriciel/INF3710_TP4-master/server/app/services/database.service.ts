@@ -142,7 +142,9 @@ export class DatabaseService {
         INNER JOIN NetflixPolyDB.film f ON f.numero = r.num_film;`);
     }
     
-    
+    public getMemberInfo(memberID: number): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT * FROM NetflixPolyDB.CarteDeCredit cc WHERE cc.id_membre = \'${memberID}\';`);
+    }
     public createOnlineEntry(online: Online): Promise<pg.QueryResult> {
         let values: string[] = [
             online.id_membre.toString(),
