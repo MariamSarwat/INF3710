@@ -9,7 +9,6 @@ import { MovieWin } from '../../../../common/tables/MovieWin';
 import { MemberService } from './member.service';
 import { MovieEmp } from '../../../../common/tables/MovieEmp';
 import { Online } from '../../../../common/tables/Online';
-import { VideoPlayerService } from '../video-player/video-player.service';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -33,12 +32,13 @@ export class MemberDashboardComponent implements OnInit {
   public onlineViewings: Online[] = [];
   public playBackTime: number;
   public playing: boolean;
-
-  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService, private videoPlayer: VideoPlayerService/*private router: Router*/) {
+message:string;
+  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
   ngOnInit(): void {
+    this.memberService.currentMessage.subscribe(message => this.message = message)
     this.getMovies();
     this.getAllMovieInformation();
     this.getOnlineViewings();
@@ -78,8 +78,10 @@ export class MemberDashboardComponent implements OnInit {
     });
   }
   alreadyWatched:boolean;
+
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
+    this.playing = false;
     console.log(this.selectedMovie.numero);
     this.filterMovieInfo(movie);
     console.log(this.alreadyWatched  + " already watched " + 'member id ' + this.loggedInMember.id_membre)
@@ -119,12 +121,13 @@ export class MemberDashboardComponent implements OnInit {
     this.playing = true;
     this.memberService.playbackTime = 0;
     console.log('time is  ' + this.memberService.playbackTime);
-
   }
 
   public close(): void {
-    this.playing = false;
+    this.memberService.changeMessage("Hello from Second Component")
    // this.videoPlayer.setClose();
     //TODO send to database and enter in new enligne the new time stopped at
+    //setTimeout(() =>   , 3000);
+
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, /*HostListener*/ } from '@angular/core';
 import { VideoPlayerService } from './video-player.service';
 import { MemberService } from '../member-dashboard/member.service';
 
@@ -18,7 +18,7 @@ export class VideoPlayerComponent implements OnInit {
     duration: "",
     key: ""
   }
-
+  message:string;
   @ViewChild('videoPlayer') videoPlayer: ElementRef;
 
   constructor(private videoPlayerService: VideoPlayerService, private member: MemberService) { 
@@ -27,6 +27,11 @@ export class VideoPlayerComponent implements OnInit {
 
   ngOnInit() {
     this.getVideo(this.mediaID);
+    this.member.currentMessage.subscribe(message => {
+      this.message = message;
+      if(this.played)
+        console.log('hello time is ' + this.videoPlayer.nativeElement.currentTime);
+    });
   }
 
  /* @HostListener('window:keyup' || "pause", ['$event'])
@@ -47,9 +52,12 @@ export class VideoPlayerComponent implements OnInit {
       this.videoPlayer.nativeElement.currentTime = this.playbackTime;
       
       setTimeout(() =>   this.videoPlayer.nativeElement.play(), 3000); // play
+      this.played =true;
     })
   }
+  played: boolean
 }
+
 /*SET search_path = NetflixPolyDB;
 /*
 --tout employe des films
