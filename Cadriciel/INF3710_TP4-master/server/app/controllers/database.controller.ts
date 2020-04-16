@@ -105,6 +105,26 @@ export class DatabaseController {
             });
         });
 
+        router.post("/member/online/insert",
+            (req: Request, res: Response, next: NextFunction) => {
+            const online: Online = {
+                "numero": req.body.numero,
+                "id_membre": req.body.id_membre,
+                "date_visio": req.body.date_visio,
+                "duree_visionnement": req.body.duree_visionnement
+            };
+            console.log(online);
+
+            this.databaseService.createOnlineEntry(online)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
+
         router.get("/member",
             (req: Request, res: Response, next: NextFunction) => {
              // Send the request to the service and send the response
@@ -191,7 +211,7 @@ export class DatabaseController {
             const onlineViewings: Online[] = result.rows.map((mem: any) => ({
                 "numero": mem.numero,
                 "id_membre": mem.id_membre,
-                "date_visio_recente": mem.date_visio_recente,
+                "date_visio": mem.date_visio,
                 "duree_visionnement": mem.duree_visionnement
             }));
             res.json(onlineViewings);

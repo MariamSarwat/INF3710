@@ -5,6 +5,7 @@ import {schema} from "../createSchema";
 import {data} from "../populateDB";
 import { Member } from "../../../common/tables/Member";
 import { Movie } from "../../../common/tables/Movie";
+import { Online } from "../../../common/tables/Online";
 
 @injectable()
 export class DatabaseService {
@@ -130,17 +131,28 @@ export class DatabaseService {
     }
 
     public getOnlineViewings(): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT f.numero, m.id_membre,  MAX(l.date_visionnement) as date_visio_recente, l.duree_visionnement
+        return this.pool.query(`SELECT f.numero, m.id_membre,  MAX(l.date_visionnement) as date_visio, l.duree_visionnement
         FROM NetflixPolyDB.membre m INNER JOIN NetflixPolyDB.enligne l ON m.id_membre = l.id_membre
         INNER JOIN NetflixPolyDB.film f ON f.numero = l.num_film
         group by f.numero, m.id_membre, l.duree_visionnement;`);
     }
+
     public getMovieEmps(): Promise<pg.QueryResult> {
         return this.pool.query(`SELECT e.id_employee, e.nom, e.sexe, e.date_naissance, e.nationalite, r.salaire, r.num_film, r.description
         FROM NetflixPolyDB.Employee e INNER JOIN NetflixPolyDB.Role r ON e.id_employee = r.id_employee
         INNER JOIN NetflixPolyDB.film f ON f.numero = r.num_film;`);
     }
     
+    
+    public createOnlineEntry(online: Online): Promise<pg.QueryResult> {
+        let values: string[] = [
+            online.id_membre.toString(),
+            online.numero.toString(),
+            online.duree_visionnement.toString(),
+        ];
+        const queryText: string = `INSERT INTO NetflixPolyDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES ($1, $2, current_timestamp, $3);`;   
+        return this.pool.query(queryText, values);
+    }
 
     public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
         let query: string ='';

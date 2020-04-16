@@ -51,6 +51,12 @@ export class CommunicationService {
         );
     }
 
+    public insertOnlineTime(online: Online): Observable<any> {
+        return this.http.post<Online>(this.BASE_URL + "/member/online/insert", online).pipe(
+            catchError(this.handleError<Online>("insertOnlineTime")),
+        );
+    }
+
     public getMembers(): Observable<any[]> {
         return this.http.get<Member[]>(this.BASE_URL + "/member").pipe(
             catchError(this.handleError<Member[]>("getMembers")),

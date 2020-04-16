@@ -23,7 +23,8 @@ export class VideoPlayerComponent implements OnInit {
     this.getVideo(this.mediaID);
     this.member.currentMessage.subscribe(message => {
       if(this.hasBeenPlayed){
-        console.log('hello time is ' + this.videoPlayer.nativeElement.currentTime);
+		this.member.playbackTime = this.videoPlayer.nativeElement.currentTime;
+        console.log('hello time is ' + this.videoPlayer.nativeElement.currentTime + ' and time in member is ' +this.member.playbackTime);
         this.hasBeenPlayed = false;
       }
     });

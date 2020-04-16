@@ -55,8 +55,7 @@ message:string;
   public getOnlineViewings(): void {
     this.communicationService.getOnlineViewings().subscribe((onlineViewings: Online[])=> {
       this.onlineViewings = onlineViewings; 
-      for (let online of this.onlineViewings)
-        online.date_visio_recente = online.date_visio_recente.split('T')[0];
+      for (let online of this.onlineViewings) online.date_visio = online.date_visio.split('T')[0];
     });
   }
 
@@ -125,6 +124,17 @@ message:string;
 
   public close(): void {
     this.memberService.changeMessage("closing");
-    console.log('in here')
+    const online: Online = {
+      "id_membre": this.loggedInMember.id_membre,
+      "numero": this.selectedMovie.numero,
+      "date_visio": '',
+      "duree_visionnement": this.memberService.playbackTime	
+    };
+    this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
+      if (res > 0) this.communicationService.filter("update"); // see what "filter" does
+      this.getOnlineViewings();
+      console.log('in here')
+
+    });
   }
 }
