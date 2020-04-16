@@ -45,9 +45,9 @@ export class CommunicationService {
     }
 
     // nouvelles méthodes
-    public insertMember(member: Member): Observable<number> { // why "number"?
-        return this.http.post<number>(this.BASE_URL + "/member/insert", member).pipe(
-            catchError(this.handleError<number>("insertMember")),
+    public insertMember(member: Member): Observable<any> {
+        return this.http.post<Member>(this.BASE_URL + "/member/insert", member).pipe(
+            catchError(this.handleError<Member>("insertMember")),
         );
     }
 
@@ -99,9 +99,9 @@ export class CommunicationService {
         );
     }
 
-    public insertMovie(movie: Movie): Observable<number> { // why "number"?
-        return this.http.post<number>(this.BASE_URL + "/movie/insert", movie).pipe(
-            catchError(this.handleError<number>("insertMovie")),
+    public insertMovie(movie: Movie): Observable<any> {
+        return this.http.post<Movie>(this.BASE_URL + "/movie/insert", movie).pipe(
+            catchError(this.handleError<Movie>("insertMovie")),
         );
     }
 }
