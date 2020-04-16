@@ -10,6 +10,7 @@ import { MovieNom } from "../../../common/tables/MovieNom";
 import { MovieWin } from "../../../common/tables/MovieWin";
 import { MovieEmp } from "../../../common/tables/MovieEmp";
 import { Online } from "../../../common/tables/Online";
+import { CreditCard } from "../../../common/tables/CreditCard";
 
 
 @Injectable()
@@ -84,6 +85,12 @@ export class CommunicationService {
     public getMovieWin(): Observable<any[]> {
         return this.http.get<MovieWin[]>(this.BASE_URL + "/movie/winning").pipe(
             catchError(this.handleError<MovieWin[]>("getMovieWin")),
+        );
+    }
+
+    public getMembershipInfo(memberID: number): Observable<any[]> {
+        return this.http.get<CreditCard[]>(this.BASE_URL + "/member/information/" + memberID).pipe(
+            catchError(this.handleError<CreditCard[]>("getMembershipInfo")),
         );
     }
 

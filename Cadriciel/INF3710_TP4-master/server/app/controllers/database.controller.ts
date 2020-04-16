@@ -6,7 +6,9 @@ import {Movie} from '../../../common/tables/Movie';
 import {MovieNom} from '../../../common/tables/MovieNom';
 import {MovieWin} from '../../../common/tables/MovieWin';
 import {MovieEmp} from '../../../common/tables/MovieEmp';
-import {Online} from '../../../common/tables/Online'
+import {Online} from '../../../common/tables/Online';
+import {CreditCard} from '../../../common/tables/CreditCard'
+
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 
@@ -147,7 +149,22 @@ export class DatabaseController {
                 console.error(e.stack);
             });
         });
-
+        router.get("/member/information/:memberID",
+        (req: Request, res: Response, next: NextFunction) => {
+         // Send the request to the service and send the response
+            this.databaseService.getMemberInfo(req.params.memberID).then((result: pg.QueryResult) => {
+            const cc: CreditCard[] = result.rows.map((mem: any) => ({
+                'numero': mem.numero,
+                'ccv': mem.ccv,
+                'titulaire': mem.titulaire,
+                'date_expiration': mem.date_expiration,
+                'id_membre': mem.id_membre,
+            }));
+            res.json(cc);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
         router.get("/movie",
             (req: Request, res: Response, next: NextFunction) => {
                 // Send the request to the service and send the response

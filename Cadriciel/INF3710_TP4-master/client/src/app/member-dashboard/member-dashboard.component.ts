@@ -32,13 +32,14 @@ export class MemberDashboardComponent implements OnInit {
   public onlineViewings: Online[] = [];
   public playBackTime: number;
   public playing: boolean;
-message:string;
+  message:string;
+  
   constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
   ngOnInit(): void {
-    this.memberService.currentMessage.subscribe(message => this.message = message)
+    //this.memberService.currentMessage.subscribe(message => this.message = message)
     this.getMovies();
     this.getAllMovieInformation();
     this.getOnlineViewings();
@@ -106,8 +107,6 @@ message:string;
       if(online.numero === movie.numero && online.id_membre === this.loggedInMember.id_membre){
         this.alreadyWatched = true;
         this.playBackTime = online.duree_visionnement;
-        console.log(this.playBackTime + " time is");
-
       }
     }
   }
@@ -115,29 +114,28 @@ message:string;
   public setToContinueWatching(): void {
     this.playing = true;
     this.memberService.playbackTime = this.playBackTime;
-    //console.log('time is  ' + this.memberService.playbackTime);
   }
 
   public setToStartFromBeginning(): void {
     this.playing = true;
     this.memberService.playbackTime = 0;
-    //console.log('time is  ' + this.memberService.playbackTime);
   }
 
   public close(): void {
-    this.memberService.changeMessage("closing");
-    const online: Online = {
-      "id_membre": this.loggedInMember.id_membre,
-      "numero": this.selectedMovie.numero,
-      "date_visio": '',
-      "duree_visionnement": this.memberService.playbackTime	
-    };
-    console.log(online.duree_visionnement);
-    this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
-      if (res > 0) this.communicationService.filter("update"); // see what "filter" does
-      this.getOnlineViewings();
-      console.log('in here')
+    if(this.playing) {
+      this.memberService.changeMessage("closing");
 
-    });
+      const online: Online = {
+        "id_membre": this.loggedInMember.id_membre,
+        "numero": this.selectedMovie.numero,
+        "date_visio": '',
+        "duree_visionnement": this.memberService.playbackTime	
+      };
+      console.log(online.duree_visionnement);
+      this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
+        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
+        this.getOnlineViewings();
+      });
+    }
   }
 }

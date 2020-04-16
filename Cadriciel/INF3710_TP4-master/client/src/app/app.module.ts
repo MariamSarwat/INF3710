@@ -19,6 +19,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { MemberDashboardComponent } from './member-dashboard/member-dashboard.component';
 import { MovieComponent } from './movie/movie.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { CreditCardComponent } from './credit-card/credit-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     MemberDashboardComponent,
     MovieComponent,
     VideoPlayerComponent,
+    CreditCardComponent,
   ],
   imports: [
     FormsModule,
