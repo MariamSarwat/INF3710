@@ -47,8 +47,8 @@
   <app-video-player></app-video-player>
 </div>
   <mat-dialog-actions align="end">
-      <button *ngIf='this.alreadyWatched' mat-button (click)="this.setToContinueWatching()"> Continue watching </button>
-      <button mat-button (click)="this.setToStartFromBeginning()"> Watch From Beginning </button>
+      <button *ngIf='this.alreadyWatched && !this.playing' mat-button (click)="this.setToContinueWatching()"> Continue watching </button>
+      <button mat-button *ngIf="!this.playing" (click)="this.setToStartFromBeginning()"> Watch From Beginning </button>
       <button mat-button [mat-dialog-close]="true" (click)="this.close()" cdkFocusInitial> Close </button>
   </mat-dialog-actions>
 
