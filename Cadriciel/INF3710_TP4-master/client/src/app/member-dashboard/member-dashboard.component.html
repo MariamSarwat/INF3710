@@ -4,7 +4,7 @@
 
 <ng-template #content let-modal id=modal>
   <h1 mat-dialog-title > {{selectedMovie.titre | uppercase}} </h1>
-
+<div *ngIf="!playing">
   <div mat-dialog-content>
     <span *ngIf="movieWins?.length > 0; else elseBlock1"> 
       <h5>Awards won : </h5>
@@ -42,12 +42,16 @@
     </span>
     <ng-template #elseBlock3><h6>N/A</h6></ng-template>
   </div>
-  
+</div>
+<div *ngIf="playing">
+  <app-video-player></app-video-player>
+</div>
   <mat-dialog-actions align="end">
-      <button mat-button > Watch </button>
+      <button mat-button (click)="this.playing = true"> Watch </button>
       <button mat-button > Watch From Beginning </button>
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial> Close </button>
   </mat-dialog-actions>
+
 </ng-template>
 
 <ul class="heroes">

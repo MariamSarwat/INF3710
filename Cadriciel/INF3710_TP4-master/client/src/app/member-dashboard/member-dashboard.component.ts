@@ -26,6 +26,7 @@ export class MemberDashboardComponent implements OnInit {
   public movieNoms: MovieNom[] = [];
   public movieWins: MovieWin[] = [];
   public movieEmps: MovieEmp[] = [];
+  public playing: boolean;
 
   constructor(private communicationService: CommunicationService, private movie: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
