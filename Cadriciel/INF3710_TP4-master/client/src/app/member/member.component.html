@@ -30,8 +30,42 @@
       Insertion sur une cle primaire qui existe deja
     </div>
       <ul style="list-style: none;">
-        email: <li><input class="form-control col-md-4" #email></li>
-        password: <li><input class="form-control col-md-4" #password></li>
+        
+        <!-- <label for="height" >Hauteur:
+          <br>
+          <input class="inputField" type="number" min="1" id="Height" placeholder="Entrez une valeur positive" formControlName="height" >
+        </label> -->
+
+        <!-- <label for="adr_courriel" >adresse courriel:
+          <br>
+          <input type="text" id="adr_courriel" placeholder="Entrez votre adresse courriel" formControlName="adr_courriel" >
+        </label> -->
+
+
+        <form [formGroup]="this.validatingInputFromUser">
+    
+          email: <li><input id = "adr_courriel" class="form-control col-md-4" placeholder="ex. me@gemail.com" formControlName="adr_courriel" #email></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('email')"> Veuillez entrez une adresse valide</mat-error>
+          <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('required')"> Champs obligatoire</mat-error><br>
+
+          password: <li><input id = "mot_de_passe" class="form-control col-md-4" placeholder="Password" formControlName="mot_de_passe" #password></li>
+          <mat-error *ngIf="this.validatingInputFromUser.controls['mot_de_passe'].hasError('minlength')"> Doit etre d'un longueur minimun de 8</mat-error><br>
+          <mat-error *ngIf="this.validatingInputFromUser.get('mot_de_passe').hasError('required')"> Champs obligatoire</mat-error><br>
+
+          streetName: <li><input id = "nom_rue" class="form-control col-md-4" formControlName="nom_rue" #streetName></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('nom_rue').hasError('required')"> Champs obligatoire</mat-error><br>
+          <mat-error *ngIf="this.validatingInputFromUser.controls['nom_rue'].hasError('maxlength') || this.validatingInputFromUser.controls['nom_rue'].hasError('pattern')"> Invalid entry</mat-error><br>
+
+          apartmentNo: <li><input id = "no_appart" class="form-control col-md-4" formControlName="no_appart" #apartmentNo></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('no_appart').hasError('required')"> Champs obligatoire</mat-error><br>
+          <mat-error *ngIf="this.validatingInputFromUser.controls['no_appart'].hasError('pattern')"> Invalid entry</mat-error><br>
+          
+          zipCode: <li><input id = "code_postal" class="form-control col-md-4" formControlName="code_postal"  #zipCode></li>
+          <mat-error *ngIf="this.validatingInputFromUser.controls['code_postal'].hasError('pattern')"> Invalid entry</mat-error><br>
+
+
+       </form>
+       
         streetName: <li><input class="form-control col-md-4" #streetName></li>
         apartmentNo: <li><input class="form-control col-md-4" #apartmentNo></li>
         streetNo: <li><input class="form-control col-md-4" #streetNo></li>
