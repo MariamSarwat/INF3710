@@ -48,8 +48,8 @@
 </div>
   <mat-dialog-actions align="end">
       <button mat-button (click)="this.playing = true"> Watch </button>
-      <button mat-button > Watch From Beginning </button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial> Close </button>
+      <button mat-button (click)="this.playing = true"> Watch From Beginning </button>
+      <button mat-button [mat-dialog-close]="true" (click)="this.playing = false" cdkFocusInitial> Close </button>
   </mat-dialog-actions>
 
 </ng-template>

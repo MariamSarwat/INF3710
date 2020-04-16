@@ -7,9 +7,10 @@ import { VideoPlayerService } from './video-player.service';
   styleUrls: ['./video-player.component.css'],
   providers: [VideoPlayerService]
 })
+//COde inspirer de https://stackblitz.com/edit/angular-video-player-snapshot?file=src%2Fapp%2FNew%20File
 export class VideoPlayerComponent implements OnInit {
 
-  mediaID: string = "1402726504"; // 1630723954, 2667647842, 1402726504 
+  mediaID: string = "1630723954"; // 1725224003806, 1630723954, 2667647842, 1402726504 
   video: any = {
     title: "",
     description: "",
@@ -37,8 +38,9 @@ export class VideoPlayerComponent implements OnInit {
       this.video.duration = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
 
       this.video.key = video.items[0].assetDescriptors[1].key; // set key
-
-      setTimeout(() => this.videoPlayer.nativeElement.play(), 0); // play
+      this.videoPlayer.nativeElement.currentTime = 50;
+      setTimeout(() =>   this.videoPlayer.nativeElement.play(), 0); // play
+     
     })
   }
 
