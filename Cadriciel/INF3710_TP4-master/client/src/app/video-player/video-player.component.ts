@@ -45,3 +45,49 @@ export class VideoPlayerComponent implements OnInit {
   }
 
 }
+/*SET search_path = NetflixPolyDB;
+/*
+--tout employe des films
+SELECT e.id_employee, e.nom, e.sexe, e.date_naissance, e.nationalite, r.salaire, r.num_film, r.description
+	 FROM NetflixPolyDB.Employee e INNER JOIN NetflixPolyDB.Role r ON e.id_employee = r.id_employee
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = r.num_film
+	;
+
+
+--tout film gagne
+SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, fv.num_film as film_gagne, fv.categorie as categorie_gagne
+	 FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.filmsVainqueurs fv ON c.id_ceremonie = fv.id_ceremonie
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = fv.num_film
+	;
+
+ 
+--tout film nomine
+SELECT * FROM	(SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, nf.num_film as film_nomine, string_agg(nf.categorie, ', ') as categorie_nomine
+	 FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.nominationfilms nf ON c.id_ceremonie = nf.id_ceremonie
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = nf.num_film
+	GROUP BY c.id_ceremonie, nf.num_film) as tab_1
+	NATURAL JOIN
+	(SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, fv.num_film as film_gagne, string_agg(fv.categorie, ', ') as categorie_gagne
+	 FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.filmsVainqueurs fv ON c.id_ceremonie = fv.id_ceremonie
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = fv.num_film) as tab_2
+	 ;
+
+/*SELECT f.numero, m.id_membre,  f.titre, MAX(l.date_visionnement)
+	 FROM NetflixPolyDB.membre m INNER JOIN NetflixPolyDB.enligne l ON m.id_membre = l.id_membre
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = l.num_film
+	 group by f.numero, m.id_membre;*/
+	 
+	/* SELECT m.id_membre, f.titre, l.date_visionnement
+	 FROM NetflixPolyDB.membre m INNER JOIN NetflixPolyDB.enligne l ON m.id_membre = l.id_membre
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = l.num_film
+	 ;*/
+	 /*
+SELECT * FROM 
+	(SELECT f.numero, c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, nf.num_film as film_nomine, nf.categorie as categorie_nomine
+	 FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.nominationfilms nf ON c.id_ceremonie = nf.id_ceremonie
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = nf.num_film) as tab_1
+	 FULL JOIN
+	 (SELECT f.numero, c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, fv.num_film as film_gagne, fv.categorie as categorie_gagne
+	 FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.filmsVainqueurs fv ON c.id_ceremonie = fv.id_ceremonie
+	 INNER JOIN NetflixPolyDB.film f ON f.numero = fv.num_film) as tab_2
+	 ON tab_1.numero = tab_2.numero ;*/
