@@ -5,8 +5,10 @@ import { Movie } from '../../../../common/tables/Movie';
 import { MatDialog } from '@angular/material/dialog';
 import { Member } from '../../../../common/tables/Member';
 import { MovieNom } from '../../../../common/tables/MovieNom';
+import { MovieWin } from '../../../../common/tables/MovieWin';
 
 import { MemberService } from './member.service';
+import { MovieEmp } from '../../../../common/tables/MovieEmp';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -17,14 +19,21 @@ export class MemberDashboardComponent implements OnInit {
   public movies: Movie[] = [];
   public selectedMovie: Movie;
   public loggedInMember: Member;
-  public nominations: MovieNom[];
-  //public winning: any;
+  public allMovieNoms: MovieNom[] = [];
+  public allMovieWins: MovieWin[] = [];
+  public allMovieEmps: MovieEmp[] = [];
+
+  public movieNoms: MovieNom[] = [];
+  public movieWins: MovieWin[] = [];
+  public movieEmps: MovieEmp[] = [];
+
   constructor(private communicationService: CommunicationService, private movie: MatDialog, private memberService: MemberService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
   ngOnInit(): void {
     this.getMovies();
+    this.getAllMovieInformation();
   }
 
   public getMovies(): void {
@@ -37,14 +46,41 @@ export class MemberDashboardComponent implements OnInit {
 
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
-    this.getAllMovieInformation();
-    console.log(this.nominations);
+    console.log(this.selectedMovie.numero);
+    this.filterMovieInfo(movie);
     this.movie.open(content, {disableClose: true});
   }
 
   public getAllMovieInformation(): void {
-    this.communicationService.getMovieNom(this.selectedMovie.numero).subscribe((nominations: MovieNom[]) => {
-        this.nominations = nominations; 
+    this.communicationService.getMovieNom().subscribe((nominations: MovieNom[]) => {
+        this.allMovieNoms = nominations; 
     });
+    this.communicationService.getMovieWin().subscribe((winnings: MovieWin[]) => {
+      this.allMovieWins = winnings; 
+    });
+    this.communicationService.getMovieEmps().subscribe((movieEmps: MovieEmp[]) => {
+      this.allMovieEmps = movieEmps; 
+    });
+  }
+
+  public filterMovieInfo(movie: Movie): void{
+    this.movieEmps = [];
+    this.movieNoms = [];
+    this.movieWins = [];
+    for(let nom of this.allMovieNoms){
+      if(nom.film_nomine === movie.numero)
+        this.movieNoms.push(nom);
+    }
+    for(let win of this.allMovieWins){
+      if(win.film_gagne === movie.numero)
+        this.movieWins.push(win);
+    }
+    for(let emp of this.allMovieEmps){
+      if(emp.num_film === movie.numero)
+        this.movieEmps.push(emp);
+    }
+    console.log(this.movieNoms);
+    console.log(this.movieEmps);
+    console.log(this.movieWins);
   }
 }

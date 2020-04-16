@@ -1,10 +1,10 @@
 export interface MovieNom {
-    "id_ceremonie": string;
+    "id_ceremonie": number;
     "maitre": string;
-    "date_ceremonie": string;
-    "categorie_nomine": string;
     "nom_edifice": string;
     "ville": string;
     "pays": string;
-    "film_nomine": string;
+    "date_ceremonie": string;
+    "film_nomine": number;
+    "categorie_nomine": string; 
 }

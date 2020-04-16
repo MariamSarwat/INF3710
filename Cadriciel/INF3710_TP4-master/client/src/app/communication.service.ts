@@ -7,6 +7,8 @@ import { Member } from "../../../common/tables/Member";
 import { Login } from "../../../common/tables/Login";
 import { Movie } from "../../../common/tables/Movie";
 import { MovieNom } from "../../../common/tables/MovieNom";
+import { MovieWin } from "../../../common/tables/MovieWin";
+import { MovieEmp } from "../../../common/tables/MovieEmp";
 
 @Injectable()
 export class CommunicationService {
@@ -65,9 +67,21 @@ export class CommunicationService {
         );
     }
 
-    public getMovieNom(movieID: number): Observable<any[]> {
-        return this.http.get<MovieNom[]>(this.BASE_URL + "/movie/nominations/" + movieID).pipe(
+    public getMovieNom(): Observable<any[]> {
+        return this.http.get<MovieNom[]>(this.BASE_URL + "/movie/nominations").pipe(
             catchError(this.handleError<MovieNom[]>("getMovieNom")),
+        );
+    }
+
+    public getMovieWin(): Observable<any[]> {
+        return this.http.get<MovieWin[]>(this.BASE_URL + "/movie/winning").pipe(
+            catchError(this.handleError<MovieWin[]>("getMovieWin")),
+        );
+    }
+
+    public getMovieEmps(): Observable<any[]> {
+        return this.http.get<MovieEmp[]>(this.BASE_URL + "/movie/employees").pipe(
+            catchError(this.handleError<MovieEmp[]>("getMovieEmps")),
         );
     }
     
