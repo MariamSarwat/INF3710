@@ -106,6 +106,8 @@ message:string;
       if(online.numero === movie.numero && online.id_membre === this.loggedInMember.id_membre){
         this.alreadyWatched = true;
         this.playBackTime = online.duree_visionnement;
+        console.log(this.playBackTime + " time is");
+
       }
     }
   }
@@ -130,6 +132,7 @@ message:string;
       "date_visio": '',
       "duree_visionnement": this.memberService.playbackTime	
     };
+    console.log(online.duree_visionnement);
     this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
       if (res > 0) this.communicationService.filter("update"); // see what "filter" does
       this.getOnlineViewings();

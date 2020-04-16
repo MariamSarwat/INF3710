@@ -131,10 +131,9 @@ export class DatabaseService {
     }
 
     public getOnlineViewings(): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT f.numero, m.id_membre,  MAX(l.date_visionnement) as date_visio, l.duree_visionnement
-        FROM NetflixPolyDB.membre m INNER JOIN NetflixPolyDB.enligne l ON m.id_membre = l.id_membre
-        INNER JOIN NetflixPolyDB.film f ON f.numero = l.num_film
-        group by f.numero, m.id_membre, l.duree_visionnement;`);
+        return this.pool.query(`SELECT l.id_membre, l.num_film as numero, l.date_visionnement as date_visio, l.duree_visionnement FROM NetflixPolyDB.enligne l 
+        WHERE l.date_visionnement = (SELECT MAX(l_1.date_visionnement) FROM NetflixPolyDB.enligne l_1 
+        WHERE l_1.num_film = l.num_film AND l_1.id_membre = l.id_membre)`);
     }
 
     public getMovieEmps(): Promise<pg.QueryResult> {
