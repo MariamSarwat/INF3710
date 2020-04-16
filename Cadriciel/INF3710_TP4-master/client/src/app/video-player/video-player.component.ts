@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { VideoPlayerService } from './video-player.service';
+import { MemberService } from '../member-dashboard/member.service';
 
 @Component({
   selector: 'app-video-player',
@@ -9,7 +10,7 @@ import { VideoPlayerService } from './video-player.service';
 })
 //COde inspirer de https://stackblitz.com/edit/angular-video-player-snapshot?file=src%2Fapp%2FNew%20File
 export class VideoPlayerComponent implements OnInit {
-
+  playbackTime: any;
   mediaID: string = "1630723954"; // 1725224003806, 1630723954, 2667647842, 1402726504 
   video: any = {
     title: "",
@@ -20,11 +21,18 @@ export class VideoPlayerComponent implements OnInit {
 
   @ViewChild('videoPlayer') videoPlayer: ElementRef;
 
-  constructor(private videoPlayerService: VideoPlayerService) { }
+  constructor(private videoPlayerService: VideoPlayerService, private member: MemberService) { 
+    this.playbackTime = this.member.playbackTime;
+  }
 
   ngOnInit() {
     this.getVideo(this.mediaID);
   }
+
+ /* @HostListener('window:keyup' || "pause", ['$event'])
+  onVideoPause(event: KeyboardEvent) {
+    console.log(this.videoPlayer.nativeElement.currentTime)  
+  }*/
 
   getVideo(mediaID: string) {
     this.videoPlayerService.getVideo(mediaID).subscribe((video: any) => {
@@ -35,8 +43,10 @@ export class VideoPlayerComponent implements OnInit {
       this.video.duration = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
 
       this.video.key = video.items[0].assetDescriptors[1].key; // set key
-      this.videoPlayer.nativeElement.currentTime = 50;
-      setTimeout(() =>   this.videoPlayer.nativeElement.play(), 0); // play
+      console.log(this.playbackTime);
+      this.videoPlayer.nativeElement.currentTime = this.playbackTime;
+      
+      setTimeout(() =>   this.videoPlayer.nativeElement.play(), 3000); // play
     })
   }
 }

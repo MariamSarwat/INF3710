@@ -6,16 +6,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { Member } from '../../../../common/tables/Member';
 import { MovieNom } from '../../../../common/tables/MovieNom';
 import { MovieWin } from '../../../../common/tables/MovieWin';
-
 import { MemberService } from './member.service';
 import { MovieEmp } from '../../../../common/tables/MovieEmp';
 import { Online } from '../../../../common/tables/Online';
+import { VideoPlayerService } from '../video-player/video-player.service';
 
 @Component({
   selector: 'app-member-dashboard',
   templateUrl: './member-dashboard.component.html',
   styleUrls: ['./member-dashboard.component.css']
 })
+
 export class MemberDashboardComponent implements OnInit {
   public movies: Movie[] = [];
   public selectedMovie: Movie;
@@ -33,7 +34,7 @@ export class MemberDashboardComponent implements OnInit {
   public playBackTime: number;
   public playing: boolean;
 
-  constructor(private communicationService: CommunicationService, private movie: MatDialog, private memberService: MemberService/*private router: Router*/) {
+  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService, private videoPlayer: VideoPlayerService/*private router: Router*/) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
@@ -76,12 +77,13 @@ export class MemberDashboardComponent implements OnInit {
         emp.date_naissance = emp.date_naissance.split('T')[0];
     });
   }
-
+  alreadyWatched:boolean;
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
     console.log(this.selectedMovie.numero);
     this.filterMovieInfo(movie);
-    this.movie.open(content, {disableClose: true});
+    console.log(this.alreadyWatched  + " already watched " + 'member id ' + this.loggedInMember.id_membre)
+    this.dialog.open(content, {disableClose: true});
   }
 
   public filterMovieInfo(movie: Movie): void{
@@ -89,6 +91,7 @@ export class MemberDashboardComponent implements OnInit {
     this.movieNoms = [];
     this.movieWins = [];
     this.playBackTime = 0;
+    this.alreadyWatched = false;
     for(let nom of this.allMovieNoms){
       if(nom.film_nomine === movie.numero) this.movieNoms.push(nom);
     }
@@ -99,16 +102,29 @@ export class MemberDashboardComponent implements OnInit {
       if(emp.num_film === movie.numero) this.movieEmps.push(emp);
     }
     for(let online of this.onlineViewings){
-      if(online.numero === movie.numero && online.id_membre === this.loggedInMember.id_membre)
+      if(online.numero === movie.numero && online.id_membre === this.loggedInMember.id_membre){
+        this.alreadyWatched = true;
         this.playBackTime = online.duree_visionnement;
+      }
     }
   }
 
   public setToContinueWatching(): void {
     this.playing = true;
+    this.memberService.playbackTime = this.playBackTime;
+    console.log('time is  ' + this.memberService.playbackTime);
   }
 
   public setToStartFromBeginning(): void {
-      
+    this.playing = true;
+    this.memberService.playbackTime = 0;
+    console.log('time is  ' + this.memberService.playbackTime);
+
+  }
+
+  public close(): void {
+    this.playing = false;
+   // this.videoPlayer.setClose();
+    //TODO send to database and enter in new enligne the new time stopped at
   }
 }
