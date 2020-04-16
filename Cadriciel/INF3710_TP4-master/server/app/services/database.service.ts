@@ -116,16 +116,17 @@ export class DatabaseService {
     }
 
     public getMovieNom(): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, 
-        nf.num_film as film_nomine, nf.categorie as categorie_nomine FROM NetflixPolyDB.Ceremonie c INNER JOIN 
-        NetflixPolyDB.nominationfilms nf ON c.id_ceremonie = nf.id_ceremonie INNER JOIN NetflixPolyDB.film f ON 
-        f.numero = nf.num_film;`);
+        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, nf.num_film as film_nomine, string_agg(nf.categorie, ', ') as categorie_nomine
+        FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.nominationfilms nf ON c.id_ceremonie = nf.id_ceremonie
+        INNER JOIN NetflixPolyDB.film f ON f.numero = nf.num_film
+       GROUP BY c.id_ceremonie, nf.num_film;`);
     }
 
     public getMovieWin(): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, fv.num_film as film_gagne, fv.categorie as categorie_gagne
+        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, fv.num_film as film_gagne, string_agg(fv.categorie, ', ') as categorie_gagne
         FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.filmsVainqueurs fv ON c.id_ceremonie = fv.id_ceremonie
-        INNER JOIN NetflixPolyDB.film f ON f.numero = fv.num_film;`);
+        INNER JOIN NetflixPolyDB.film f ON f.numero = fv.num_film 
+        GROUP BY c.id_ceremonie, fv.num_film;`);
     }
 
     public getMovieEmps(): Promise<pg.QueryResult> {

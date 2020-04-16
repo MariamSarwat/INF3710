@@ -54,12 +54,18 @@ export class MemberDashboardComponent implements OnInit {
   public getAllMovieInformation(): void {
     this.communicationService.getMovieNom().subscribe((nominations: MovieNom[]) => {
         this.allMovieNoms = nominations; 
+        for (let nom of this.allMovieNoms)
+          nom.date_ceremonie = nom.date_ceremonie.split('T')[0];
     });
     this.communicationService.getMovieWin().subscribe((winnings: MovieWin[]) => {
       this.allMovieWins = winnings; 
+      for (let win of this.allMovieWins)
+        win.date_ceremonie = win.date_ceremonie.split('T')[0];
     });
     this.communicationService.getMovieEmps().subscribe((movieEmps: MovieEmp[]) => {
       this.allMovieEmps = movieEmps; 
+      for (let emp of this.allMovieEmps)
+       emp.date_naissance = emp.date_naissance.split('T')[0];
     });
   }
 
@@ -68,8 +74,9 @@ export class MemberDashboardComponent implements OnInit {
     this.movieNoms = [];
     this.movieWins = [];
     for(let nom of this.allMovieNoms){
-      if(nom.film_nomine === movie.numero)
+      if(nom.film_nomine === movie.numero){
         this.movieNoms.push(nom);
+      }
     }
     for(let win of this.allMovieWins){
       if(win.film_gagne === movie.numero)
@@ -83,4 +90,6 @@ export class MemberDashboardComponent implements OnInit {
     console.log(this.movieEmps);
     console.log(this.movieWins);
   }
+
+  
 }
