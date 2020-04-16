@@ -114,20 +114,17 @@ message:string;
   public setToContinueWatching(): void {
     this.playing = true;
     this.memberService.playbackTime = this.playBackTime;
-    console.log('time is  ' + this.memberService.playbackTime);
+    //console.log('time is  ' + this.memberService.playbackTime);
   }
 
   public setToStartFromBeginning(): void {
     this.playing = true;
     this.memberService.playbackTime = 0;
-    console.log('time is  ' + this.memberService.playbackTime);
+    //console.log('time is  ' + this.memberService.playbackTime);
   }
 
   public close(): void {
-    this.memberService.changeMessage("Hello from Second Component")
-   // this.videoPlayer.setClose();
-    //TODO send to database and enter in new enligne the new time stopped at
-    //setTimeout(() =>   , 3000);
-
+    this.memberService.changeMessage("closing");
+    console.log('in here')
   }
 }

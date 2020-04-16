@@ -8,54 +8,36 @@ import { MemberService } from '../member-dashboard/member.service';
   styleUrls: ['./video-player.component.css'],
   providers: [VideoPlayerService]
 })
-//COde inspirer de https://stackblitz.com/edit/angular-video-player-snapshot?file=src%2Fapp%2FNew%20File
+
+//Code inspirer de https://stackblitz.com/edit/angular-video-player-snapshot?file=src%2Fapp%2FNew%20File
 export class VideoPlayerComponent implements OnInit {
-  playbackTime: any;
-  mediaID: string = "1630723954"; // 1725224003806, 1630723954, 2667647842, 1402726504 
-  video: any = {
-    title: "",
-    description: "",
-    duration: "",
-    key: ""
-  }
-  message:string;
+  public hasBeenPlayed: boolean
+  public key: string = '';
+
+  public mediaID: string = "1630723954"; // 1725224003806, 1630723954, 2667647842, 1402726504 
   @ViewChild('videoPlayer') videoPlayer: ElementRef;
 
-  constructor(private videoPlayerService: VideoPlayerService, private member: MemberService) { 
-    this.playbackTime = this.member.playbackTime;
-  }
+  constructor(private videoPlayerService: VideoPlayerService, private member: MemberService) { }
 
   ngOnInit() {
     this.getVideo(this.mediaID);
     this.member.currentMessage.subscribe(message => {
-      this.message = message;
-      if(this.played)
+      if(this.hasBeenPlayed){
         console.log('hello time is ' + this.videoPlayer.nativeElement.currentTime);
+        this.hasBeenPlayed = false;
+      }
     });
   }
 
- /* @HostListener('window:keyup' || "pause", ['$event'])
-  onVideoPause(event: KeyboardEvent) {
-    console.log(this.videoPlayer.nativeElement.currentTime)  
-  }*/
-
   getVideo(mediaID: string) {
     this.videoPlayerService.getVideo(mediaID).subscribe((video: any) => {
-      // set duration
-      let duration = video.items[0].duration;
-      let minutes = Math.floor(duration / 60);
-      let seconds = Math.floor(duration % 60);
-      this.video.duration = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
-
-      this.video.key = video.items[0].assetDescriptors[1].key; // set key
-      console.log(this.playbackTime);
-      this.videoPlayer.nativeElement.currentTime = this.playbackTime;
+      this.key = video.items[0].assetDescriptors[1].key; // set key
+      this.videoPlayer.nativeElement.currentTime = this.member.playbackTime;
       
-      setTimeout(() =>   this.videoPlayer.nativeElement.play(), 3000); // play
-      this.played =true;
+      setTimeout(() =>   this.videoPlayer.nativeElement.play(), 1000); // play
+      this.hasBeenPlayed = true;
     })
   }
-  played: boolean
 }
 
 /*SET search_path = NetflixPolyDB;

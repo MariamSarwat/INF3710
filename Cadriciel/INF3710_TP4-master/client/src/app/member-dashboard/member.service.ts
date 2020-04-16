@@ -17,6 +17,4 @@ export class MemberService {
   changeMessage(message: string) {
     this.messageSource.next(message)
   }
-
-
 }
