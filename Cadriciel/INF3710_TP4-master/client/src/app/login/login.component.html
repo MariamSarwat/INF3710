@@ -1,4 +1,4 @@
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="container" style="padding-top:60px;">  
     <div class="row">  
       <div class="col-md-6 mx-auto">  
@@ -10,14 +10,14 @@
             
                 <div class="input-group mb-3">  
                   <div class="input-group-prepend">  
-                    <span class="input-group-text"><i class="icon-user"></i></span>  
+                    <span class="input-group-text"><mat-icon>person</mat-icon></span>  
                   </div>  
                   <input type="text" name="username" [(ngModel)]="loginInfo.username" class="form-control sty1" placeholder="Email" required>  
                 </div>  
 
                 <div class="input-group mb-4">  
                   <div class="input-group-prepend">  
-                    <span class="input-group-text"><i class="icon-lock"></i></span>  
+                    <span class="input-group-text"><mat-icon>lock</mat-icon></span>  
                   </div>  
                   <input  type="password" name="Password" [(ngModel)]="loginInfo.password" class="form-control"  
                  placeholder="Password">  
@@ -26,7 +26,7 @@
                 <form>
                   <div class="input-group mb-4">  
                     <div class="input-group-prepend">  
-                      <span class="input-group-text"><i class="icon-lock">Login type</i></span>  
+                      <span class="input-group-text"><mat-icon>account_circle</mat-icon></span>  
                     </div> 
                     <select matNativeControl [(ngModel)]="loginInfo.loginType" name="type" placeholder="Login type">
                       <option value="admin">Admin</option>

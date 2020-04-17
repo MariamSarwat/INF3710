@@ -8,7 +8,6 @@ import { MovieWin } from '../../../../common/tables/MovieWin';
 import { MemberService } from './member.service';
 import { MovieEmp } from '../../../../common/tables/MovieEmp';
 import { Online } from '../../../../common/tables/Online';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -34,7 +33,7 @@ export class MemberDashboardComponent implements OnInit {
   public playing: boolean;
   message:string;
   
-  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService, private router: Router) {
+  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
@@ -130,7 +129,8 @@ export class MemberDashboardComponent implements OnInit {
         "date_visio": '',
         "duree_visionnement": this.memberService.playbackTime	
       };
-      console.log(online.duree_visionnement);
+      
+      //console.log(online.duree_visionnement);
       this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
         //if (res > 0) this.communicationService.filter("update"); // see what "filter" does
         this.getOnlineViewings();

@@ -12,7 +12,6 @@ import { MatMenuModule} from '@angular/material/menu';
 import { MatSelectModule} from '@angular/material/select';
 import { MatButtonModule} from '@angular/material/button';
 import { MatDialogModule} from '@angular/material/dialog';
-
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -20,6 +19,7 @@ import { MemberDashboardComponent } from './member-dashboard/member-dashboard.co
 import { MovieComponent } from './movie/movie.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { CreditCardComponent } from './credit-card/credit-card.component';
     AppRoutingModule,
     MatDialogModule,
     ReactiveFormsModule,
+    MatIconModule
   ],
   providers: [CommunicationService],
   bootstrap: [AppComponent],
