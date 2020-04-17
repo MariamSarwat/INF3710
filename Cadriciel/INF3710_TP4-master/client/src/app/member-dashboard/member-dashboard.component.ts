@@ -82,7 +82,6 @@ export class MemberDashboardComponent implements OnInit {
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
     this.playing = false;
-    console.log(this.selectedMovie.numero);
     this.filterMovieInfo(movie);
     console.log(this.alreadyWatched  + " already watched " + 'member id ' + this.loggedInMember.id_membre)
     this.dialog.open(content, {disableClose: true});
@@ -122,7 +121,7 @@ export class MemberDashboardComponent implements OnInit {
   }
 
   public close(): void {
-    if(this.playing) {
+    if(this.playing && this.loggedInMember.id_membre !== 0) {
       this.memberService.changeMessage("closing");
 
       const online: Online = {
@@ -137,9 +136,5 @@ export class MemberDashboardComponent implements OnInit {
         this.getOnlineViewings();
       });
     }
-  }
-
-  public gotToLogin(): void {
-    this.router.navigateByUrl('/login');
   }
 }

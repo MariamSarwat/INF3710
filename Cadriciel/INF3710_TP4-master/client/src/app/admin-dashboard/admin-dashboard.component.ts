@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MemberService } from '../member-dashboard/member.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,11 +7,8 @@ import { Router } from '@angular/router';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor(public memberService: MemberService, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {}
-  
-  public gotToLogin(): void {
-    this.router.navigateByUrl('/login');
-  }
+
 }
