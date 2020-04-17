@@ -6,6 +6,7 @@ import {data} from "../populateDB";
 import { Member } from "../../../common/tables/Member";
 import { Movie } from "../../../common/tables/Movie";
 import { Online } from "../../../common/tables/Online";
+import { CreditCard } from "../../../common/tables/CreditCard";
 
 @injectable()
 export class DatabaseService {
@@ -145,6 +146,19 @@ export class DatabaseService {
     public getMemberInfo(memberID: number): Promise<pg.QueryResult> {
         return this.pool.query(`SELECT * FROM NetflixPolyDB.CarteDeCredit cc WHERE cc.id_membre = \'${memberID}\';`);
     }
+
+    public createCC(cc: CreditCard): Promise<pg.QueryResult> {
+        let values: string[] = [
+            cc.id_membre.toString(),
+            cc.numero.toString(),
+            cc.ccv.toString(),
+            cc.titulaire,
+            cc.date_expiration
+        ];
+        const queryText: string = `INSERT INTO NETFLIXPOLYDB.CarteDeCredit (id_membre, numero, ccv, titulaire, date_expiration) VALUES ($1, $2, $3, $4, $5);`;   
+        return this.pool.query(queryText, values);
+    }
+
     public createOnlineEntry(online: Online): Promise<pg.QueryResult> {
         let values: string[] = [
             online.id_membre.toString(),

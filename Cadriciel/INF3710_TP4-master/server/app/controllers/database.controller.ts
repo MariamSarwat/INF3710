@@ -107,6 +107,27 @@ export class DatabaseController {
             });
         });
 
+        router.post("/member/insert/cc",
+            (req: Request, res: Response, next: NextFunction) => {
+            const cc: CreditCard = {
+                "id_membre": req.body.id_membre,
+                "ccv": req.body.ccv,
+                "titulaire": req.body.titulaire,
+                "numero": req.body.numero,
+                "date_expiration": req.body.date_expiration
+            };
+            console.log(cc);
+
+            this.databaseService.createCC(cc)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
+
         router.post("/member/online/insert",
             (req: Request, res: Response, next: NextFunction) => {
             const online: Online = {
@@ -149,6 +170,7 @@ export class DatabaseController {
                 console.error(e.stack);
             });
         });
+
         router.get("/member/information/:memberID",
         (req: Request, res: Response, next: NextFunction) => {
          // Send the request to the service and send the response
@@ -165,6 +187,7 @@ export class DatabaseController {
                 console.error(e.stack);
             });
         });
+
         router.get("/movie",
             (req: Request, res: Response, next: NextFunction) => {
                 // Send the request to the service and send the response

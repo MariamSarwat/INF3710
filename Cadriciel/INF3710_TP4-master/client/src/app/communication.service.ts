@@ -46,6 +46,12 @@ export class CommunicationService {
     }
 
     // nouvelles méthodes
+    public insertCC(cc: CreditCard): Observable<any> {
+        return this.http.post<CreditCard>(this.BASE_URL + "/member/insert/cc", cc).pipe(
+            catchError(this.handleError<CreditCard>("insertCC")),
+        );
+    }
+
     public insertMember(member: Member): Observable<any> {
         return this.http.post<Member>(this.BASE_URL + "/member/insert", member).pipe(
             catchError(this.handleError<Member>("insertMember")),
