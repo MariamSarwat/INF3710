@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Member } from "../../../../common/tables/Member";
 import { CommunicationService } from "../communication.service";
+import { MemberService } from "../member-dashboard/member.service";
 
 @Component({
   selector: "app-member",
@@ -15,7 +16,7 @@ export class MemberComponent {
   public newMember: boolean;
   public validatingInputFromUser: FormGroup;
 
-  public constructor(private communicationService: CommunicationService, private router: Router) { 
+  public constructor(private communicationService: CommunicationService, private router: Router, public memberService: MemberService) { 
     this.validatingInputFromUser = new FormGroup({
 
       "adr_courriel": new FormControl( "", Validators.compose([Validators.required, Validators.email, Validators.maxLength(100)])),
@@ -74,5 +75,9 @@ export class MemberComponent {
 
   public cancel(): void {
     this.newMember = false;
+  }
+
+  public gotToLogin(): void {
+    this.router.navigateByUrl('/login');
   }
 }

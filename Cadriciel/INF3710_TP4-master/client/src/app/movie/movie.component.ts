@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 import { Movie } from "../../../../common/tables/Movie";
 import { Router } from '@angular/router';
+import { MemberService } from '../member-dashboard/member.service';
 
 @Component({
   selector: 'app-movie',
@@ -13,7 +14,7 @@ export class MovieComponent implements OnInit {
   public newMovie: boolean;
   public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
 
-  constructor(private communicationService: CommunicationService, private router: Router) { }
+  constructor(private communicationService: CommunicationService, private router: Router, public memberService: MemberService) { }
 
   ngOnInit(): void {
     this.getMovies();
@@ -62,5 +63,9 @@ export class MovieComponent implements OnInit {
 
   public cancel(): void {
     this.newMovie = false;
+  }
+
+  public gotToLogin(): void {
+    this.router.navigateByUrl('/login');
   }
 }
