@@ -27,49 +27,46 @@
 <div *ngIf='newMember' style="margin-left: 3em;">
 <div id="member" >
     <h1>Nouveau Membre</h1>
-    <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
-      Insertion sur une clé primaire qui existe deja
-    </div>
       <ul style="list-style: none;">
 
         <form [formGroup]="this.validatingInputFromUser">
     
-          Courriel: <li><input class="form-control col-md-4" placeholder="ex: me@gmail.com" formControlName="adr_courriel" #email></li>
+          Courriel: <li><input class="form-control col-md-4" placeholder="ex: me@gmail.com" formControlName="adr_courriel"></li>
           <div *ngIf="this.validatingInputFromUser.get('adr_courriel').errors && (this.validatingInputFromUser.get('adr_courriel').dirty || this.validatingInputFromUser.get('adr_courriel').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('email')"> Veuillez entrez une adresse valide</mat-error>
               <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('required')"> Champ obligatoire</mat-error><br>
           </div>
 
-          Mot de passe: <li><input class="form-control col-md-4" placeholder="ex: Samourai514" formControlName="mot_de_passe" #password></li>
+          Mot de passe: <li><input class="form-control col-md-4" placeholder="ex: Samourai514" formControlName="mot_de_passe" ></li>
           <div *ngIf="this.validatingInputFromUser.get('mot_de_passe').errors && (this.validatingInputFromUser.get('mot_de_passe').dirty || this.validatingInputFromUser.get('mot_de_passe').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.controls['mot_de_passe'].hasError('minlength')"> Doit etre d'une longueur minimum de 8</mat-error>
               <mat-error *ngIf="this.validatingInputFromUser.get('mot_de_passe').hasError('required')"> Champ obligatoire</mat-error><br>
           </div>
 
-          Nom de rue: <li><input class="form-control col-md-4" placeholder="Entrez le nom de votre rue" formControlName="nom_rue" #streetName></li>
+          Nom de rue: <li><input class="form-control col-md-4" placeholder="Entrez le nom de votre rue" formControlName="nom_rue"></li>
           <div *ngIf="this.validatingInputFromUser.get('nom_rue').errors && (this.validatingInputFromUser.get('nom_rue').dirty || this.validatingInputFromUser.get('nom_rue').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.get('nom_rue').hasError('required')"> Champ obligatoire</mat-error>
               <mat-error *ngIf="this.validatingInputFromUser.controls['nom_rue'].hasError('maxlength') || this.validatingInputFromUser.controls['nom_rue'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          No appartement: <li><input class="form-control col-md-4" placeholder="Entrez votre numéro d'appartement (Optionnel)" formControlName="no_appart" #apartmentNo></li>
+          No appartement: <li><input class="form-control col-md-4" placeholder="Entrez votre numéro d'appartement (Optionnel)" formControlName="no_appart"></li>
           <div *ngIf="this.validatingInputFromUser.get('no_appart').errors && (this.validatingInputFromUser.get('no_appart').dirty || this.validatingInputFromUser.get('no_appart').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.controls['no_appart'].hasError('maxlength') || this.validatingInputFromUser.controls['no_appart'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          No rue: <li><input class="form-control col-md-4" placeholder="Entrez votre numéro de rue" formControlName="no_rue" #streetNo></li>
+          No rue: <li><input class="form-control col-md-4" placeholder="Entrez votre numéro de rue" formControlName="no_rue"></li>
           <div *ngIf="this.validatingInputFromUser.get('no_rue').errors && (this.validatingInputFromUser.get('no_rue').dirty || this.validatingInputFromUser.get('no_rue').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.get('no_rue').hasError('required')"> Champ obligatoire</mat-error>
             <mat-error *ngIf="this.validatingInputFromUser.controls['no_rue'].hasError('maxlength') || this.validatingInputFromUser.controls['no_rue'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          Code postal: <li><input class="form-control col-md-4" placeholder="ex: H2B3E4" formControlName="code_postal"  #zipCode></li>
+          Code postal: <li><input class="form-control col-md-4" placeholder="ex: H2B3E4" formControlName="code_postal"></li>
           <div *ngIf="this.validatingInputFromUser.get('code_postal').errors && (this.validatingInputFromUser.get('code_postal').dirty || this.validatingInputFromUser.get('code_postal').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.get('code_postal').hasError('required')"> Champ obligatoire</mat-error>
               <mat-error *ngIf="this.validatingInputFromUser.controls['code_postal'].hasError('maxlength') || this.validatingInputFromUser.controls['code_postal'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
           
-          Ville: <li><input class="form-control col-md-4" placeholder="Entrez votre ville" formControlName="ville" #city></li>
+          Ville: <li><input class="form-control col-md-4" placeholder="Entrez votre ville" formControlName="ville"></li>
           <div *ngIf="this.validatingInputFromUser.get('ville').errors && (this.validatingInputFromUser.get('ville').dirty || this.validatingInputFromUser.get('ville').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.get('ville').hasError('required')"> Champ obligatoire</mat-error>
             <mat-error *ngIf="this.validatingInputFromUser.controls['ville'].hasError('maxlength') || this.validatingInputFromUser.controls['ville'].hasError('pattern')"> Invalide</mat-error><br>
@@ -87,21 +84,19 @@
             <mat-error *ngIf="this.validatingInputFromUser.controls['province'].hasError('maxlength') || this.validatingInputFromUser.controls['province'].hasError('pattern')"> Invalide</mat-error><br>
           </div> -->
 
-          Pays: <li><input class="form-control col-md-4" placeholder="Entrez votre pays" formControlName="pays" #country></li>
+          Pays: <li><input class="form-control col-md-4" placeholder="Entrez votre pays" formControlName="pays"></li>
           <div *ngIf="this.validatingInputFromUser.get('pays').errors && (this.validatingInputFromUser.get('pays').dirty || this.validatingInputFromUser.get('pays').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.get('pays').hasError('required')"> Champ obligatoire</mat-error>
             <mat-error *ngIf="this.validatingInputFromUser.controls['pays'].hasError('maxlength') || this.validatingInputFromUser.controls['pays'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          Nom d'utilisateur: <li><input class="form-control col-md-4" placeholder="Entrez votre nom" formControlName="nom" #memberName></li>
+          Nom d'utilisateur: <li><input class="form-control col-md-4" placeholder="Entrez votre nom" formControlName="nom"></li>
           <div *ngIf="this.validatingInputFromUser.get('nom').errors && (this.validatingInputFromUser.get('nom').dirty || this.validatingInputFromUser.get('nom').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.get('nom').hasError('required')"> Champ obligatoire</mat-error>
               <mat-error *ngIf="this.validatingInputFromUser.controls['nom'].hasError('maxlength') || this.validatingInputFromUser.controls['nom'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
        </form>
-      <li><button type="button" class="btn btn-primary" [disabled]="!validatingInputFromUser.valid" (click)="insertMember(
-        email.value, password.value, streetName.value, apartmentNo.value, streetNo.value,
-        zipCode.value, city.value, province.value, country.value, memberName.value)" > Ajouter</button>
+      <li><button type="button" class="btn btn-primary" [disabled]="!validatingInputFromUser.valid" (click)="insertMember()" > Ajouter</button>
         <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
 
       </ul>

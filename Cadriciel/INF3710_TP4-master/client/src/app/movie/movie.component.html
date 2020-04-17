@@ -1,5 +1,5 @@
 <button  type="button" *ngIf='!newMovie' class="btn btn-primary" (click)="goBack()">Accueil</button>
-<button style="margin-left: 1em;"  type="button" *ngIf='!newMovie && !modifyingMovie' class="btn btn-primary" (click)="this.newMovie = true">Nouveau Film</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newMovie && !modifyingMovie' class="btn btn-primary" (click)="this.newMovie = true">Nouveau Film</button>
 
 <div *ngIf='!newMovie && !modifyingMovie'>
   <div style="text-align: center">

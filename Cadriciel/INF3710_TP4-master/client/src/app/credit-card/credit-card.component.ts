@@ -58,10 +58,10 @@ export class CreditCardComponent implements OnInit {
         "numero": this.valUser.value.numero,
         "date_expiration": this.valUser.value.date_expiration
       };
-      this.communicationService.insertCC(cc).subscribe((res: number) => {
-       // if (res > 0) this.communicationService.filter("update");
+      this.communicationService.insertCC(cc).subscribe(() => {
         this.getInformation();
         this.newCreditCard = false;
+        this.valUser.reset();
       });
     } else {
       this.errorNotLoggedIn = true;

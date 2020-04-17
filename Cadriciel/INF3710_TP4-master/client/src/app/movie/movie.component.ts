@@ -45,10 +45,17 @@ export class MovieComponent implements OnInit {
     console.log(movieID);
   }
 
-    // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
     public insertMovie(): void {
+      let highestID: number = 0;
+      for (let movie of this.movies){
+        if(movie.numero > highestID){
+          highestID = movie.numero;
+        }
+      }
+      console.log(highestID);
+    
       const movie: Movie = {
-        "numero": this.movies.length + 1,
+        "numero": highestID + 1,
         "titre": this.newMovieValUser.value.titre,
         "date_production": this.newMovieValUser.value.date_production,
         "duree_totale": this.newMovieValUser.value.duree_totale,
@@ -59,6 +66,7 @@ export class MovieComponent implements OnInit {
         this.getMovies();
         this.newMovie = false;
       });
+      this.newMovieValUser.reset();
     }
 
   public goBack(): void {
