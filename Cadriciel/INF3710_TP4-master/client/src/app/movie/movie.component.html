@@ -1,7 +1,7 @@
 <button  type="button" *ngIf='!newMovie' class="btn btn-primary" (click)="goBack()">Go to dashboard</button>
 <button style="margin-left: 1em;"  type="button" *ngIf='!newMovie' class="btn btn-primary" (click)="this.newMovie = true">Add New Movie</button>
 
-<div *ngIf='!newMovie'>
+<div *ngIf='!newMovie && !modifyingMovie'>
   <div style="text-align: center">
     <h1>Existing Movies</h1>
     <table id ="member" align="center" border="1" width="900">
@@ -30,17 +30,90 @@
 
 <div *ngIf='newMovie' style="margin-left: 3em;">
   <h1>Add Movie</h1>
-  <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
-    Insertion sur une cle primaire qui existe deja
-  </div>
-    <ul style="list-style: none;">
-      Title: <li><input class="form-control col-md-4" #title></li>
-      Production date (YYYY-MM-DD): <li><input class="form-control col-md-4" #production_date></li>
-      Total time (minutes): <li><input class="form-control col-md-4" #total_time></li>
-      Genre: <li><input class="form-control col-md-4" #genre></li>
-      Price: <li><input class="form-control col-md-4" #price></li>
-    <button type="button" class="btn btn-primary" (click)="insertMovie(
-      title.value, production_date.value, total_time.value, genre.value, price.value)" > Add Movie</button>
-      <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
-    </ul>
+  <form [formGroup]="this.newMovieValUser">
+    <label>Title </label>
+    <input formControlName="titre" class="form-control col-md-4">
+    <div *ngIf="this.newMovieValUser.get('titre').errors && (this.newMovieValUser.get('titre').dirty || this.newMovieValUser.get('titre').touched)" >
+        <mat-error *ngIf="this.newMovieValUser.get('titre').hasError('required')">title is required</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['titre'].hasError('maxlength')">Name is too long!</mat-error>
+    </div>
+  
+    <label>Production date (YYYY-MM-DD)</label>
+    <input formControlName="date_production" class="form-control col-md-4">
+    <div *ngIf="this.newMovieValUser.get('date_production').errors && (this.newMovieValUser.get('date_production').dirty || this.newMovieValUser.get('date_production').touched)">
+        <mat-error *ngIf="this.newMovieValUser.get('date_production').hasError('required')"> Production date is required</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['date_production'].hasError('pattern')"> Please enter date in the correct format</mat-error>
+    </div>
+  
+    <label>Total time (minutes)</label>
+    <input formControlName="duree_totale" class="form-control col-md-4">
+    <div *ngIf="this.newMovieValUser.get('duree_totale').errors && (this.newMovieValUser.get('duree_totale').dirty || this.newMovieValUser.get('duree_totale').touched)">
+        <mat-error *ngIf="this.newMovieValUser.get('duree_totale').hasError('required')"> Total time in minutes is required</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['duree_totale'].hasError('pattern')"> Please only use numbers</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['duree_totale'].hasError('maxlength') || this.modifyMovieValUser.controls['duree_totale'].hasError('minlength')"> Length should be a max of 3 and a min of 1</mat-error>
+    </div>
+  
+    <label>Genre</label>
+    <input formControlName="genre" class="form-control col-md-4">
+    <div *ngIf="this.newMovieValUser.get('genre').errors && (this.newMovieValUser.get('genre').dirty || this.newMovieValUser.get('genre').touched)" >
+        <mat-error *ngIf="this.newMovieValUser.get('genre').hasError('required')"> Genre is required</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['genre'].hasError('maxlength')"> Make sure to follow the format</mat-error>
+    </div>
+  
+    <label>Price</label>
+    <input formControlName="prix" class="form-control col-md-4">
+    <div *ngIf="this.newMovieValUser.get('prix').errors && (this.newMovieValUser.get('prix').dirty || this.newMovieValUser.get('prix').touched)" >
+        <mat-error *ngIf="this.newMovieValUser.get('prix').hasError('required')"> Price is required</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['prix'].hasError('pattern')"> Please only use numbers</mat-error>
+    </div>
+  </form>
+  
+  <button type="button" class="btn btn-primary" [disabled]="!newMovieValUser.valid" (click)="insertMovie()"> Add Movie</button>
+  <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+
+</div>
+
+<div *ngIf='modifyingMovie' style="margin-left: 3em;">
+  <h1>Modify Movie</h1>
+  <form [formGroup]="this.modifyMovieValUser">
+    <label>Title </label>
+    <input formControlName="titre" class="form-control col-md-4" >
+    <div *ngIf="this.modifyMovieValUser.get('titre').errors && (this.modifyMovieValUser.get('titre').dirty || this.modifyMovieValUser.get('titre').touched)" >
+        <mat-error *ngIf="this.modifyMovieValUser.get('titre').hasError('required')">title is required</mat-error>
+        <mat-error *ngIf="this.modifyMovieValUser.controls['titre'].hasError('maxlength')">Name is too long!</mat-error>
+    </div>
+  
+    <label>Production date (YYYY-MM-DD)</label>
+    <input formControlName="date_production" class="form-control col-md-4">
+    <div *ngIf="this.modifyMovieValUser.get('date_production').errors && (this.modifyMovieValUser.get('date_production').dirty || this.modifyMovieValUser.get('date_production').touched)">
+        <mat-error *ngIf="this.modifyMovieValUser.get('date_production').hasError('required')"> Production date is required</mat-error>
+        <mat-error *ngIf="this.modifyMovieValUser.controls['date_production'].hasError('pattern')"> Please enter date in the correct format</mat-error>
+    </div>
+  
+    <label>Total time (minutes)</label>
+    <input formControlName="duree_totale" class="form-control col-md-4">
+    <div *ngIf="this.modifyMovieValUser.get('duree_totale').errors && (this.modifyMovieValUser.get('duree_totale').dirty || this.modifyMovieValUser.get('duree_totale').touched)">
+        <mat-error *ngIf="this.modifyMovieValUser.get('duree_totale').hasError('required')"> Total time in minutes is required</mat-error>
+        <mat-error *ngIf="this.modifyMovieValUser.controls['duree_totale'].hasError('pattern')"> Please only use numbers</mat-error>
+        <mat-error *ngIf="this.modifyMovieValUser.controls['duree_totale'].hasError('maxlength') || this.modifyMovieValUser.controls['duree_totale'].hasError('minlength')"> Length should be a max of 3 and a min of 1</mat-error>
+    </div>
+  
+    <label>Genre</label>
+    <input formControlName="genre" class="form-control col-md-4">
+    <div *ngIf="this.modifyMovieValUser.get('genre').errors && (this.modifyMovieValUser.get('genre').dirty || this.modifyMovieValUser.get('genre').touched)" >
+        <mat-error *ngIf="this.modifyMovieValUser.get('genre').hasError('required')"> Genre is required</mat-error>
+        <mat-error *ngIf="this.modifyMovieValUser.controls['genre'].hasError('maxlength')"> Make sure to follow the format</mat-error>
+    </div>
+  
+    <label>Price</label>
+    <input formControlName="prix" class="form-control col-md-4">
+    <div *ngIf="this.modifyMovieValUser.get('prix').errors && (this.modifyMovieValUser.get('prix').dirty || this.modifyMovieValUser.get('prix').touched)" >
+        <mat-error *ngIf="this.modifyMovieValUser.get('prix').hasError('required')"> Price is required</mat-error>
+        <mat-error *ngIf="this.modifyMovieValUser.controls['prix'].hasError('pattern')"> Please only use numbers</mat-error>
+    </div>
+  </form>
+  
+  <button type="button" class="btn btn-primary" [disabled]="!modifyMovieValUser.valid" (click)="modifyMovieSubmit()">Modify Movie</button>
+  <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+  
 </div>
