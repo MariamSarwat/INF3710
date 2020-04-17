@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { Router } from '@angular/router';
 import { CommunicationService } from '../communication.service';
 import { Movie } from '../../../../common/tables/Movie';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +8,7 @@ import { MovieWin } from '../../../../common/tables/MovieWin';
 import { MemberService } from './member.service';
 import { MovieEmp } from '../../../../common/tables/MovieEmp';
 import { Online } from '../../../../common/tables/Online';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-dashboard',
@@ -34,7 +34,7 @@ export class MemberDashboardComponent implements OnInit {
   public playing: boolean;
   message:string;
   
-  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService/*private router: Router*/) {
+  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService, private router: Router) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
@@ -137,5 +137,8 @@ export class MemberDashboardComponent implements OnInit {
         this.getOnlineViewings();
       });
     }
+  }
+  public gotToLogin(): void {
+    this.router.navigateByUrl('/login');
   }
 }
