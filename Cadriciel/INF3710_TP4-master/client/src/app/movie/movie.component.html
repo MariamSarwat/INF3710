@@ -50,7 +50,7 @@
     <div *ngIf="this.newMovieValUser.get('duree_totale').errors && (this.newMovieValUser.get('duree_totale').dirty || this.newMovieValUser.get('duree_totale').touched)">
         <mat-error *ngIf="this.newMovieValUser.get('duree_totale').hasError('required')"> Total time in minutes is required</mat-error>
         <mat-error *ngIf="this.newMovieValUser.controls['duree_totale'].hasError('pattern')"> Please only use numbers</mat-error>
-        <mat-error *ngIf="this.newMovieValUser.controls['duree_totale'].hasError('maxlength') || this.modifyMovieValUser.controls['duree_totale'].hasError('minlength')"> Length should be a max of 3 and a min of 1</mat-error>
+        <mat-error *ngIf="this.newMovieValUser.controls['duree_totale'].hasError('maxlength') || this.newMovieValUser.controls['duree_totale'].hasError('minlength')"> Length should be a max of 3 and a min of 1</mat-error>
     </div>
   
     <label>Genre</label>
