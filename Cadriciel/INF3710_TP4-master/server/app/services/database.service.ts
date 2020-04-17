@@ -96,10 +96,10 @@ export class DatabaseService {
         ];
         let queryText: string;
         if(memberInfo.no_appart){ 
-            queryText = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`;
+            queryText = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2, NetflixPolyDB.crypt('$3', gen_salt('bf')),$4,$5,$6,$7,$8,$9,$10,$11);`;
         } else {
             values.splice(4,1);
-            queryText = `INSERT INTO NetflixPolyDB.Membre(id_membre, adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`;
+            queryText = `INSERT INTO NetflixPolyDB.Membre(id_membre, adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES($1,$2, NetflixPolyDB.crypt('$3', gen_salt('bf')),$4,$5,$6,$7,$8,$9,$10);`;
         }         
         return this.pool.query(queryText, values);
     }
@@ -177,7 +177,7 @@ export class DatabaseService {
             query = `SELECT * FROM NetflixPolyDB.Admin `;
         }
         console.log(password);
-        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = \'${password}\';`);
+        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = NetflixPolyDB.crypt(\'${password}\', mot_de_passe);`);
         return this.pool.query(query);
     }
 
