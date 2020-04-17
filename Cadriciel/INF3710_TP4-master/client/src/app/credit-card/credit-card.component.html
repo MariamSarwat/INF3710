@@ -1,24 +1,24 @@
 
-<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Go back to dashboard</button>
-<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Add payment option</button>
+<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Accueil</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Ajouter une option de paiement</button>
 
 <div *ngIf='!newCreditCard'>
     <div style="text-align: center">
 
-        <h1>Account Information</h1>
+        <h1> Informations du compte </h1>
         <div style="padding-left: 2em;">
-            <b>Name  : </b> {{loggedInMember.nom}} <br>
-            <b>Email : </b> {{loggedInMember.adr_courriel}} <br>
-            <b>Adress : </b>
+            <b>Nom  : </b> {{loggedInMember.nom}} <br>
+            <b>Courriel : </b> {{loggedInMember.adr_courriel}} <br>
+            <b>Adresse : </b>
             <i *ngIf=loggedInMember.no_appart>{{loggedInMember.no_appart}} -</i> {{loggedInMember.no_rue}} {{loggedInMember.nom_rue}}, {{loggedInMember.ville}} {{loggedInMember.code_postal}}, {{loggedInMember.province}}, {{loggedInMember.pays}}
         </div>
 
-        <h1>Existing Payment options</h1>
+        <h1>Options de paiement actuels</h1>
         <table align="center" border="1" width="900">
             <thead>
-            <th> CARD NUMBER</th>
-            <th> CARD HOLDER</th>
-            <th> EXPIRATION DATE </th>
+            <th> NUMÉRO DE CARTE</th>
+            <th> NOM DU PROPRIÉTAIRE</th>
+            <th> DATE D'EXPIRATION </th>
             </thead>
             <tbody>
             <tr *ngFor="let cc of creditCards">
@@ -32,41 +32,41 @@
 </div>
 <div *ngIf='newCreditCard' style="margin-left: 3em;">
     <form [formGroup]="this.valUser">
-        <label>Card Holder name</label>
+        <label>Nom du propriétaire</label>
         <input formControlName="titulaire" class="form-control col-md-4">
         <div *ngIf="this.valUser.get('titulaire').errors && (this.valUser.get('titulaire').dirty || this.valUser.get('titulaire').touched)" >
-            <mat-error *ngIf="this.valUser.get('titulaire').hasError('required')">Name is required</mat-error>
-            <mat-error *ngIf="this.valUser.controls['titulaire'].hasError('maxlength')">Name is too long!</mat-error>
+            <mat-error *ngIf="this.valUser.get('titulaire').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['titulaire'].hasError('maxlength')">Nom trop long!</mat-error>
         </div>
 
-        <label>Card number</label>
+        <label>NUMÉRO DE CARTE</label>
         <input formControlName="numero" class="form-control col-md-4">
         <div *ngIf="this.valUser.get('numero').errors && (this.valUser.get('numero').dirty || this.valUser.get('numero').touched)">
-            <mat-error *ngIf="this.valUser.get('numero').hasError('required')"> Card number is required</mat-error>
-            <mat-error *ngIf="this.valUser.controls['numero'].hasError('pattern')"> Please only use numbers</mat-error>
-            <mat-error *ngIf="this.valUser.controls['numero'].hasError('maxlength') || this.valUser.controls['numero'].hasError('minlength')"> Length should be 16</mat-error>
+            <mat-error *ngIf="this.valUser.get('numero').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['numero'].hasError('pattern')">SVP Veuillez n'utiliser que des chiffres</mat-error>
+            <mat-error *ngIf="this.valUser.controls['numero'].hasError('maxlength') || this.valUser.controls['numero'].hasError('minlength')"> Longueur atendue: 16</mat-error>
         </div>
 
         <label>CCV</label>
         <input formControlName="ccv" class="form-control col-md-4">
         <div *ngIf="this.valUser.get('ccv').errors && (this.valUser.get('ccv').dirty || this.valUser.get('ccv').touched)">
-            <mat-error *ngIf="this.valUser.get('ccv').hasError('required')"> CCV is required</mat-error>
-            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('pattern')"> Please only use numbers</mat-error>
-            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('maxlength') || this.valUser.controls['ccv'].hasError('minlength')"> Length should be 3</mat-error>
+            <mat-error *ngIf="this.valUser.get('ccv').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('pattern')">SVP Veuillez n'utiliser que des chiffres</mat-error>
+            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('maxlength') || this.valUser.controls['ccv'].hasError('minlength')"> Longueur attendue: 3</mat-error>
         </div>
 
-        <label>Expiration date (YYYY-MM-DD)</label>
+        <label>Date d'expiration (AAAA-MM-JJ)</label>
         <input formControlName="date_expiration" class="form-control col-md-4">
         <div *ngIf="this.valUser.get('date_expiration').errors && (this.valUser.get('date_expiration').dirty || this.valUser.get('date_expiration').touched)" >
-            <mat-error *ngIf="this.valUser.get('date_expiration').hasError('required')"> Expiration date is required</mat-error>
-            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('pattern')"> Please only use numbers</mat-error>
-            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('maxlength') || this.valUser.controls['date_expiration'].hasError('minlength')"> Make sure to follow the format</mat-error>
+            <mat-error *ngIf="this.valUser.get('date_expiration').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('pattern')"> SVP Veuillez n'utiliser que des chiffres</mat-error>
+            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('maxlength') || this.valUser.controls['date_expiration'].hasError('minlength')"> SVP Veuillez respecter le format</mat-error>
         </div>
     </form>
 
-    <button type="button" class="btn btn-primary" [disabled]="!valUser.valid" (click)="submit()" > Add Card</button>
-    <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="!valUser.valid" (click)="submit()" > Ajouter</button>
+    <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
     <br>
-    <mat-error *ngIf="this.errorNotLoggedIn"> Please log into an account first </mat-error>
+    <mat-error *ngIf="this.errorNotLoggedIn"> SVP Veuillez vous connecter à votre compte</mat-error>
 
 </div>

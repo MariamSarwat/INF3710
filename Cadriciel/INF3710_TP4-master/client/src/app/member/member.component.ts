@@ -24,13 +24,15 @@ export class MemberComponent {
                                                          Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(30)])),
       "no_appart": new FormControl("", Validators.compose([Validators.pattern("^[0-9]+$"), Validators.maxLength(5)])),
       "no_rue": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[0-9]+$"), Validators.maxLength(5)])),
-      "code_postal": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$"),
-                                                             Validators.maxLength(6)])), // à modifier
+      "code_postal": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]+$"),
+                                                             Validators.maxLength(6)])),
       "ville": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"),
                                                        Validators.maxLength(20)])),
       "province": new FormControl("", Validators.compose([Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(20)])),
-      "pays": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(30)])),
-      "nom": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(100)]))
+      "pays": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"),
+                                                      Validators.maxLength(30)])),
+      "nom": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"),
+                                                     Validators.maxLength(100)]))
     });
   }
  
