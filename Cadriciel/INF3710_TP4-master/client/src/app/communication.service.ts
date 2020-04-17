@@ -123,4 +123,11 @@ export class CommunicationService {
             catchError(this.handleError<Movie>("insertMovie")),
         );
     }
+
+    /*getDistanceMatrix(): Observable<any> {
+        
+        return this.http.get<any>('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=AIzaSyCHJQNmZvugpq8V-mpEYrBCs5Ki9oiggnI').pipe(
+            catchError(this.handleError<any>("getDistanceMatrix")),
+        )
+   }*/
 }
