@@ -79,16 +79,12 @@
           </select>
           </div>
 
-          <!-- <li><input class="form-control col-md-4" placeholder="Entrez votre province (Optionnel)" formControlName="province" #province></li>
-          <div *ngIf="this.validatingInputFromUser.get('province').errors && (this.validatingInputFromUser.get('province').dirty || this.validatingInputFromUser.get('province').touched)" >
-            <mat-error *ngIf="this.validatingInputFromUser.controls['province'].hasError('maxlength') || this.validatingInputFromUser.controls['province'].hasError('pattern')"> Invalide</mat-error><br>
-          </div> -->
+          Pays: <li><input class="form-control col-md-4"  placeholder="Canada" value = "Canada" formControlName="pays" readonly></li>
 
-          Pays: <li><input class="form-control col-md-4" placeholder="Entrez votre pays" formControlName="pays"></li>
-          <div *ngIf="this.validatingInputFromUser.get('pays').errors && (this.validatingInputFromUser.get('pays').dirty || this.validatingInputFromUser.get('pays').touched)" >
+          <!-- <div *ngIf="this.validatingInputFromUser.get('pays').errors && (this.validatingInputFromUser.get('pays').dirty || this.validatingInputFromUser.get('pays').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.get('pays').hasError('required')"> Champ obligatoire</mat-error>
             <mat-error *ngIf="this.validatingInputFromUser.controls['pays'].hasError('maxlength') || this.validatingInputFromUser.controls['pays'].hasError('pattern')"> Invalide</mat-error><br>
-          </div>
+          </div> -->
 
           Nom d'utilisateur: <li><input class="form-control col-md-4" placeholder="Entrez votre nom" formControlName="nom"></li>
           <div *ngIf="this.validatingInputFromUser.get('nom').errors && (this.validatingInputFromUser.get('nom').dirty || this.validatingInputFromUser.get('nom').touched)" >
@@ -96,7 +92,7 @@
               <mat-error *ngIf="this.validatingInputFromUser.controls['nom'].hasError('maxlength') || this.validatingInputFromUser.controls['nom'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
        </form>
-      <li><button type="button" class="btn btn-primary" [disabled]="!validatingInputFromUser.valid" (click)="insertMember()" > Ajouter</button>
+      <li><button type="button" class="btn btn-primary"  [disabled]="!validatingInputFromUser.valid" (click)="insertMember()" > Ajouter</button>
         <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
 
       </ul>
