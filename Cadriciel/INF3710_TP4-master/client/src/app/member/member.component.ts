@@ -14,6 +14,7 @@ export class MemberComponent {
   public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
   public newMember: boolean;
   public validatingInputFromUser: FormGroup;
+  public provinces: string[] = ["Quebec", "Ontario"];
 
   public constructor(private communicationService: CommunicationService, private router: Router) { 
     this.validatingInputFromUser = new FormGroup({
@@ -24,7 +25,7 @@ export class MemberComponent {
                                                          Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(30)])),
       "no_appart": new FormControl("", Validators.compose([Validators.pattern("^[0-9]+$"), Validators.maxLength(5)])),
       "no_rue": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[0-9]+$"), Validators.maxLength(5)])),
-      "code_postal": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]+$"),
+      "code_postal": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[ABCEGHJKLMNPRSTVXY]+$"),
                                                              Validators.maxLength(6)])),
       "ville": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"),
                                                        Validators.maxLength(20)])),

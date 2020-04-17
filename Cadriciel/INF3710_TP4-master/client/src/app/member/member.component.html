@@ -75,10 +75,17 @@
             <mat-error *ngIf="this.validatingInputFromUser.controls['ville'].hasError('maxlength') || this.validatingInputFromUser.controls['ville'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
         
-          Province: <li><input class="form-control col-md-4" placeholder="Entrez votre province (Optionnel)" formControlName="province" #province></li>
+          Province:
+          <div>
+          <select formControlName="province">
+            <option [ngValue]="province" *ngFor="let province of provinces">{{province}}</option>
+          </select>
+          </div>
+
+          <!-- <li><input class="form-control col-md-4" placeholder="Entrez votre province (Optionnel)" formControlName="province" #province></li>
           <div *ngIf="this.validatingInputFromUser.get('province').errors && (this.validatingInputFromUser.get('province').dirty || this.validatingInputFromUser.get('province').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.controls['province'].hasError('maxlength') || this.validatingInputFromUser.controls['province'].hasError('pattern')"> Invalide</mat-error><br>
-          </div>
+          </div> -->
 
           Pays: <li><input class="form-control col-md-4" placeholder="Entrez votre pays" formControlName="pays" #country></li>
           <div *ngIf="this.validatingInputFromUser.get('pays').errors && (this.validatingInputFromUser.get('pays').dirty || this.validatingInputFromUser.get('pays').touched)" >
