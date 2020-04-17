@@ -1,4 +1,4 @@
-<button  type="button" *ngIf='!newMovie' class="btn btn-primary" (click)="goBack()">Accueil</button>
+<button  type="button" style="margin-left: 0.5em;" *ngIf='!newMovie' class="btn btn-primary" (click)="goBack()">Accueil</button>
 <button style="margin-left: 1em;" type="button" *ngIf='!newMovie && !modifyingMovie' class="btn btn-primary" (click)="this.newMovie = true">Nouveau Film</button>
 
 <div *ngIf='!newMovie && !modifyingMovie'>
@@ -20,8 +20,8 @@
           <td> {{movie.date_production}}</td>
           <td> {{movie.duree_totale}}</td>
           <td> {{movie.genre}}</td>
-          <td> <button (click)="modifyMovie(movie.numero)">Modifier</button>
-          <button style="background-color: #f44336;" (click)="deleteMovie(movie.numero)">Supprimer</button></td> 
+          <td> <button style="margin-left: 0.5em; background-color: #71bb54;" (click)="modifyMovie(movie.numero)">Modifier</button>
+          <button style="background-color: #ee675d; margin-left: 0.5em;" (click)="deleteMovie(movie.numero)">Supprimer</button></td> 
         </tr>
         </tbody>
     </table>
@@ -113,7 +113,7 @@
     </div>
   </form>
   
-  <button type="button" class="btn btn-primary" [disabled]="!modifyMovieValUser.valid" (click)="modifyMovieSubmit()">Modifier</button>
+  <button type="button" class="btn btn-primary" [disabled]="!modifyMovieValUser.valid" style="background-color: #71bb54;" (click)="modifyMovieSubmit()">Modifier</button>
   <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
   
 </div>

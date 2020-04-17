@@ -1,5 +1,5 @@
 
-<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Accueil</button>
+<button type="button" style="margin-left: 0.5em;" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Accueil</button>
 <button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Ajouter une option de paiement</button>
 
 <div *ngIf='!newCreditCard'>
