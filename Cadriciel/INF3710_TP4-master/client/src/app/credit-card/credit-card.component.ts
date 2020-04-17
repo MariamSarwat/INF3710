@@ -16,6 +16,7 @@ export class CreditCardComponent implements OnInit {
   public newCreditCard: boolean;
   public creditCards: CreditCard[] = [];
   public valUser: FormGroup;
+  public errorNotLoggedIn: boolean;
 
   constructor(private communicationService: CommunicationService, private memberService: MemberService, private router: Router) { 
     this.loggedInMember = this.memberService.memberInfo;
@@ -48,6 +49,8 @@ export class CreditCardComponent implements OnInit {
   }
 
   public submit(): void {
+    if(this.loggedInMember.id_membre !== 0){
+      this.errorNotLoggedIn = false;
       const cc: CreditCard = {
         "id_membre":this.loggedInMember.id_membre,
         "ccv": this.valUser.value.ccv,
@@ -56,9 +59,12 @@ export class CreditCardComponent implements OnInit {
         "date_expiration": this.valUser.value.date_expiration
       };
       this.communicationService.insertCC(cc).subscribe((res: number) => {
-        if (res > 0) this.communicationService.filter("update");
+       // if (res > 0) this.communicationService.filter("update");
         this.getInformation();
         this.newCreditCard = false;
       });
+    } else {
+      this.errorNotLoggedIn = true;
+    }
   }
 }

@@ -32,16 +32,16 @@ export class LoginComponent{
       } else {
         this.errorMessage = 'no user was found';    
       }    
-      console.log(this.member);
-      console.log(this.loginInfo);
     }); 
   }
 
   navigateTo(memberInfo: Member): void {
     console.log(this.loginInfo.loginType);
     if(this.loginInfo.loginType === "admin"){
+      this.memberService.isAdmin = true;
       this.router.navigateByUrl('/admin-dashboard');    
     } else if(this.loginInfo.loginType === "member"){
+      this.memberService.isAdmin = false;
       this.memberService.memberInfo = memberInfo;
       this.router.navigateByUrl('/member-dashboard');    
     }

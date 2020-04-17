@@ -11,7 +11,7 @@ import { MemberService } from "./member-dashboard/member.service";
 export class AppComponent {
     public route: string = '';
 
-    public constructor(location: Location, router: Router, private memberService: MemberService) {
+    public constructor(location: Location, router: Router, public memberService: MemberService) {
       router.events.subscribe(() => {
           if (location.path() !== "") {
             this.route = location.path();
@@ -20,9 +20,10 @@ export class AppComponent {
           }
       });
     }    
+    
   public logout():void{
-    console.log('logging out! ' + this.memberService.memberInfo.nom);
     this.memberService.memberInfo = {"id_membre": 0, "adr_courriel": '', "mot_de_passe": '', "nom_rue": '', 
     "no_appart": 0, "no_rue": 0, "code_postal": '', "ville": '', "province": '', "pays": '',"nom": ''};
+    this.memberService.isAdmin = false;
   }
 }

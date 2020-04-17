@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 import { Movie } from "../../../../common/tables/Movie";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,9 +12,19 @@ import { Router } from '@angular/router';
 export class MovieComponent implements OnInit {
   public movies: Movie[] = [];
   public newMovie: boolean;
-  public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
+  public modifyingMovie: boolean;
+  public newMovieValUser: FormGroup;
+  public modifyMovieValUser: FormGroup;
 
-  constructor(private communicationService: CommunicationService, private router: Router) { }
+  constructor(private communicationService: CommunicationService, private router: Router) { 
+    this.newMovieValUser = new FormGroup({
+      "titre": new FormControl( "", Validators.compose([Validators.required, Validators.maxLength(100)])),
+      "genre": new FormControl( "", Validators.compose([Validators.required, Validators.maxLength(20)])),
+      "duree_totale": new FormControl("", Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern("^[0-9]+$")])),
+      "prix": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^([0-9]{0,2}((.)[0-9]{0,2}))$")])),
+      "date_production": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^\\d{4}[/-](0?[1-9]|1[012])[/-](0?[1-9]|[12][0-9]|3[01])$")]))
+    });
+  }
 
   ngOnInit(): void {
     this.getMovies();
@@ -35,32 +46,51 @@ export class MovieComponent implements OnInit {
   }
 
     // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
-    public insertMovie(titre: string, date_production: string, duree_totale: string, genre: string, prix: number): void {
-        const movie: Movie = {
-          "numero": this.movies.length + 1,
-          "titre": titre,
-          "date_production": date_production,
-          "duree_totale": duree_totale,
-          "genre": genre,
-          "prix": prix	
-        };
-        this.communicationService.insertMovie(movie).subscribe((res: number) => {
-        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
-        this.duplicateError = (res === -1);
+    public insertMovie(): void {
+      const movie: Movie = {
+        "numero": this.movies.length + 1,
+        "titre": this.newMovieValUser.value.titre,
+        "date_production": this.newMovieValUser.value.date_production,
+        "duree_totale": this.newMovieValUser.value.duree_totale,
+        "genre": this.newMovieValUser.value.genre,
+        "prix": this.newMovieValUser.value.prix	
+      };
+      this.communicationService.insertMovie(movie).subscribe(() => {
         this.getMovies();
         this.newMovie = false;
-        });
+      });
     }
 
   public goBack(): void {
     this.router.navigateByUrl('/admin-dashboard');
   }
 
+  public selectedMovie: Movie;
+
   public modifyMovie(movieID: number): void{
-    console.log(movieID);
+
+    this.modifyingMovie = true;
+    for (let movie of this.movies){
+      if(movie.numero === movieID) this.selectedMovie = movie;
+    }
+    this.modifyMovieValUser = new FormGroup({
+      "titre": new FormControl( this.selectedMovie.titre, Validators.compose([Validators.required, Validators.maxLength(100)])),
+      "genre": new FormControl(this.selectedMovie.genre, Validators.compose([Validators.required, Validators.maxLength(20)])),
+      "duree_totale": new FormControl(this.selectedMovie.duree_totale, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern("^[0-9]+$")])),
+      "prix": new FormControl(this.selectedMovie.prix, Validators.compose([Validators.required, Validators.pattern("^([0-9]{0,2}((.)[0-9]{0,2}))$")])),
+      "date_production": new FormControl(this.selectedMovie.date_production, Validators.compose([Validators.required, Validators.pattern("^\\d{4}[/-](0?[1-9]|1[012])[/-](0?[1-9]|[12][0-9]|3[01])$")]))
+    });
+    console.log(this.selectedMovie);
+  }
+
+  public modifyMovieSubmit(): void {
+    console.log(this.modifyMovieValUser);
+    this.modifyingMovie = false;
   }
 
   public cancel(): void {
     this.newMovie = false;
+    this.modifyingMovie = false;
   }
+
 }

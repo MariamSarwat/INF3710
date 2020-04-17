@@ -1,4 +1,5 @@
-<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Go to dashboard</button>
+
+<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Go back to dashboard</button>
 <button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Add payment option</button>
 
 <div *ngIf='!newCreditCard'>
@@ -21,15 +22,15 @@
             </thead>
             <tbody>
             <tr *ngFor="let cc of creditCards">
-              <td> {{cc.numero}} </td>
-              <td> {{cc.titulaire}}</td>
-              <td> {{cc.date_expiration}}</td>
+            <td> {{cc.numero}} </td>
+            <td> {{cc.titulaire}}</td>
+            <td> {{cc.date_expiration}}</td>
             </tr>
             </tbody>
         </table>
-      </div>
+    </div>
 </div>
-<div *ngIf='newCreditCard'>
+<div *ngIf='newCreditCard' style="margin-left: 3em;">
     <form [formGroup]="this.valUser">
         <label>Card Holder name</label>
         <input formControlName="titulaire" class="form-control col-md-4">
@@ -61,8 +62,11 @@
             <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('pattern')"> Please only use numbers</mat-error>
             <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('maxlength') || this.valUser.controls['date_expiration'].hasError('minlength')"> Make sure to follow the format</mat-error>
         </div>
-     </form>
+    </form>
 
     <button type="button" class="btn btn-primary" [disabled]="!valUser.valid" (click)="submit()" > Add Card</button>
-    <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    <br>
+    <mat-error *ngIf="this.errorNotLoggedIn"> Please log into an account first </mat-error>
+
 </div>

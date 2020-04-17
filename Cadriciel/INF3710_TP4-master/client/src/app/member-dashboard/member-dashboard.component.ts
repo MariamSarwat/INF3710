@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { Router } from '@angular/router';
 import { CommunicationService } from '../communication.service';
 import { Movie } from '../../../../common/tables/Movie';
 import { MatDialog } from '@angular/material/dialog';
@@ -34,7 +33,7 @@ export class MemberDashboardComponent implements OnInit {
   public playing: boolean;
   message:string;
   
-  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService/*private router: Router*/) {
+  constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
@@ -82,7 +81,6 @@ export class MemberDashboardComponent implements OnInit {
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
     this.playing = false;
-    console.log(this.selectedMovie.numero);
     this.filterMovieInfo(movie);
     console.log(this.alreadyWatched  + " already watched " + 'member id ' + this.loggedInMember.id_membre)
     this.dialog.open(content, {disableClose: true});
@@ -122,7 +120,7 @@ export class MemberDashboardComponent implements OnInit {
   }
 
   public close(): void {
-    if(this.playing) {
+    if(this.playing && this.loggedInMember.id_membre !== 0) {
       this.memberService.changeMessage("closing");
 
       const online: Online = {
@@ -131,9 +129,10 @@ export class MemberDashboardComponent implements OnInit {
         "date_visio": '',
         "duree_visionnement": this.memberService.playbackTime	
       };
-      console.log(online.duree_visionnement);
+      
+      //console.log(online.duree_visionnement);
       this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
-        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
+        //if (res > 0) this.communicationService.filter("update"); // see what "filter" does
         this.getOnlineViewings();
       });
     }

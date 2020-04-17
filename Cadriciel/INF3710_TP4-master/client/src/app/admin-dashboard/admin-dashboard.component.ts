@@ -10,4 +10,5 @@ export class AdminDashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {}
+
 }
