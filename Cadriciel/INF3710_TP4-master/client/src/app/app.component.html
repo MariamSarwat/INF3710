@@ -2,9 +2,9 @@
     <a class="navbar-brand title">NetflixPoly</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
-        <a *ngIf="route.includes('/member-dashboard') " class="nav-item nav-link active" routerLink="/member-dashboard/info">Account Information</a>
+        <a *ngIf="route.includes('/member-dashboard') && (this.memberService.memberInfo.id_membre !== 0)" class="nav-item nav-link active" routerLink="/member-dashboard/info">Account Information</a>
         <a *ngIf="route.includes('/admin-dashboard') " class="nav-item nav-link active" routerLink="/admin-dashboard/member">Members</a>
-        <a *ngIf="route.includes('/admin-dashboard') " class="nav-item nav-link active" routerLink="/admin-dashboard/movie">Movies</a>
+        <a *ngIf="route.includes('/admin-dashboard')" class="nav-item nav-link active" routerLink="/admin-dashboard/movie">Movies</a>
       </div>
     </div>
     <a style='float: right;' *ngIf="!route.includes('/login') " routerLink="/login" (click)="logout()">Logout</a>
