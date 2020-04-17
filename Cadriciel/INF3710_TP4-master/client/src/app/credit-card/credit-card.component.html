@@ -1,0 +1,68 @@
+<button type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Go to dashboard</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Add payment option</button>
+
+<div *ngIf='!newCreditCard'>
+    <div style="text-align: center">
+
+        <h1>Account Information</h1>
+        <div style="padding-left: 2em;">
+            <b>Name  : </b> {{loggedInMember.nom}} <br>
+            <b>Email : </b> {{loggedInMember.adr_courriel}} <br>
+            <b>Adress : </b>
+            <i *ngIf=loggedInMember.no_appart>{{loggedInMember.no_appart}} -</i> {{loggedInMember.no_rue}} {{loggedInMember.nom_rue}}, {{loggedInMember.ville}} {{loggedInMember.code_postal}}, {{loggedInMember.province}}, {{loggedInMember.pays}}
+        </div>
+
+        <h1>Existing Payment options</h1>
+        <table align="center" border="1" width="900">
+            <thead>
+            <th> CARD NUMBER</th>
+            <th> CARD HOLDER</th>
+            <th> EXPIRATION DATE </th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cc of creditCards">
+              <td> {{cc.numero}} </td>
+              <td> {{cc.titulaire}}</td>
+              <td> {{cc.date_expiration}}</td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+</div>
+<div *ngIf='newCreditCard'>
+    <form [formGroup]="this.valUser">
+        <label>Card Holder name</label>
+        <input formControlName="titulaire" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('titulaire').errors && (this.valUser.get('titulaire').dirty || this.valUser.get('titulaire').touched)" >
+            <mat-error *ngIf="this.valUser.get('titulaire').hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="this.valUser.controls['titulaire'].hasError('maxlength')">Name is too long!</mat-error>
+        </div>
+
+        <label>Card number</label>
+        <input formControlName="numero" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('numero').errors && (this.valUser.get('numero').dirty || this.valUser.get('numero').touched)">
+            <mat-error *ngIf="this.valUser.get('numero').hasError('required')"> Card number is required</mat-error>
+            <mat-error *ngIf="this.valUser.controls['numero'].hasError('pattern')"> Please only use numbers</mat-error>
+            <mat-error *ngIf="this.valUser.controls['numero'].hasError('maxlength') || this.valUser.controls['numero'].hasError('minlength')"> Length should be 16</mat-error>
+        </div>
+
+        <label>CCV</label>
+        <input formControlName="ccv" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('ccv').errors && (this.valUser.get('ccv').dirty || this.valUser.get('ccv').touched)">
+            <mat-error *ngIf="this.valUser.get('ccv').hasError('required')"> CCV is required</mat-error>
+            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('pattern')"> Please only use numbers</mat-error>
+            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('maxlength') || this.valUser.controls['ccv'].hasError('minlength')"> Length should be 3</mat-error>
+        </div>
+
+        <label>Expiration date (YYYY-MM-DD)</label>
+        <input formControlName="date_expiration" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('date_expiration').errors && (this.valUser.get('date_expiration').dirty || this.valUser.get('date_expiration').touched)" >
+            <mat-error *ngIf="this.valUser.get('date_expiration').hasError('required')"> Expiration date is required</mat-error>
+            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('pattern')"> Please only use numbers</mat-error>
+            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('maxlength') || this.valUser.controls['date_expiration'].hasError('minlength')"> Make sure to follow the format</mat-error>
+        </div>
+     </form>
+
+    <button type="button" class="btn btn-primary" [disabled]="!valUser.valid" (click)="submit()" > Add Card</button>
+    <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+</div>

@@ -3,18 +3,55 @@
 </div>  
 
 <ng-template #content let-modal id=modal>
-  <h1 mat-dialog-title > Movie </h1>
-
+  <h1 mat-dialog-title > {{selectedMovie.titre | uppercase}} </h1>
+<div *ngIf="!playing">
   <div mat-dialog-content>
-    <h2>{{selectedMovie.titre | uppercase}} </h2>
-    <div><span>id: </span>{{selectedMovie.numero}}</div>
+    <span *ngIf="movieWins?.length > 0; else elseBlock1"> 
+      <h5>Awards won : </h5>
+      <ul style="list-style-type:none;">
+        <li *ngFor="let win of movieWins"> 
+          <b>Ceremonie:</b> {{win.nom_edifice}} ({{win.ville}}, {{win.pays}}) le {{win.date_ceremonie}}<br>
+          <span *ngIf='win.maitre'> <b>Hosted by : </b> {{win.maitre}} <br></span>
+          <b>Categories : </b><span style="text-align: center;">{{win.categorie_gagne}}</span>
+        </li>
+      </ul>
+      
+    </span>
+    <ng-template #elseBlock1><h6>No Awards Won or information N/A.</h6></ng-template>
+    <br>
+    <span *ngIf="movieNoms?.length > 0; else elseBlock2"> 
+      <h5>Nominated for</h5>
+      
+        <ul style="list-style-type:none;">
+          <li *ngFor="let nom of movieNoms"> 
+            <b>Ceremonie:</b> {{nom.nom_edifice}} ({{nom.ville}}, {{nom.pays}}) le {{nom.date_ceremonie}}<br>
+            <span *ngIf='nom.maitre'> <b>Hosted by : </b> {{nom.maitre}} <br></span>
+            <b>Categories : </b><span style="text-align: center;">{{nom.categorie_nomine}}</span>
+          </li>
+        </ul>
+    </span>
+    <ng-template #elseBlock2><h6>No Nominations or information N/A.</h6></ng-template>
+    <br>
+    <span *ngIf="movieEmps?.length > 0; else elseBlock3"> 
+      <h5>Cast : </h5>
+      <ul style="list-style-type:none;">
+        <li *ngFor="let emps of movieEmps"> 
+          {{emps.nom}} ({{emps.description}})
+        </li>
+      </ul>
+    </span>
+    <ng-template #elseBlock3><h6>N/A</h6></ng-template>
   </div>
-  
+</div>
+<div *ngIf="playing">
+  <app-video-player></app-video-player>
+</div>
   <mat-dialog-actions align="end">
-      <button mat-button > Watch </button>
-      <button mat-button > Watch From Beginning </button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial> Close </button>
+      <button *ngIf='this.alreadyWatched && !this.playing' mat-button (click)="this.setToContinueWatching()"> Continue watching </button>
+      <button mat-button *ngIf="!this.playing" (click)="this.setToStartFromBeginning()"> Watch From Beginning </button>
+      <button mat-button [mat-dialog-close]="true" (click)="this.close()" cdkFocusInitial> Close </button>
   </mat-dialog-actions>
+
 </ng-template>
 
 <ul class="heroes">

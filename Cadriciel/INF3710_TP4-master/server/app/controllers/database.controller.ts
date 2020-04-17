@@ -4,6 +4,10 @@ import * as pg from "pg";
 import {Member} from '../../../common/tables/Member';
 import {Movie} from '../../../common/tables/Movie';
 import {MovieNom} from '../../../common/tables/MovieNom';
+import {MovieWin} from '../../../common/tables/MovieWin';
+import {MovieEmp} from '../../../common/tables/MovieEmp';
+import {Online} from '../../../common/tables/Online';
+import {CreditCard} from '../../../common/tables/CreditCard'
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -103,6 +107,47 @@ export class DatabaseController {
             });
         });
 
+        router.post("/member/insert/cc",
+            (req: Request, res: Response, next: NextFunction) => {
+            const cc: CreditCard = {
+                "id_membre": req.body.id_membre,
+                "ccv": req.body.ccv,
+                "titulaire": req.body.titulaire,
+                "numero": req.body.numero,
+                "date_expiration": req.body.date_expiration
+            };
+            console.log(cc);
+
+            this.databaseService.createCC(cc)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
+
+        router.post("/member/online/insert",
+            (req: Request, res: Response, next: NextFunction) => {
+            const online: Online = {
+                "numero": req.body.numero,
+                "id_membre": req.body.id_membre,
+                "date_visio": req.body.date_visio,
+                "duree_visionnement": req.body.duree_visionnement
+            };
+            console.log(online);
+
+            this.databaseService.createOnlineEntry(online)
+            .then((result: pg.QueryResult) => {
+                res.json(result.rowCount);
+            })
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.json(-1);
+            });
+        });
+
         router.get("/member",
             (req: Request, res: Response, next: NextFunction) => {
              // Send the request to the service and send the response
@@ -121,6 +166,23 @@ export class DatabaseController {
                     nom: mem.nom
                 }));
                 res.json(members);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.get("/member/information/:memberID",
+        (req: Request, res: Response, next: NextFunction) => {
+         // Send the request to the service and send the response
+            this.databaseService.getMemberInfo(req.params.memberID).then((result: pg.QueryResult) => {
+            const cc: CreditCard[] = result.rows.map((mem: any) => ({
+                'numero': mem.numero,
+                'ccv': mem.ccv,
+                'titulaire': mem.titulaire,
+                'date_expiration': mem.date_expiration,
+                'id_membre': mem.id_membre,
+            }));
+            res.json(cc);
             }).catch((e: Error) => {
                 console.error(e.stack);
             });
@@ -162,21 +224,77 @@ export class DatabaseController {
             });
         });
 
-        router.get("/movie/nominations/:movieID",
+        router.get("/movie/nominations",
         (req: Request, res: Response, next: NextFunction) => {
             // Send the request to the service and send the response
-            this.databaseService.getMovieNom(req.params.movieID).then((result: pg.QueryResult) => {
+            this.databaseService.getMovieNom().then((result: pg.QueryResult) => {
             const movieNom: MovieNom[] = result.rows.map((mem: any) => ({
-                id_ceremonie: mem.id_ceremonie,
-                maitre: mem.maitre,
-                date_ceremonie: mem.date_ceremonie,
-                categorie_nomine: mem.categorie_nomine,
-                nom_edifice: mem.nom_edifice,
-                ville: mem.ville,
-                pays: mem.pays,
-                film_nomine: mem.film_nomine
+                "id_ceremonie": mem.id_ceremonie,
+                "maitre": mem.maitre,
+                "nom_edifice": mem.nom_edifice,
+                "ville": mem.ville,
+                "pays": mem.pays,
+                "date_ceremonie": mem.date_ceremonie,
+                "film_nomine": mem.film_nomine,
+                "categorie_nomine": mem.categorie_nomine 
             }));
             res.json(movieNom);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.get("/member/online",
+        (req: Request, res: Response, next: NextFunction) => {
+            // Send the request to the service and send the response
+            this.databaseService.getOnlineViewings().then((result: pg.QueryResult) => {
+            const onlineViewings: Online[] = result.rows.map((mem: any) => ({
+                "numero": mem.numero,
+                "id_membre": mem.id_membre,
+                "date_visio": mem.date_visio,
+                "duree_visionnement": mem.duree_visionnement
+            }));
+            res.json(onlineViewings);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.get("/movie/employees",
+        (req: Request, res: Response, next: NextFunction) => {
+            // Send the request to the service and send the response
+            this.databaseService.getMovieEmps().then((result: pg.QueryResult) => {
+            const movieEmp: MovieEmp[] = result.rows.map((mem: any) => ({
+                "id_employee": mem.id_employee,
+                "nom": mem.nom,
+                "sexe": mem.sexe,
+                "date_naissance": mem.date_naissance,
+                "nationalite": mem.nationalite,
+                "salaire": mem.salaire,
+                "num_film": mem.num_film,
+                "description": mem.description
+            }));
+            res.json(movieEmp);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.get("/movie/winning",
+        (req: Request, res: Response, next: NextFunction) => {
+            // Send the request to the service and send the response
+            this.databaseService.getMovieWin().then((result: pg.QueryResult) => {
+            const movieWin: MovieWin[] = result.rows.map((mem: any) => ({
+                "id_ceremonie": mem.id_ceremonie,
+                "maitre": mem.maitre,
+                "nom_edifice": mem.nom_edifice,
+                "ville": mem.ville,
+                "pays": mem.pays,
+                "date_ceremonie": mem.date_ceremonie,
+                "film_gagne": mem.film_gagne,
+                "categorie_gagne": mem.categorie_gagne
+            }));
+            res.json(movieWin);
             }).catch((e: Error) => {
                 console.error(e.stack);
             });

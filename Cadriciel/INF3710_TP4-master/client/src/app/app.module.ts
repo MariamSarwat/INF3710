@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { MemberDashboardComponent } from './member-dashboard/member-dashboard.component';
 import { MovieComponent } from './movie/movie.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { CreditCardComponent } from './credit-card/credit-card.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { MovieComponent } from './movie/movie.component';
     AdminDashboardComponent,
     MemberDashboardComponent,
     MovieComponent,
+    VideoPlayerComponent,
+    CreditCardComponent,
   ],
   imports: [
     FormsModule,

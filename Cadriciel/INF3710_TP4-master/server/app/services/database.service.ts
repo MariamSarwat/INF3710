@@ -5,6 +5,8 @@ import {schema} from "../createSchema";
 import {data} from "../populateDB";
 import { Member } from "../../../common/tables/Member";
 import { Movie } from "../../../common/tables/Movie";
+import { Online } from "../../../common/tables/Online";
+import { CreditCard } from "../../../common/tables/CreditCard";
 
 @injectable()
 export class DatabaseService {
@@ -115,8 +117,56 @@ export class DatabaseService {
         return this.pool.query('SELECT * FROM NetflixPolyDB.Film ORDER BY titre ASC;');
     }
 
-    public getMovieNom(movieID: number): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, nf.num_film as film_nomine, nf.categorie as categorie_nomine FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.nominationfilms nf ON c.id_ceremonie = nf.id_ceremonie INNER JOIN NetflixPolyDB.film f ON f.numero = nf.num_film WHERE f.numero = \'${movieID}\';`);
+    public getMovieNom(): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, nf.num_film as film_nomine, string_agg(nf.categorie, ', ') as categorie_nomine
+        FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.nominationfilms nf ON c.id_ceremonie = nf.id_ceremonie
+        INNER JOIN NetflixPolyDB.film f ON f.numero = nf.num_film
+       GROUP BY c.id_ceremonie, nf.num_film;`);
+    }
+
+    public getMovieWin(): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT c.id_ceremonie, c.maitre, c.nom_edifice, c.ville, c.pays, c.date_ceremonie, fv.num_film as film_gagne, string_agg(fv.categorie, ', ') as categorie_gagne
+        FROM NetflixPolyDB.Ceremonie c INNER JOIN NetflixPolyDB.filmsVainqueurs fv ON c.id_ceremonie = fv.id_ceremonie
+        INNER JOIN NetflixPolyDB.film f ON f.numero = fv.num_film 
+        GROUP BY c.id_ceremonie, fv.num_film;`);
+    }
+
+    public getOnlineViewings(): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT l.id_membre, l.num_film as numero, l.date_visionnement as date_visio, l.duree_visionnement FROM NetflixPolyDB.enligne l 
+        WHERE l.date_visionnement = (SELECT MAX(l_1.date_visionnement) FROM NetflixPolyDB.enligne l_1 
+        WHERE l_1.num_film = l.num_film AND l_1.id_membre = l.id_membre)`);
+    }
+
+    public getMovieEmps(): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT e.id_employee, e.nom, e.sexe, e.date_naissance, e.nationalite, r.salaire, r.num_film, r.description
+        FROM NetflixPolyDB.Employee e INNER JOIN NetflixPolyDB.Role r ON e.id_employee = r.id_employee
+        INNER JOIN NetflixPolyDB.film f ON f.numero = r.num_film;`);
+    }
+    
+    public getMemberInfo(memberID: number): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT * FROM NetflixPolyDB.CarteDeCredit cc WHERE cc.id_membre = \'${memberID}\';`);
+    }
+
+    public createCC(cc: CreditCard): Promise<pg.QueryResult> {
+        let values: string[] = [
+            cc.id_membre.toString(),
+            cc.numero.toString(),
+            cc.ccv.toString(),
+            cc.titulaire,
+            cc.date_expiration
+        ];
+        const queryText: string = `INSERT INTO NETFLIXPOLYDB.CarteDeCredit (id_membre, numero, ccv, titulaire, date_expiration) VALUES ($1, $2, $3, $4, $5);`;   
+        return this.pool.query(queryText, values);
+    }
+
+    public createOnlineEntry(online: Online): Promise<pg.QueryResult> {
+        let values: string[] = [
+            online.id_membre.toString(),
+            online.numero.toString(),
+            online.duree_visionnement.toString(),
+        ];
+        const queryText: string = `INSERT INTO NetflixPolyDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES ($1, $2, current_timestamp, $3);`;   
+        return this.pool.query(queryText, values);
     }
 
     public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
