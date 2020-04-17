@@ -39,7 +39,7 @@
             <mat-error *ngIf="this.valUser.controls['titulaire'].hasError('maxlength')">Nom trop long!</mat-error>
         </div>
 
-        <label>NUMÉRO DE CARTE</label>
+        <label>Numéro de carte</label>
         <input formControlName="numero" class="form-control col-md-4">
         <div *ngIf="this.valUser.get('numero').errors && (this.valUser.get('numero').dirty || this.valUser.get('numero').touched)">
             <mat-error *ngIf="this.valUser.get('numero').hasError('required')">Champ obligatoire</mat-error>
