@@ -45,24 +45,29 @@
         <form [formGroup]="this.validatingInputFromUser">
     
           email: <li><input id = "adr_courriel" class="form-control col-md-4" placeholder="Entrez votre adresse courriel" formControlName="adr_courriel" #email></li>
+          
           <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('email')"> Veuillez entrez une adresse valide</mat-error>
           <mat-error *ngIf="this.validatingInputFromUser.get('adr_courriel').hasError('required')"> Champs obligatoire</mat-error><br>
 
           password: <li><input id = "mot_de_passe" class="form-control col-md-4" placeholder="Entrez votre mot de passe" formControlName="mot_de_passe" #password></li>
+          <mat-error *ngIf="this.validatingInputFromUser.errors.minLength"> trop court</mat-error>
           <mat-error *ngIf="this.validatingInputFromUser.get('mot_de_passe').hasError('required')"> Champs obligatoire</mat-error><br>
 
-          streetName: <li><input id = "mot_de_passe" class="form-control col-md-4" #streetName></li>
-          
+          streetName: <li><input id = "nom_rue" class="form-control col-md-4" placeholder="Entrez le nom de rue" formControlName="nom_rue" #streetName></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('nom_rue').hasError('required')"> Champs obligatoire</mat-error><br>
+          apartmentNo: <li><input id = "no_appart" class="form-control col-md-4" #apartmentNo></li>
+          streetNo: <li><input id = "no_rue" class="form-control col-md-4" #streetNo></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('no_rue').hasError('required')"> Champs obligatoire</mat-error><br>
+          zipCode: <li><input class="form-control col-md-4" #zipCode></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('code_postal').hasError('required')"> Champs obligatoire</mat-error><br>
+          city: <li><input class="form-control col-md-4" #city></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('ville').hasError('required')"> Champs obligatoire</mat-error><br>
+          province: <li><input class="form-control col-md-4" #province></li>
+          country: <li><input class="form-control col-md-4" #country></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('pays').hasError('required')"> Champs obligatoire</mat-error><br>
+          memberName: <li><input class="form-control col-md-4" #memberName></li>
+          <mat-error *ngIf="this.validatingInputFromUser.get('nom').hasError('required')"> Champs obligatoire</mat-error><br>
        </form>
-       
-        streetName: <li><input class="form-control col-md-4" #streetName></li>
-        apartmentNo: <li><input class="form-control col-md-4" #apartmentNo></li>
-        streetNo: <li><input class="form-control col-md-4" #streetNo></li>
-        zipCode: <li><input class="form-control col-md-4" #zipCode></li>
-        city: <li><input class="form-control col-md-4" #city></li>
-        province: <li><input class="form-control col-md-4" #province></li>
-        country: <li><input class="form-control col-md-4" #country></li>
-        memberName: <li><input class="form-control col-md-4" #memberName></li>
       <li><button type="button" class="btn btn-primary" (click)="insertMember(
         email.value, password.value, streetName.value, apartmentNo.value, streetNo.value,
         zipCode.value, city.value, province.value, country.value, memberName.value)" > Add Member</button></li>
