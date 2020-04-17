@@ -11,7 +11,6 @@ import { CommunicationService } from "../communication.service";
 })
 export class MemberComponent {
   public members: Member[] = [];
-  public duplicateError: boolean = false; // Un membre doit être unique, on ne veut pas que sont ID soit dupliqué
   public newMember: boolean;
   public validatingInputFromUser: FormGroup;
 
@@ -40,27 +39,24 @@ export class MemberComponent {
     this.getMembers();
   }
 
-  // Comment on distingue les champs qui peuvent être null? Et ceux qui sont obligatoires
-  public insertMember(email: string, password: string, streetName: string, apartmentNo: number, streetNo: number,
-                      zipCode: string, city: string, province: string, country: string, memberName: string): void {
+  public insertMember(): void {
     const member: Member = {
       "id_membre": this.members.length + 1,
-      "adr_courriel": email,
-      "mot_de_passe": password,
-      "nom_rue": streetName,
-      "no_appart": apartmentNo,
-      "no_rue": streetNo,
-      "code_postal": zipCode,
-      "ville": city,
-      "province": province,
-      "pays": country,
-      "nom": memberName
+      "adr_courriel": this.validatingInputFromUser.value.adr_courriel,
+      "mot_de_passe": this.validatingInputFromUser.value.mot_de_passe,
+      "nom_rue": this.validatingInputFromUser.value.nom_rue,
+      "no_appart": this.validatingInputFromUser.value.no_appart,
+      "no_rue": this.validatingInputFromUser.value.no_rue,
+      "code_postal": this.validatingInputFromUser.value.code_postal,
+      "ville": this.validatingInputFromUser.value.ville,
+      "province": this.validatingInputFromUser.value.province,
+      "pays": this.validatingInputFromUser.value.pays,
+      "nom": this.validatingInputFromUser.value.nom
     };
     this.communicationService.insertMember(member).subscribe((res: number) => {
-        //if (res > 0) this.communicationService.filter("update"); // see what "filter" does
-        //this.duplicateError = (res === -1);
         this.getMembers();
         this.newMember = false;
+        this.validatingInputFromUser.reset()
     });
   }
 
