@@ -55,8 +55,8 @@ export class MemberComponent {
       "nom": memberName
     };
     this.communicationService.insertMember(member).subscribe((res: number) => {
-        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
-        this.duplicateError = (res === -1);
+        //if (res > 0) this.communicationService.filter("update"); // see what "filter" does
+        //this.duplicateError = (res === -1);
         this.getMembers();
         this.newMember = false;
     });

@@ -133,11 +133,12 @@ export class MemberDashboardComponent implements OnInit {
       };
       console.log(online.duree_visionnement);
       this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
-        if (res > 0) this.communicationService.filter("update"); // see what "filter" does
+        //if (res > 0) this.communicationService.filter("update"); // see what "filter" does
         this.getOnlineViewings();
       });
     }
   }
+
   public gotToLogin(): void {
     this.router.navigateByUrl('/login');
   }

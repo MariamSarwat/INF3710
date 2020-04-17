@@ -56,9 +56,13 @@ export class CreditCardComponent implements OnInit {
         "date_expiration": this.valUser.value.date_expiration
       };
       this.communicationService.insertCC(cc).subscribe((res: number) => {
-        if (res > 0) this.communicationService.filter("update");
+       // if (res > 0) this.communicationService.filter("update");
         this.getInformation();
         this.newCreditCard = false;
       });
+  }
+
+  public gotToLogin(): void {
+    this.router.navigateByUrl('/login');
   }
 }

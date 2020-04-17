@@ -10,6 +10,7 @@ export class MemberService {
   "no_appart": 0, "no_rue": 0, "code_postal": '', "ville": '', "province": '', "pays": '',"nom": ''};
 
   public playbackTime: number;
+  public isAdmin: boolean;
 
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
