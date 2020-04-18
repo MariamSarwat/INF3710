@@ -62,24 +62,6 @@ export class DatabaseController {
             });
         });
 
-        /*router.get("/rooms",
-                   (req: Request, res: Response, next: NextFunction) => {
-
-                    this.databaseService.getRoomFromHotelParams(req.query)
-                    .then((result: pg.QueryResult) => {
-                        const rooms: Room[] = result.rows.map((room: Room) => (
-                            {
-                            hotelno: room.hotelno,
-                            roomno: room.roomno,
-                            typeroom: room.typeroom,
-                            price: parseFloat(room.price.toString())
-                        }));
-                        res.json(rooms);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-            });*/
-
         router.post("/member/insert",
             (req: Request, res: Response, next: NextFunction) => {
             const member: Member = {

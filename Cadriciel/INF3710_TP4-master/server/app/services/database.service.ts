@@ -67,7 +67,7 @@ export class DatabaseService {
     }
 
     public getMovies(): Promise<pg.QueryResult> {
-        return this.pool.query('SELECT * FROM NetflixPolyDB.Film;');
+        return this.pool.query('SELECT * FROM NetflixPolyDB.Film ORDER BY numero;');
     }
 
     public getMoviesSorted(): Promise<pg.QueryResult> {
