@@ -3,10 +3,10 @@ import * as pg from "pg";
 import "reflect-metadata";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
-import { Member } from "../../../common/tables/Member";
-import { Movie } from "../../../common/tables/Movie";
-import { Online } from "../../../common/tables/Online";
-import { CreditCard } from "../../../common/tables/CreditCard";
+import { Member } from "../../../common/Member";
+import { Movie } from "../../../common/Movie";
+import { Online } from "../../../common/Online";
+import { CreditCard } from "../../../common/CreditCard";
 
 @injectable()
 export class DatabaseService {

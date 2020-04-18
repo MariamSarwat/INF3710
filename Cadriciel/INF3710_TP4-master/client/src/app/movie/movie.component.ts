@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../communication.service';
-import { Movie } from "../../../../common/tables/Movie";
+import { Movie } from "../../../../common/Movie";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 

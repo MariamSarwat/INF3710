@@ -3,14 +3,14 @@ import { Injectable } from "@angular/core";
 // tslint:disable-next-line:ordered-imports
 import { concat, of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Member } from "../../../common/tables/Member";
-import { Login } from "../../../common/tables/Login";
-import { Movie } from "../../../common/tables/Movie";
-import { MovieNom } from "../../../common/tables/MovieNom";
-import { MovieWin } from "../../../common/tables/MovieWin";
-import { MovieEmp } from "../../../common/tables/MovieEmp";
-import { Online } from "../../../common/tables/Online";
-import { CreditCard } from "../../../common/tables/CreditCard";
+import { Member } from "../../../common/Member";
+import { Login } from "../../../common/Login";
+import { Movie } from "../../../common/Movie";
+import { MovieNom } from "../../../common/MovieNom";
+import { MovieWin } from "../../../common/MovieWin";
+import { MovieEmp } from "../../../common/MovieEmp";
+import { Online } from "../../../common/Online";
+import { CreditCard } from "../../../common/CreditCard";
 
 
 @Injectable()

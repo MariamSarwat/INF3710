@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Login } from "../../../../common/tables/Login";
+import { Login } from "../../../../common/Login";
 import { CommunicationService } from '../communication.service';
-import { Member } from '../../../../common/tables/Member';
+import { Member } from '../../../../common/Member';
 import { Router } from "@angular/router";
 import { MemberService } from '../member-dashboard/member.service';
 

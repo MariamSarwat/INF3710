@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../communication.service';
-import { Movie } from '../../../../common/tables/Movie';
+import { Movie } from '../../../../common/Movie';
 import { MatDialog } from '@angular/material/dialog';
-import { Member } from '../../../../common/tables/Member';
-import { MovieNom } from '../../../../common/tables/MovieNom';
-import { MovieWin } from '../../../../common/tables/MovieWin';
+import { Member } from '../../../../common/Member';
+import { MovieNom } from '../../../../common/MovieNom';
+import { MovieWin } from '../../../../common/MovieWin';
 import { MemberService } from './member.service';
-import { MovieEmp } from '../../../../common/tables/MovieEmp';
-import { Online } from '../../../../common/tables/Online';
+import { MovieEmp } from '../../../../common/MovieEmp';
+import { Online } from '../../../../common/Online';
 
 @Component({
   selector: 'app-member-dashboard',

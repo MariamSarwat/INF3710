@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../member-dashboard/member.service';
-import { Member } from '../../../../common/tables/Member';
-import { CreditCard } from '../../../../common/tables/CreditCard';
+import { Member } from '../../../../common/Member';
+import { CreditCard } from '../../../../common/CreditCard';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import { CommunicationService } from '../communication.service';

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Member } from "../../../../common/tables/Member";
+import { Member } from "../../../../common/Member";
 import { CommunicationService } from "../communication.service";
 
 @Component({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Member } from '../../../../common/tables/Member';
+import { Member } from '../../../../common/Member';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
