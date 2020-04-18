@@ -33,13 +33,13 @@ CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Admin (
 CREATE TABLE IF NOT EXISTS NETFLIXPOLYDB.Membre(
 	id_membre		SERIAL		 	NOT NULL,
 	adr_courriel	VARCHAR(100) 	NOT NULL,
-	mot_de_passe	TEXT			NOT NULL,
+	mot_de_passe	TEXT		NOT NULL,
 	nom_rue			VARCHAR(30)		NOT NULL,
 	no_appart		NUMERIC(5,0),
 	no_rue			NUMERIC(5,0)	NOT NULL,
 	code_postal		VARCHAR(6)		NOT NULL,
 	ville			VARCHAR(20)		NOT NULL,
-	province		VARCHAR(30)		NOT NULL,
+	province		VARCHAR(20),
 	pays			VARCHAR(30)		NOT NULL,
 	nom				VARCHAR(100)	NOT NULL,
 	PRIMARY KEY(id_membre)
