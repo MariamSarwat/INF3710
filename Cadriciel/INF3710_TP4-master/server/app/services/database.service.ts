@@ -10,8 +10,6 @@ import { CreditCard } from "../../../common/CreditCard";
 
 @injectable()
 export class DatabaseService {
-
-    // A MODIFIER POUR VOTRE BD
     public connectionConfig: pg.ConnectionConfig = {
         user: "sysuser",
         database: "netflixPoly",
@@ -37,31 +35,6 @@ export class DatabaseService {
         return this.pool.query(data);
     }   
 
-    public createMember(memberInfo: Member): Promise<pg.QueryResult> {
-        let values: string[] = [
-            memberInfo.id_membre.toString(),
-            memberInfo.adr_courriel,
-            memberInfo.mot_de_passe,
-            memberInfo.nom_rue,
-            memberInfo.no_appart.toString(),
-            memberInfo.no_rue.toString(),
-            memberInfo.code_postal.toString(),
-            memberInfo.ville,
-            memberInfo.province,
-            memberInfo.pays,
-            memberInfo.nom
-        ];
-        let queryText: string;
-        if(memberInfo.no_appart){ 
-            queryText = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2, NetflixPolyDB.crypt($3, NetflixPolyDB.gen_salt('bf')),$4,$5,$6,$7,$8,$9,$10,$11);`;
-        } else {
-            values.splice(4,1);
-            queryText = `INSERT INTO NetflixPolyDB.Membre(id_membre, adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES($1,$2, NetflixPolyDB.crypt($3, NetflixPolyDB.gen_salt('bf')),$4,$5,$6,$7,$8,$9,$10);`;
-        }         
-        return this.pool.query(queryText, values);
-    }
-
-        // MEMBERS
     public getMembers(): Promise<pg.QueryResult> {
         return this.pool.query('SELECT * FROM NetflixPolyDB.Membre;');
     }
@@ -104,6 +77,30 @@ export class DatabaseService {
         return this.pool.query(`SELECT * FROM NetflixPolyDB.CarteDeCredit cc WHERE cc.id_membre = \'${memberID}\';`);
     }
 
+    public createMember(memberInfo: Member): Promise<pg.QueryResult> {
+        let values: string[] = [
+            memberInfo.id_membre.toString(),
+            memberInfo.adr_courriel,
+            memberInfo.mot_de_passe,
+            memberInfo.nom_rue,
+            memberInfo.no_appart.toString(),
+            memberInfo.no_rue.toString(),
+            memberInfo.code_postal.toString(),
+            memberInfo.ville,
+            memberInfo.province,
+            memberInfo.pays,
+            memberInfo.nom
+        ];
+        let queryText: string;
+        if(memberInfo.no_appart){ 
+            queryText = `INSERT INTO NetflixPolyDB.Membre VALUES($1,$2, NetflixPolyDB.crypt($3, NetflixPolyDB.gen_salt('bf')),$4,$5,$6,$7,$8,$9,$10,$11);`;
+        } else {
+            values.splice(4,1);
+            queryText = `INSERT INTO NetflixPolyDB.Membre(id_membre, adr_courriel, mot_de_passe, nom_rue, no_rue, code_postal, ville, province, pays, nom) VALUES($1,$2, NetflixPolyDB.crypt($3, NetflixPolyDB.gen_salt('bf')),$4,$5,$6,$7,$8,$9,$10);`;
+        }         
+        return this.pool.query(queryText, values);
+    }
+
     public createCC(cc: CreditCard): Promise<pg.QueryResult> {
         let values: string[] = [
             cc.id_membre.toString(),
@@ -124,23 +121,6 @@ export class DatabaseService {
         ];
         const queryText: string = `INSERT INTO NetflixPolyDB.EnLigne (id_membre, num_film, date_visionnement, duree_visionnement) VALUES ($1, $2, current_timestamp, $3);`;   
         return this.pool.query(queryText, values);
-    }
-
-    public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
-        let query: string ='';
-        if(loginType === "member"){
-            query = `SELECT * FROM NetflixPolyDB.Membre `;
-        } else if(loginType === "admin"){
-            query = `SELECT * FROM NetflixPolyDB.Admin `;
-        }
-        console.log(password);
-        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = NetflixPolyDB.crypt(\'${password}\', mot_de_passe);`);
-        return this.pool.query(query);
-    }
-
-    public deleteMovie(movieID: number): Promise<pg.QueryResult> {
-        let query: string =`DELETE FROM NetflixPolyDB.Film WHERE numero = \'${movieID.toString()}\';`;
-        return this.pool.query(query);
     }
 
     public createMovie(movieInfo: Movie): Promise<pg.QueryResult> {
@@ -171,4 +151,20 @@ export class DatabaseService {
 
         return this.pool.query(queryText, values);
     }
+
+    public deleteMovie(movieID: number): Promise<pg.QueryResult> {
+        let query: string =`DELETE FROM NetflixPolyDB.Film WHERE numero = \'${movieID.toString()}\';`;
+        return this.pool.query(query);
+    }
+
+    public loginValidation(username: string, password: string, loginType: string): Promise<pg.QueryResult> {
+        let query: string ='';
+        if(loginType === "member"){
+            query = `SELECT * FROM NetflixPolyDB.Membre `;
+        } else if(loginType === "admin"){
+            query = `SELECT * FROM NetflixPolyDB.Admin `;
+        }
+        query = query.concat(`WHERE adr_courriel =\'${username}\' AND mot_de_passe = NetflixPolyDB.crypt(\'${password}\', mot_de_passe);`);
+        return this.pool.query(query);
+    } 
 }

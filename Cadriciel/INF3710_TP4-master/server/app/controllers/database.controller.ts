@@ -162,6 +162,21 @@ export class DatabaseController {
             });
         });
 
+        router.get("/member/online",
+        (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService.getOnlineViewings().then((result: pg.QueryResult) => {
+                const onlineViewings: Online[] = result.rows.map((mem: any) => ({
+                    "numero": mem.numero,
+                    "id_membre": mem.id_membre,
+                    "date_visio": mem.date_visio,
+                    "duree_visionnement": mem.duree_visionnement
+                }));
+                res.json(onlineViewings);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
         router.get("/movie",
             (req: Request, res: Response, next: NextFunction) => {
             this.databaseService.getMovies().then((result: pg.QueryResult) => {
@@ -210,21 +225,6 @@ export class DatabaseController {
                     "categorie_nomine": mem.categorie_nomine 
                 }));
                 res.json(movieNom);
-            }).catch((e: Error) => {
-                console.error(e.stack);
-            });
-        });
-
-        router.get("/member/online",
-        (req: Request, res: Response, next: NextFunction) => {
-            this.databaseService.getOnlineViewings().then((result: pg.QueryResult) => {
-                const onlineViewings: Online[] = result.rows.map((mem: any) => ({
-                    "numero": mem.numero,
-                    "id_membre": mem.id_membre,
-                    "date_visio": mem.date_visio,
-                    "duree_visionnement": mem.duree_visionnement
-                }));
-                res.json(onlineViewings);
             }).catch((e: Error) => {
                 console.error(e.stack);
             });

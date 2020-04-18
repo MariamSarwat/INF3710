@@ -31,14 +31,14 @@ export class MemberDashboardComponent implements OnInit {
   public onlineViewings: Online[] = [];
   public playBackTime: number;
   public playing: boolean;
-  message:string;
+  public alreadyWatched: boolean;
+  public message: string;
   
   constructor(private communicationService: CommunicationService, private dialog: MatDialog, private memberService: MemberService) {
     this.loggedInMember = this.memberService.memberInfo;
   }
 
   ngOnInit(): void {
-    //this.memberService.currentMessage.subscribe(message => this.message = message)
     this.getMovies();
     this.getAllMovieInformation();
     this.getOnlineViewings();
@@ -76,22 +76,16 @@ export class MemberDashboardComponent implements OnInit {
         emp.date_naissance = emp.date_naissance.split('T')[0];
     });
   }
-  alreadyWatched:boolean;
 
   public openDialog(content: any, movie: Movie): void {
     this.selectedMovie = movie;
     this.playing = false;
     this.filterMovieInfo(movie);
-    console.log(this.alreadyWatched  + " already watched " + 'member id ' + this.loggedInMember.id_membre)
     this.dialog.open(content, {disableClose: true});
   }
 
   public filterMovieInfo(movie: Movie): void{
-    this.movieEmps = [];
-    this.movieNoms = [];
-    this.movieWins = [];
-    this.playBackTime = 0;
-    this.alreadyWatched = false;
+    this.resetVariables();
     for(let nom of this.allMovieNoms){
       if(nom.film_nomine === movie.numero) this.movieNoms.push(nom);
     }
@@ -107,6 +101,14 @@ export class MemberDashboardComponent implements OnInit {
         this.playBackTime = online.duree_visionnement;
       }
     }
+  }
+
+  public resetVariables(): void{
+    this.movieEmps = [];
+    this.movieNoms = [];
+    this.movieWins = [];
+    this.playBackTime = 0;
+    this.alreadyWatched = false;
   }
 
   public setToContinueWatching(): void {
@@ -130,9 +132,7 @@ export class MemberDashboardComponent implements OnInit {
         "duree_visionnement": this.memberService.playbackTime	
       };
       
-      //console.log(online.duree_visionnement);
       this.communicationService.insertOnlineTime(online).subscribe((res: number) => {
-        //if (res > 0) this.communicationService.filter("update"); // see what "filter" does
         this.getOnlineViewings();
       });
     }

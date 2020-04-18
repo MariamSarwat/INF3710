@@ -18,13 +18,12 @@ export class LoginComponent{
   constructor(private communicationService: CommunicationService, private router: Router, private memberService: MemberService) {
     if (window.sessionStorage.getItem("databaseCreated") === null ) {
       this.communicationService.setUpDatabase().subscribe((res: any) => {
-        console.log(res);
         sessionStorage.setItem("databaseCreated", 'true');
       });
     }
   }    
 
-  login(): void{
+  public login(): void{
     this.communicationService.Login(this.loginInfo).subscribe((member: Member[]) => {
       this.member = member;
       if(this.member.length === 1){
@@ -35,8 +34,7 @@ export class LoginComponent{
     }); 
   }
 
-  navigateTo(memberInfo: Member): void {
-    console.log(this.loginInfo.loginType);
+  public navigateTo(memberInfo: Member): void {
     if(this.loginInfo.loginType === "admin"){
       this.memberService.isAdmin = true;
       this.router.navigateByUrl('/admin-dashboard');    

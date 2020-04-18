@@ -15,6 +15,7 @@ export class MovieComponent implements OnInit {
   public modifyingMovie: boolean;
   public newMovieValUser: FormGroup;
   public modifyMovieValUser: FormGroup;
+  public selectedMovie: Movie;
 
   constructor(private communicationService: CommunicationService, private router: Router) { 
     this.newMovieValUser = new FormGroup({
@@ -42,41 +43,39 @@ export class MovieComponent implements OnInit {
     this.communicationService.deleteMovie(movieID).subscribe(() => {
       this.getMovies();
     });
-    console.log(movieID);
   }
 
-    public insertMovie(): void {
-      let highestID: number = 0;
-      for (let movie of this.movies){
-        if(movie.numero > highestID){
-          highestID = movie.numero;
-        }
+  public getHighestID(): number {
+    let highestID: number = 0;
+    for (let movie of this.movies){
+      if(movie.numero > highestID){
+        highestID = movie.numero;
       }
-      console.log(highestID);
-    
-      const movie: Movie = {
-        "numero": highestID + 1,
-        "titre": this.newMovieValUser.value.titre,
-        "date_production": this.newMovieValUser.value.date_production,
-        "duree_totale": this.newMovieValUser.value.duree_totale,
-        "genre": this.newMovieValUser.value.genre,
-        "prix": this.newMovieValUser.value.prix	
-      };
-      this.communicationService.insertMovie(movie).subscribe(() => {
-        this.getMovies();
-        this.newMovie = false;
-      });
-      this.newMovieValUser.reset();
-    }
+    }    
+    return highestID;
+  }
+
+  public insertMovie(): void {
+    const movie: Movie = {
+      "numero": this.getHighestID() + 1,
+      "titre": this.newMovieValUser.value.titre,
+      "date_production": this.newMovieValUser.value.date_production,
+      "duree_totale": this.newMovieValUser.value.duree_totale,
+      "genre": this.newMovieValUser.value.genre,
+      "prix": this.newMovieValUser.value.prix	
+    };
+    this.communicationService.insertMovie(movie).subscribe(() => {
+      this.getMovies();
+      this.newMovie = false;
+    });
+    this.newMovieValUser.reset();
+  }
 
   public goBack(): void {
     this.router.navigateByUrl('/admin-dashboard');
   }
 
-  public selectedMovie: Movie;
-
   public modifyMovie(movieID: number): void{
-
     this.modifyingMovie = true;
     for (let movie of this.movies){
       if(movie.numero === movieID) this.selectedMovie = movie;
@@ -88,11 +87,9 @@ export class MovieComponent implements OnInit {
       "prix": new FormControl(this.selectedMovie.prix, Validators.compose([Validators.required, Validators.pattern("^([0-9]{0,2}((.)[0-9]{0,2}))$")])),
       "date_production": new FormControl(this.selectedMovie.date_production, Validators.compose([Validators.required, Validators.pattern("^\\d{4}[/-](0?[1-9]|1[012])[/-](0?[1-9]|[12][0-9]|3[01])$")]))
     });
-    console.log(this.selectedMovie);
   }
 
   public modifyMovieSubmit(): void {
-    console.log(this.modifyMovieValUser);
     const movie: Movie = {
       "numero": this.selectedMovie.numero,
       "titre": this.modifyMovieValUser.value.titre,
@@ -111,5 +108,4 @@ export class MovieComponent implements OnInit {
     this.newMovie = false;
     this.modifyingMovie = false;
   }
-
 }

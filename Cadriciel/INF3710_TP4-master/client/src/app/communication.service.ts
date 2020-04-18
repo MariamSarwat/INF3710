@@ -28,12 +28,6 @@ export class CommunicationService {
        this._listners.next(filterBy);
     }
 
-    public Login(loginInfo: Login): Observable<any[]>{
-        return this.http.post<Login[]>(this.BASE_URL + "/login", loginInfo).pipe(
-            catchError(this.handleError<Login[]>("Login")),
-        );
-    }
-
     public setUpDatabase(): Observable<any> {
         return concat(this.http.post<any>(this.BASE_URL + "/createSchema", []),
                       this.http.post<any>(this.BASE_URL + "/populateDb", []));
@@ -45,7 +39,12 @@ export class CommunicationService {
         };
     }
 
-    // nouvelles méthodes
+    public Login(loginInfo: Login): Observable<any[]>{
+        return this.http.post<Login[]>(this.BASE_URL + "/login", loginInfo).pipe(
+            catchError(this.handleError<Login[]>("Login")),
+        );
+    }
+    
     public insertCC(cc: CreditCard): Observable<any> {
         return this.http.post<CreditCard>(this.BASE_URL + "/member/insert/cc", cc).pipe(
             catchError(this.handleError<CreditCard>("insertCC")),
@@ -129,11 +128,4 @@ export class CommunicationService {
             catchError(this.handleError<Movie>("modifyMovie")),
         );
     }
-
-    /*getDistanceMatrix(): Observable<any> {
-        
-        return this.http.get<any>('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=AIzaSyCHJQNmZvugpq8V-mpEYrBCs5Ki9oiggnI').pipe(
-            catchError(this.handleError<any>("getDistanceMatrix")),
-        )
-   }*/
 }

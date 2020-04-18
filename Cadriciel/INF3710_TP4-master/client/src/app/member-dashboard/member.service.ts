@@ -13,9 +13,9 @@ export class MemberService {
   public isAdmin: boolean;
 
   private messageSource = new BehaviorSubject('default message');
-  currentMessage = this.messageSource.asObservable();
+  public currentMessage = this.messageSource.asObservable();
   
-  changeMessage(message: string) {
+  public changeMessage(message: string): void {
     this.messageSource.next(message)
   }
 }
