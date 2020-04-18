@@ -1,10 +1,10 @@
-<button  type="button" style="margin-left: 0.5em;" *ngIf='!newMovie' class="btn btn-primary" (click)="goBack()">Accueil</button>
-<button style="margin-left: 1em;" type="button" *ngIf='!newMovie && !modifyingMovie' class="btn btn-primary" (click)="this.newMovie = true">Nouveau Film</button>
+<button  type="button" style="margin-left: 0.5em;" *ngIf='!newMovie' class="btn btn-dark" (click)="goBack()">Accueil</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newMovie && !modifyingMovie' class="btn btn-success" (click)="this.newMovie = true">Nouveau Film</button>
 
 <div *ngIf='!newMovie && !modifyingMovie'>
   <div style="text-align: center">
     <h1>Films Existants</h1>
-    <table id ="member" align="center" border="1" width="900">
+    <table id ="member" align="center" border="1" width="900" style="margin-bottom: 3em;">
       <thead>
         <th> ID</th>
         <th> TITRE</th>
@@ -20,8 +20,8 @@
           <td> {{movie.date_production}}</td>
           <td> {{movie.duree_totale}}</td>
           <td> {{movie.genre}}</td>
-          <td> <button style="margin-left: 0.5em; background-color: #71bb54;" (click)="modifyMovie(movie.numero)">Modifier</button>
-          <button style="background-color: #ee675d; margin-left: 0.5em;" (click)="deleteMovie(movie.numero)">Supprimer</button></td> 
+          <td> <button style="margin-left: 0.5em;margin-bottom: 0.6em;" class='btn btn-primary' (click)="modifyMovie(movie.numero)">Modifier</button>
+          <button style="margin-left: 0.5em; margin-top: 0.65em; margin-bottom: 0.6em;" class='btn btn-danger' (click)="deleteMovie(movie.numero)">Supprimer</button></td> 
         </tr>
         </tbody>
     </table>
@@ -68,13 +68,13 @@
     </div>
   </form>
   
-  <button type="button" class="btn btn-primary" [disabled]="!newMovieValUser.valid" (click)="insertMovie()"> Ajouter</button>
-  <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
+  <button style="margin-top: 2em;" type="button" class="btn btn-success" [disabled]="!newMovieValUser.valid" (click)="insertMovie()"> Ajouter</button>
+  <button style="margin-top: 2em; margin-left: 1em;" type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
 
 </div>
 
 <div *ngIf='modifyingMovie' style="margin-left: 3em;">
-  <h1>Modifications</h1>
+  <h1>Modifications Film</h1>
   <form [formGroup]="this.modifyMovieValUser">
     <label>Titre </label>
     <input formControlName="titre" class="form-control col-md-4" >
@@ -113,7 +113,7 @@
     </div>
   </form>
   
-  <button type="button" class="btn btn-primary" [disabled]="!modifyMovieValUser.valid" style="background-color: #71bb54;" (click)="modifyMovieSubmit()">Modifier</button>
-  <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
+  <button style="margin-top: 2em;" type="button" class="btn btn-primary" [disabled]="!modifyMovieValUser.valid" (click)="modifyMovieSubmit()">Modifier</button>
+  <button style="margin-top: 2em; margin-left: 1em;" type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
   
 </div>

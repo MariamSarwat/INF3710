@@ -1,12 +1,12 @@
-<nav class="navbar navbar-dark bg-dark mb-5">
-    <a class="navbar-brand title">NetflixPoly</a>
+<nav class="navbar navbar-light  mb-5" style="background-color: #212121; font-size: larger;">
+    <a class="navbar-brand" style="font-size: 1.5em; color: #FFAB00; mix-blend-mode: exclusion">NetflixPoly</a>
     <div class="navbar-expand mr-auto">
-      <div class="navbar-nav">
-        <a *ngIf="route.includes('/member-dashboard')" class="nav-item nav-link active" routerLink="/member-dashboard/info">Mon compte</a>
-        <a *ngIf="route.includes('/admin-dashboard')" class="nav-item nav-link active" routerLink="/admin-dashboard/member">Membres</a>
-        <a *ngIf="route.includes('/admin-dashboard')" class="nav-item nav-link active" routerLink="/admin-dashboard/movie">Films</a>
+      <div class="navbar-nav" >
+        <a style="margin-left: 2em; font-size: 1em; color: white; mix-blend-mode: exclusion" *ngIf="route.includes('/member-dashboard')" class="nav-item nav-link active" routerLink="/member-dashboard/info">Mon compte</a>
+        <a style="margin-left: 2em; font-size: 1em; color: white; mix-blend-mode: exclusion" *ngIf="route.includes('/admin-dashboard')" class="nav-item nav-link active" routerLink="/admin-dashboard/member">Membres</a>
+        <a style="margin-left: 2em; font-size: 1em; color: white; mix-blend-mode: exclusion" *ngIf="route.includes('/admin-dashboard')" class="nav-item nav-link active" routerLink="/admin-dashboard/movie">Films</a>
       </div>
     </div>
-    <a style='float: right;' *ngIf="!route.includes('/login')" routerLink="/login" (click)="logout()">déconnexion</a>
+    <button style='float: right; ' class="btn btn-light" *ngIf="!route.includes('/login')" routerLink="/login" (click)="logout()">déconnexion</button>
   </nav>
 <router-outlet></router-outlet>

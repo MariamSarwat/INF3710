@@ -1,6 +1,6 @@
 
-<button type="button" style="margin-left: 1em;" *ngIf='!newMember' class="btn btn-primary" (click)="goToDashboard()">Accueil</button>
-<button type="button" style="margin-left: 1em;" *ngIf='!newMember' class="btn btn-primary" (click)="this.newMember = true">Nouveau Membre</button>
+<button type="button" style="margin-left: 1em;" *ngIf='!newMember' class="btn btn-dark" (click)="goToDashboard()">Accueil</button>
+<button type="button" style="margin-left: 1em;" *ngIf='!newMember' class="btn btn-success" (click)="this.newMember = true">Nouveau Membre</button>
 
 <div *ngIf='!newMember'>
   <div style="text-align: center">
@@ -93,8 +93,8 @@
               <mat-error *ngIf="this.validatingInputFromUser.controls['nom'].hasError('maxlength') || this.validatingInputFromUser.controls['nom'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
        </form>
-        <button type="button" class="btn btn-primary"  [disabled]="!validatingInputFromUser.valid" (click)="insertMember()"> Ajouter</button>
-        <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
+        <button style="margin-top: 2em;" type="button" class="btn btn-success"  [disabled]="!validatingInputFromUser.valid" (click)="insertMember()"> Ajouter</button>
+        <button style="margin-top: 2em; margin-left: 1em;" type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
     </div>
 </div>
 

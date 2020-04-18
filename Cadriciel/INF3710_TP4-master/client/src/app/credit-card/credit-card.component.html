@@ -1,9 +1,10 @@
 
-<button type="button" style="margin-left: 0.5em;" *ngIf='!newCreditCard' class="btn btn-primary" (click)="goToDashboard()">Accueil</button>
-<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-primary" (click)="this.newCreditCard = true">Ajouter une option de paiement</button>
+<button type="button" style="margin-left: 0.5em;" *ngIf='!newCreditCard' class="btn btn-dark" (click)="goToDashboard()">Accueil</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-success" (click)="this.newCreditCard = true">Ajouter une option de paiement</button>
 
 <div *ngIf='!newCreditCard'>
     <div style="text-align: center">
+        <div style="margin-top: 2em;"></div>
 
         <h1> Informations du compte </h1>
         <div style="padding-left: 2em;">
@@ -12,7 +13,7 @@
             <b>Adresse : </b>
             <i *ngIf=loggedInMember.no_appart>{{loggedInMember.no_appart}} -</i> {{loggedInMember.no_rue}} {{loggedInMember.nom_rue}}, {{loggedInMember.ville}} {{loggedInMember.code_postal}}, {{loggedInMember.province}}, {{loggedInMember.pays}}
         </div>
-
+        <div style="margin-top: 2em;"></div>
         <h1>Options de paiement actuels</h1>
         <table align="center" border="1" width="900">
             <thead>
@@ -31,6 +32,8 @@
     </div>
 </div>
 <div *ngIf='newCreditCard' style="margin-left: 3em;">
+    <h1>Nouvelle Méthode de Payment</h1>
+
     <form [formGroup]="this.valUser">
         <label>Nom du propriétaire</label>
         <input formControlName="titulaire" class="form-control col-md-4">
@@ -64,8 +67,8 @@
         </div>
     </form>
 
-    <button type="button" class="btn btn-primary" [disabled]="!valUser.valid" (click)="submit()" > Ajouter</button>
-    <button style="margin-left: 1em;" type="button" class="btn btn-primary" (click)="cancel()">Annuler</button>
+    <button style="margin-top: 2em;" type="button" class="btn btn-success" [disabled]="!valUser.valid" (click)="submit()" > Ajouter</button>
+    <button style="margin-top: 2em; margin-left: 1em;" type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
     <br>
     <mat-error *ngIf="this.errorNotLoggedIn"> SVP Veuillez vous connecter à votre compte</mat-error>
 
