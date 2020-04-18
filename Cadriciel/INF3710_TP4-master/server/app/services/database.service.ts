@@ -35,50 +35,7 @@ export class DatabaseService {
 
     public populateDb(): Promise<pg.QueryResult> {
         return this.pool.query(data);
-    }
-
-/*
-    // ROOM
-    public getRoomFromHotel(hotelNo: string, roomType: string, price: number): Promise<pg.QueryResult> {
-        let query: string =
-        `SELECT * FROM HOTELDB.room
-        WHERE hotelno=\'${hotelNo}\'`;
-        if (roomType !== undefined) {
-            query = query.concat('AND ');
-            query = query.concat(`typeroom=\'${roomType}\'`);
-        }
-        if (price !== undefined) {
-            query = query.concat('AND ');
-            query = query.concat(`price =\'${price}\'`);
-        }
-        console.log(query);
-
-        return this.pool.query(query);
-    }
-
-    public getRoomFromHotelParams(params: object): Promise<pg.QueryResult> {
-        let query: string = 'SELECT * FROM HOTELDB.room \n';
-        const keys: string[] = Object.keys(params);
-        if (keys.length > 0) {
-            query = query.concat(`WHERE ${keys[0]} =\'${params[keys[0]]}\'`);
-        }
-
-        // On enleve le premier element
-        keys.shift();
-
-        // tslint:disable-next-line:forin
-        for (const param in keys) {
-            const value: string = keys[param];
-            query = query.concat(`AND ${value} = \'${params[value]}\'`);
-            if (param === 'price') {
-                query = query.replace('\'', '');
-            }
-        }
-
-        console.log(query);
-
-        return this.pool.query(query);
-    }*/
+    }   
 
     public createMember(memberInfo: Member): Promise<pg.QueryResult> {
         let values: string[] = [
@@ -196,6 +153,21 @@ export class DatabaseService {
             movieInfo.prix.toString(),
         ];
         const queryText: string= `INSERT INTO NetflixPolyDB.Film VALUES($1,$2,$3,$4,$5,$6);`;
+
+        return this.pool.query(queryText, values);
+    }
+
+    public modifyMovie(movieInfo: Movie): Promise<pg.QueryResult> {
+        const values: string[] = [
+            movieInfo.numero.toString(),
+            movieInfo.titre,
+            movieInfo.date_production,
+            movieInfo.duree_totale,
+            movieInfo.genre,
+            movieInfo.prix.toString(),
+        ];
+        const queryText: string= `UPDATE NetflixPolyDB.film SET titre = $2, date_production = $3, duree_totale= $4, genre = $5, prix = $6
+        WHERE numero = $1;`;
 
         return this.pool.query(queryText, values);
     }

@@ -124,6 +124,12 @@ export class CommunicationService {
         );
     }
 
+    public modifyMovie(movie: Movie): Observable<any> {
+        return this.http.post<Movie>(this.BASE_URL + "/movie/modify", movie).pipe(
+            catchError(this.handleError<Movie>("modifyMovie")),
+        );
+    }
+
     /*getDistanceMatrix(): Observable<any> {
         
         return this.http.get<any>('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=AIzaSyCHJQNmZvugpq8V-mpEYrBCs5Ki9oiggnI').pipe(

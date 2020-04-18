@@ -93,7 +93,18 @@ export class MovieComponent implements OnInit {
 
   public modifyMovieSubmit(): void {
     console.log(this.modifyMovieValUser);
-    this.modifyingMovie = false;
+    const movie: Movie = {
+      "numero": this.selectedMovie.numero,
+      "titre": this.modifyMovieValUser.value.titre,
+      "date_production": this.modifyMovieValUser.value.date_production,
+      "duree_totale": this.modifyMovieValUser.value.duree_totale,
+      "genre": this.modifyMovieValUser.value.genre,
+      "prix": this.modifyMovieValUser.value.prix	
+    };
+    this.communicationService.modifyMovie(movie).subscribe(() => {
+      this.getMovies();
+      this.modifyingMovie = false;
+    });
   }
 
   public cancel(): void {
