@@ -1,12 +1,12 @@
 ﻿SET search_path = NetflixPolyDB;
 
---1) Affiche toutes les informations sur le film '1917'.
+--1) Afficher toutes les informations sur le film '1917'.
 /*
 SELECT *
 FROM NetflixPolyDB.Film f
 WHERE f.titre = '1917'; 
 */
---2) Liste les titres de film et la dernière date de visionnement ou d'achat ordonné selon les genres de film.
+--2) Lister les titres de films et la dernière date de visionnement ou d'achat ordonné selon le genre des films.
 /*
 SELECT f.genre, f.titre, tab_3.most_recent_date
 FROM
@@ -23,7 +23,7 @@ FROM
 		ON tab_1.titre = tab_2.titre ) as tab_3 INNER JOIN NETFLIXPOLYDB.Film f ON tab_3.titre = f.titre
 ORDER BY f.genre;
 */
---3) Affiche les noms et courriels des membres qui ont vissionnés chaque genre de film le plus souvent.
+--3) Afficher les noms et courriels des membres qui ont visionné chaque genre de film le plus souvent.
 /*
 SELECT genre , nom, adresse_courriel, nb_visonnements 
 FROM (SELECT f.genre , m.nom, m.adr_courriel, count(f.genre ) as nb_visonnements 
@@ -36,16 +36,16 @@ FROM (SELECT f.genre , m.nom, m.adr_courriel, count(f.genre ) as nb_visonnements
 								GROUP BY f.genre, m.nom, m.adr_courriel)
 							
 */
---4) Trouve le nombre total de films groupés par réalisateur. 
+--4) Trouver le nombre total de films groupé par réalisateur. 
 /*
 SELECT DISTINCT e.nom as realisateurs, COUNT(r.num_film) AS nb_total_films
 FROM NETFLIXPOLYDB.Employee e, NETFLIXPOLYDB.Role r
 WHERE e.id_employee = r.id_employee AND r.description = 'realisateur'
 GROUP BY e.nom;
 */
---5) Trouve les noms des membres dont le coût total d'achat de DVD est plus élevé que la moyenne
+--5) Trouver les noms des membres dont le coût total d'achat de DVD est plus élevé que la moyenne
 /*
-SELECT result_2.nom as membres, result_2.cout_total_dvd
+SELECT result_2.nom , result_2.cout_total_dvd
 FROM
 		(SELECT AVG(tab.cout_total_livraison + tab.cout_total_film) as moyenne
 		FROM(
@@ -64,7 +64,7 @@ CROSS JOIN
 			GROUP BY tab.nom, tab.cout_total_livraison, tab.cout_total_film) as result_2
 WHERE result_2.cout_total_dvd > result_1.moyenne;
 */
---6) Retourne en ordre la quantité totale vendue (DVD) et nombre de visionnements par film.
+--6) Retourner en ordre la quantité totale vendue (DVD) et nombre de visionnements par film.
 /*
 SELECT tab_enLigne.numero as id_film, tab_enLigne.titre, tab_dvd.qte_dvd_vendue, tab_enLigne.nb_visionnements
 	FROM(SELECT f.numero, f.titre, COUNT(l.num_film) as nb_visionnements
@@ -80,7 +80,7 @@ SELECT tab_enLigne.numero as id_film, tab_enLigne.titre, tab_dvd.qte_dvd_vendue,
 	GROUP BY tab_enLigne.numero, tab_enLigne.titre, tab_enLigne.nb_visionnements, tab_dvd.qte_dvd_vendue
 	ORDER BY tab_dvd.qte_dvd_vendue DESC, tab_enLigne.nb_visionnements DESC;
 */
---7) Trouve le titre et le prix des films qui n’ont jamais été commandés sous forme de DVD mais qui ont été visionnés plus de 10 fois.
+--7) Trouver le titre et le prix des films qui n’ont jamais été commandés sous forme de DVD mais qui ont été visionnés plus de 10 fois.
 /*
 SELECT tab_enLigne.titre, tab_enLigne.prix, tab_enLigne.nb_visionnements, tab_dvd.qte_dvd_commandee
 	FROM(SELECT f.titre, f.prix, COUNT(l.num_film) as nb_visionnements
@@ -96,7 +96,7 @@ SELECT tab_enLigne.titre, tab_enLigne.prix, tab_enLigne.nb_visionnements, tab_dv
 	GROUP BY tab_enLigne.titre, tab_enLigne.prix, tab_enLigne.nb_visionnements, tab_dvd.qte_dvd_commandee
 	HAVING tab_enLigne.nb_visionnements >= 10 AND tab_dvd.qte_dvd_commandee = 0;
 */
---8) Retourne le nom et date de naissance des acteurs qui jouent dans les films qui sont visionnés plus souvent que la moyenne.
+--8) Retourner le nom et date de naissance des acteurs qui jouent dans les films qui sont visionnés plus souvent que la moyenne.
 /*
 SELECT tab_films.titre, tab_acteurs.nom, tab_acteurs.date_naissance
 	FROM(SELECT tab_2.numero, tab_2.titre, tab_2.nb_visionnements
@@ -118,7 +118,7 @@ ON tab_acteurs.num_film = tab_films.numero
 ORDER BY tab_films.numero;
 
 */
---9) Retourne le nom du ou des réalisateurs qui ont réalisé les films qui ont le plus grand nombre de nominations aux oscars. 
+--9) Retourner le nom du ou des réalisateurs qui ont réalisé les films qui ont le plus grand nombre de nominations aux oscars. 
 /*
 SELECT tab_realisateurs.nom, tab_realisateurs.nb_nominations
 FROM
@@ -151,7 +151,7 @@ INNER JOIN
 		 GROUP BY tab.nom, tab.id_employee) as tab_realisateurs
 ON tab_max.nb_nominations_max = tab_realisateurs.nb_nominations;
 */
---10) Trouve le nom des réalisateurs qui ont été nominés le plus souvent aux oscars (Max nominations) mais qui n’ont jamais gagné un prix.
+--10) Trouver le nom des réalisateurs qui ont été nominés le plus souvent aux oscars (Max nominations) mais qui n’ont jamais gagné un prix.
 /*
 SELECT tab_result.nom, MAX(tab_result.nb_total_nominations)as nb_total_nominations, tab_result.nb_total_dundies
 FROM(
@@ -186,7 +186,7 @@ FROM(
 	GROUP BY tab_total_nominations.nom, tab_total_nominations.nb_total_nominations, tab_total_oscars.nb_total_dundies) as tab_result
 GROUP BY tab_result.nom, tab_result.nb_total_dundies;
 */
---11) Retourne les films (titre, année) ainsi que leur réalisateurs et leurs acteurs qui ont gagné le plus d’oscars que la moyenne. 
+--11) Retourner les films (titre, année) ainsi que leur réalisateur et leurs acteurs qui ont gagné plus d’oscars que la moyenne. 
 /*
 SELECT tab_films.titre, tab_films.date_production, tab_employees.realisateurs, tab_employees.acteurs
 	FROM(SELECT tab_oscars.numero, tab_oscars.titre, tab_oscars.date_production, tab_oscars.nb_oscars
@@ -215,13 +215,13 @@ INNER JOIN
 		ON tab_realisateurs.num_film = tab_acteurs.num_film) as tab_employees
 ON tab_films.numero = tab_employees.num_film;
 */
---12) Retourne le(s) paire(s) de femmes québécoises qui ont travaillé ensemble le plus souvent.
+--12) Retourner la ou les paires de femmes québécoises qui ont travaillé ensemble le plus souvent.
 /*
 SELECT f.numero, f.titre, e.nom, e.id_employee
 FROM NETFLIXPOLYDB.Film f, NetflixPolyDB.Employee e, NetflixPolyDB.Role r
 WHERE e.nationalite = 'Québec' AND e.sexe = 'F' AND e.id_employee = r.id_employee AND r.num_film = f.numero
 */
---13) Trouve l'évolution de la carrière de Woody Allen. Retourne tous ses rôles dans un film (réalisateur, acteur, etc.) ordonné du plus ancien au plus 
+--13) Trouver l'évolution de la carrière de Woody Allen. Retourner tous ses rôles dans un film (réalisateur, acteur, etc.) ordonné du plus ancien au plus 
 -- récent
 /*
 SELECT tab_films.titre as titre_film, tab_films.date_production, tab_roles_woody.description as role_film
