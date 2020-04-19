@@ -49,20 +49,20 @@
               <mat-error *ngIf="this.validatingInputFromUser.controls['nom_rue'].hasError('maxlength') || this.validatingInputFromUser.controls['nom_rue'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          <label> No appartement</label>
+          <label> Numéro d'appartement (si applicable)</label>
            <input class="form-control col-md-4" placeholder="Entrez votre numéro d'appartement (Optionnel)" formControlName="no_appart">
           <div *ngIf="this.validatingInputFromUser.get('no_appart').errors && (this.validatingInputFromUser.get('no_appart').dirty || this.validatingInputFromUser.get('no_appart').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.controls['no_appart'].hasError('maxlength') || this.validatingInputFromUser.controls['no_appart'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          <label>No rue </label>
+          <label>Numéro de rue </label>
           <input class="form-control col-md-4" placeholder="Entrez votre numéro de rue" formControlName="no_rue">
           <div *ngIf="this.validatingInputFromUser.get('no_rue').errors && (this.validatingInputFromUser.get('no_rue').dirty || this.validatingInputFromUser.get('no_rue').touched)" >
             <mat-error *ngIf="this.validatingInputFromUser.get('no_rue').hasError('required')"> Champ obligatoire</mat-error>
             <mat-error *ngIf="this.validatingInputFromUser.controls['no_rue'].hasError('maxlength') || this.validatingInputFromUser.controls['no_rue'].hasError('pattern')"> Invalide</mat-error><br>
           </div>
 
-          <label>Code postal </label>
+          <label>Code postal (lettre en majuscule)</label>
           <input class="form-control col-md-4" placeholder="ex: H2B3E4" formControlName="code_postal">
           <div *ngIf="this.validatingInputFromUser.get('code_postal').errors && (this.validatingInputFromUser.get('code_postal').dirty || this.validatingInputFromUser.get('code_postal').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.get('code_postal').hasError('required')"> Champ obligatoire</mat-error>
@@ -84,10 +84,10 @@
           </div>
 
           <label>Pays </label>
-          <input class="form-control col-md-4"  placeholder="Canada" value = "Canada" formControlName="pays" readonly>
+          <input class="form-control col-md-4" formControlName="pays" readonly>
 
-          <label> Nom d'utilisateur </label>
-          <input class="form-control col-md-4" placeholder="Entrez votre nom" formControlName="nom">
+          <label>Prénom et Nom de l'utilisateur </label>
+          <input class="form-control col-md-4" placeholder="Entrez votre prénom et nom" formControlName="nom">
           <div *ngIf="this.validatingInputFromUser.get('nom').errors && (this.validatingInputFromUser.get('nom').dirty || this.validatingInputFromUser.get('nom').touched)" >
               <mat-error *ngIf="this.validatingInputFromUser.get('nom').hasError('required')"> Champ obligatoire</mat-error>
               <mat-error *ngIf="this.validatingInputFromUser.controls['nom'].hasError('maxlength') || this.validatingInputFromUser.controls['nom'].hasError('pattern')"> Invalide</mat-error><br>
