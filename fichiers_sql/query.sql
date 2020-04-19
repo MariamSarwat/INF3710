@@ -4,7 +4,6 @@ SET search_path = NetflixPolyDB;
 /*
 SELECT *
 FROM NetflixPolyDB.Film f
-<<<<<<< HEAD
 WHERE f.titre = '1917'; -- titre du film spécifié par l'utilisateur
 */
 --2) Pour chaque genre de film, listez tous les titres de films ainsi que la dernière date à laquelle 
@@ -13,16 +12,6 @@ WHERE f.titre = '1917'; -- titre du film spécifié par l'utilisateur
 SELECT f.genre, f.titre, tab_3.most_recent_date
 FROM
 	(SELECT tab_1.titre as titre, (SELECT MAX(max_date) FROM (VALUES(tab_1.maxdate_enligne),(tab_2.maxdate_dvd)) as VALUE(max_date)) as most_recent_date
-=======
-ORDER BY f.titre;
-*/
---2) Pour chaque genre de film, listez tous les titres de films ainsi que la dernière date à laquelle 
---	 un film a été acheté (DVD) ou visionné...done
-/*
-SELECT f.genre, f.titre, (SELECT MAX(max_date) FROM (VALUES(tab_3.maxdate_enligne),(tab_3.maxdate_dvd)) as VALUE(max_date)) as most_recent_date
-FROM
-	(SELECT tab_1.titre as titre_enligne, tab_2.titre as titre_dvd, tab_1.maxdate_enligne, tab_2.maxdate_dvd
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 		FROM (SELECT f.genre, f.titre, MAX(l.date_visionnement) as maxdate_enligne 
 				FROM NETFLIXPOLYDB.EnLigne l FULL JOIN NETFLIXPOLYDB.Film f 
 				ON f.numero = l.num_film
@@ -32,7 +21,6 @@ FROM
 				FROM NETFLIXPOLYDB.CopieDVD d FULL JOIN NETFLIXPOLYDB.Film f 
 				ON f.numero = d.num_film
 				GROUP BY f.genre, f.titre)AS tab_2
-<<<<<<< HEAD
 		ON tab_1.titre = tab_2.titre ) as tab_3 INNER JOIN NETFLIXPOLYDB.Film f ON tab_3.titre = f.titre
 ORDER BY f.genre;
 */
@@ -53,74 +41,17 @@ FROM (SELECT f.genre , m.nom, m.adr_courriel, count(f.genre ) as nb_visonnements
 --4) Trouvez le nombre total de films groupés par réalisateur 
 /*
 SELECT DISTINCT e.nom as realisateurs, COUNT(r.num_film) AS nb_total_films
-=======
-		ON tab_1.titre = tab_2.titre
-		GROUP BY tab_1.titre, tab_2.titre, tab_1.maxdate_enligne, tab_2.maxdate_dvd) as tab_3, NETFLIXPOLYDB.Film f
-WHERE tab_3.titre_enligne = f.titre OR tab_3.titre_dvd = f.titre
-ORDER BY f.genre;
-
-*/
---3)Pour chaque genre de film, trouvez les noms et courriels des membres qui les ont visionnés le
---	plus souvent. Par exemple, Amal Z est le membre qui a visionné le plus de documentaires
---	animaliers ...à perfectionner
-/*
-SELECT *
-	FROM(SELECT tab_1.nom, tab_1.adr_courriel, MAX (tab_1.nb_films_vus)
-		FROM
-			(SELECT liste_films.genre, m.nom, m.adr_courriel, COUNT(liste_films.num_film) AS nb_films_vus
-				FROM (NetflixPolyDB.Film f 
-					  FULL JOIN
-					  NetflixPolyDB.EnLigne l 
-					  ON l.num_film = f.numero) as liste_films 
-			 			FULL JOIN 
-			 			NetflixPolyDB.Membre m
-						ON liste_films.id_membre = m.id_membre
-				GROUP BY liste_films.genre, m.nom, m.adr_courriel
-				ORDER BY liste_films.genre) as tab_1
-		GROUP BY tab_1.nom, tab_1.adr_courriel) as result_1
-	INNER JOIN
-		(SELECT tab_2.genre, MAX (tab_2.nb_films_vus)
-		FROM
-			(SELECT liste_films.genre, m.nom, m.adr_courriel, COUNT(liste_films.num_film) AS nb_films_vus
-				FROM (NetflixPolyDB.Film f 
-					  FULL JOIN
-					  NetflixPolyDB.EnLigne l 
-					  ON l.num_film = f.numero) as liste_films 
-			 			FULL JOIN 
-			 			NetflixPolyDB.Membre m
-						ON liste_films.id_membre = m.id_membre
-				GROUP BY liste_films.genre, m.nom, m.adr_courriel
-				ORDER BY liste_films.genre) as tab_2
-		GROUP BY tab_2.genre) as result_2
-	ON result_1.max = result_2.max
-GROUP BY result_2.genre, result_1.nom, result_1.adr_courriel, result_1.max, result_2.max;
-*/
-
---4) Trouvez le nombre total de films groupés par réalisateur 
-/*
-SELECT DISTINCT e.nom, COUNT(r.num_film) AS nb_total_films
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 FROM NETFLIXPOLYDB.Employee e, NETFLIXPOLYDB.Role r
 WHERE e.id_employee = r.id_employee AND r.description = 'realisateur'
 GROUP BY e.nom;
 */
 --5) Trouvez les noms des membres dont le coût total d'achat de DVD est plus élevé que la moyenne
-<<<<<<< HEAD
-
+/*
 SELECT result_2.nom as membres, result_2.cout_total_dvd
 FROM
 		(SELECT AVG(tab.cout_total_livraison + tab.cout_total_film) as moyenne
 		FROM(
 			SELECT m.nom, SUM(d.cout_livraison) as cout_total_livraison, SUM(f.prix) as cout_total_film
-=======
---...done
-/*
-SELECT result_2.nom, result_2.cout_total_dvd
-FROM
-		(SELECT AVG(tab.cout_total_livraison + tab.cout_total_film) as moyenne
-		FROM(
-			SELECT DISTINCT m.nom, SUM(d.cout_livraison) as cout_total_livraison, SUM(f.prix) as cout_total_film
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 				FROM NetflixPolyDB.Membre m, NETFLIXPOLYDB.CopieDVD d, NetflixPolyDB.Film f
 				WHERE m.id_membre = d.id_membre AND f.numero = d.num_film
 				GROUP BY m.nom) as tab) 
@@ -128,21 +59,13 @@ FROM
 CROSS JOIN
 		(SELECT tab.nom, (tab.cout_total_livraison + tab.cout_total_film) as cout_total_dvd
 			FROM(
-<<<<<<< HEAD
 				SELECT m.nom, SUM(d.cout_livraison) as cout_total_livraison, SUM(f.prix) as cout_total_film
-=======
-				SELECT DISTINCT m.nom, SUM(d.cout_livraison) as cout_total_livraison, SUM(f.prix) as cout_total_film
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 					FROM NetflixPolyDB.Membre m, NETFLIXPOLYDB.CopieDVD d, NetflixPolyDB.Film f
 					WHERE m.id_membre = d.id_membre AND f.numero = d.num_film
 					GROUP BY m.nom) as tab
 			GROUP BY tab.nom, tab.cout_total_livraison, tab.cout_total_film) as result_2
 WHERE result_2.cout_total_dvd > result_1.moyenne;
-<<<<<<< HEAD
-
-=======
 */
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 --6) Ordonnez et retournez les films en termes de quantité totale vendue (DVD) et en nombre de
 --visionnements
 /*
@@ -198,12 +121,11 @@ INNER JOIN
 		WHERE r.description = 'acteur' AND e.id_employee = r.id_employee) as tab_acteurs
 ON tab_acteurs.num_film = tab_films.numero
 ORDER BY tab_films.numero;
-*/
 
+*/
 --9) Trouvez le nom du ou des réalisateurs qui ont réalisé les films qui ont le plus grand nombre
 --de nominations aux oscars. Par exemple, Woody Allen et Steven Spielberg ont réalisé 10
 --films qui ont été nominés aux oscars.
-<<<<<<< HEAD
 /*
 SELECT tab_realisateurs.nom, tab_realisateurs.nb_nominations
 FROM
@@ -235,31 +157,6 @@ INNER JOIN
 			ON tab_realisateurs.num_film = tab_nominations.numero) as tab
 		 GROUP BY tab.nom, tab.id_employee) as tab_realisateurs
 ON tab_max.nb_nominations_max = tab_realisateurs.nb_nominations;
-=======
---nb de nomination par film
-/*
-SELECT tab_realisateurs.nom, tab_nominations.titre, tab_nominations.nb_nominations
-FROM(SELECT tab_2.numero as film_id, tab_2.titre, tab_2.nb_nominations
-	FROM
-		(SELECT MAX(tab.nb_nominations) as nb_nominations_max
-			FROM(SELECT f.numero, f.titre, COUNT(n.num_film) as nb_nominations
-				FROM NetflixPolyDB.Film f, NetflixPolyDB.NominationFilms n
-				WHERE f.numero = n.num_film
-				GROUP BY f.titre, f.numero
-				ORDER BY f.numero) as tab) as tab_1
-	INNER JOIN
-		(SELECT f.numero, f.titre, COUNT(n.num_film) as nb_nominations
-			FROM NetflixPolyDB.Film f, NetflixPolyDB.NominationFilms n
-			WHERE f.numero = n.num_film
-			GROUP BY f.titre, f.numero
-			ORDER BY f.numero) as tab_2
-	ON tab_1.nb_nominations_max = tab_2.nb_nominations) as tab_nominations
-INNER JOIN
-	(SELECT r.num_film, e.nom
-		FROM NetflixPolyDB.Employee e, NetflixPolyDB.Role r
-		WHERE r.description = 'realisateur' AND e.id_employee = r.id_employee) as tab_realisateurs
-ON tab_realisateurs.num_film = tab_nominations.film_id;
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 */
 --10) Trouvez le nom des réalisateurs qui ont été le plus souvent nominés aux oscars mais qui
 --n’ont jamais gagné d’oscar...on suppose que par 'plus souvent nominé', on veut dire 'max de nominations'
@@ -297,17 +194,9 @@ FROM(
 	GROUP BY tab_total_nominations.nom, tab_total_nominations.nb_total_nominations, tab_total_oscars.nb_total_dundies) as tab_result
 GROUP BY tab_result.nom, tab_result.nb_total_dundies;
 */
-<<<<<<< HEAD
 --11) Trouvez les films (titre, année) qui ont gagné le plus d’oscars. Listez également leur
 --réalisateurs et leurs acteurs; ...on suppose que par plus d'oscars, on veut dire 'plus que la moyenne'
 /*
-=======
-
-
---11) Trouvez les films (titre, année) qui ont gagné le plus d’oscars. Listez également leur
---réalisateurs et leurs acteurs; ...on suppose que par plus d'oscars, on veut dire 'plus que la moyenne'
-
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 SELECT tab_films.titre, tab_films.date_production, tab_employees.realisateurs, tab_employees.acteurs
 	FROM(SELECT tab_oscars.numero, tab_oscars.titre, tab_oscars.date_production, tab_oscars.nb_oscars
 		FROM(SELECT AVG(tab_oscars.nb_oscars) as moyenne_oscars
@@ -334,18 +223,9 @@ INNER JOIN
 					WHERE r.description = 'acteur' AND e.id_employee = r.id_employee) as tab_acteurs
 		ON tab_realisateurs.num_film = tab_acteurs.num_film) as tab_employees
 ON tab_films.numero = tab_employees.num_film;
-<<<<<<< HEAD
 */
-
 --12) Quelles paires de femmes québécoises ont le plus souvent travaillé ensemble dans différents
 --films?
-=======
-
-
---12) Quelles paires de femmes québécoises ont le plus souvent travaillé ensemble dans différents
---films ?...à faire...
---Parmi tous les films, on retourne les employés de sexe féminin de nationalité québécoise
->>>>>>> 0bae1e5b7823d86b970ed436b2618a86f9da4835
 /*
 SELECT f.numero, f.titre, e.nom, e.id_employee
 FROM NETFLIXPOLYDB.Film f, NetflixPolyDB.Employee e, NetflixPolyDB.Role r

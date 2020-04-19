@@ -27,7 +27,7 @@ export class MemberComponent {
                                                              Validators.maxLength(6)])),
       "ville": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(20)])),
       "province": new FormControl("", Validators.compose([Validators.maxLength(30)])),
-      "pays": new FormControl("", Validators.compose([Validators.maxLength(30)])),
+      "pays": new FormControl("Canada", Validators.compose([Validators.maxLength(30)])),
       "nom": new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z \-\']+$"), Validators.maxLength(100)]))
     });
   }
