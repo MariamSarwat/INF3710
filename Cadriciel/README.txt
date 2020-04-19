@@ -1,4 +1,4 @@
-INSTALLER LE PROJET :
+﻿INSTALLER LE PROJET :
 Vérifiez que vous avez NodeJs installé avec node –v
 	Si vous ne l’avez pas, téléchargez le de https://nodejs.org/en/download/
 
