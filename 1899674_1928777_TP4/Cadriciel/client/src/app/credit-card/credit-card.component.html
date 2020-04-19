@@ -1,0 +1,82 @@
+
+<button type="button" style="margin-left: 0.5em;" *ngIf='!newCreditCard' class="btn btn-dark" (click)="goToDashboard()">Accueil</button>
+<button style="margin-left: 1em;" type="button" *ngIf='!newCreditCard' class="btn btn-success" (click)="this.newCreditCard = true">Ajouter une option de paiement</button>
+
+<div *ngIf='!newCreditCard'>
+    <div style="text-align: center">
+        <div style="margin-top: 2em;"></div>
+
+        <h1> Informations du compte </h1>
+        <div style="padding-left: 2em;">
+            <b>Nom  : </b> {{loggedInMember.nom}} <br>
+            <b>Courriel : </b> {{loggedInMember.adr_courriel}} <br>
+            <b>Adresse : </b>
+            <i *ngIf=loggedInMember.no_appart>{{loggedInMember.no_appart}} -</i> {{loggedInMember.no_rue}} {{loggedInMember.nom_rue}}, {{loggedInMember.ville}} {{loggedInMember.code_postal}}, {{loggedInMember.province}}, {{loggedInMember.pays}}
+        </div>
+
+        
+        <div style="margin-top: 2em;"></div>
+        <h1>Options de paiement actuels</h1>
+        <div *ngIf="creditCards?.length>0">
+            <table align="center" border="1" width="900">
+                <thead>
+                <th> NUMÉRO DE CARTE</th>
+                <th> NOM DU PROPRIÉTAIRE</th>
+                <th> DATE D'EXPIRATION </th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let cc of creditCards">
+                <td> {{cc.numero}} </td>
+                <td> {{cc.titulaire}}</td>
+                <td> {{cc.date_expiration}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="creditCards?.length===0">
+           Pas d'option de paiement sauveguarder!!
+        </div>
+    </div>
+</div>
+<div *ngIf='newCreditCard' style="margin-left: 3em;">
+    <h1>Nouvelle Option de Paiement</h1>
+
+    <form [formGroup]="this.valUser">
+        <label>Nom du propriétaire</label>
+        <input formControlName="titulaire" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('titulaire').errors && (this.valUser.get('titulaire').dirty || this.valUser.get('titulaire').touched)" >
+            <mat-error *ngIf="this.valUser.get('titulaire').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['titulaire'].hasError('maxlength')">Nom trop long!</mat-error>
+        </div>
+
+        <label>Numéro de carte</label>
+        <input formControlName="numero" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('numero').errors && (this.valUser.get('numero').dirty || this.valUser.get('numero').touched)">
+            <mat-error *ngIf="this.valUser.get('numero').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['numero'].hasError('pattern')">SVP Veuillez n'utiliser que des chiffres</mat-error>
+            <mat-error *ngIf="this.valUser.controls['numero'].hasError('maxlength') || this.valUser.controls['numero'].hasError('minlength')"> Longueur atendue: 16</mat-error>
+        </div>
+
+        <label>CCV</label>
+        <input formControlName="ccv" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('ccv').errors && (this.valUser.get('ccv').dirty || this.valUser.get('ccv').touched)">
+            <mat-error *ngIf="this.valUser.get('ccv').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('pattern')">SVP Veuillez n'utiliser que des chiffres</mat-error>
+            <mat-error *ngIf="this.valUser.controls['ccv'].hasError('maxlength') || this.valUser.controls['ccv'].hasError('minlength')"> Longueur attendue: 3</mat-error>
+        </div>
+
+        <label>Date d'expiration (AAAA-MM-JJ)</label>
+        <input formControlName="date_expiration" class="form-control col-md-4">
+        <div *ngIf="this.valUser.get('date_expiration').errors && (this.valUser.get('date_expiration').dirty || this.valUser.get('date_expiration').touched)" >
+            <mat-error *ngIf="this.valUser.get('date_expiration').hasError('required')">Champ obligatoire</mat-error>
+            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('pattern')"> SVP Veuillez n'utiliser que des chiffres</mat-error>
+            <mat-error *ngIf="this.valUser.controls['date_expiration'].hasError('maxlength') || this.valUser.controls['date_expiration'].hasError('minlength')"> SVP Veuillez respecter le format</mat-error>
+        </div>
+    </form>
+
+    <button style="margin-top: 2em;" type="button" class="btn btn-success" [disabled]="!valUser.valid" (click)="submit()" > Ajouter</button>
+    <button style="margin-top: 2em; margin-left: 1em;" type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    <br>
+    <mat-error *ngIf="this.errorNotLoggedIn"> SVP Veuillez vous connecter à votre compte</mat-error>
+
+</div>
